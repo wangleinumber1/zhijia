@@ -1,0 +1,430 @@
+package com.zhijia.ui.zhijiaActivity;
+
+import android.graphics.Color;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.text.Html;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.*;
+import com.google.common.base.Optional;
+import com.zhijia.Global;
+import com.zhijia.service.data.Medol.JsonResult;
+import com.zhijia.service.data.Medol.WendaListJsonModel;
+import com.zhijia.service.network.HttpClientUtils;
+import com.zhijia.ui.R;
+import com.zhijia.ui.list.page.Page;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ *
+ */
+public class WendaListActivity extends BaseDetailsActivity implements AbsListView.OnScrollListener {
+
+    private final String WENDA_LIST_URL = Global.API_WEB_URL + "/xinfang/wenda";
+
+    private final String QUESTION_URL = Global.API_WEB_URL + "/xinfang/question";
+
+    private final int[] LIST_ITEM_TO = {R.id.wenda_list_item_ask_text_view, R.id.wenda_list_item_answer_text_view, R.id.wenda_list_item_result_text_view};
+
+    private final String[] LIST_ITEM_FROM = {"ASK", "ANSWER", "RESULT"};
+
+    private final int header_title = R.id.details_title;
+
+    private OnClickListener onClickListener = new OnClickListener();
+
+    //这个是要加载出来的一个视图
+    private View footerView;
+
+    private ListView listView;
+    private SimpleAdapter simpleAdapter;
+
+    //最后的可视项索引
+    private int visibleLastIndex = 0;
+    //当前窗口可见项总数
+    private int visibleItemCount;
+
+    private List<Map<String, String>> listItems;
+
+    private String hid;
+
+    private Page page;
+
+    private String pageType = null; //null 是全部，1 是未解决 2 是已经解决
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.wenda_list);
+        hid = getIntent().getStringExtra("hid");
+        setHeader();
+        findViewById(R.id.details_back).setOnClickListener(onClickListener);
+        footerView = getLayoutInflater().inflate(R.layout.house_list_wait_load, null);
+        footerView.findViewById(R.id.house_list_wait_load_relative).setVisibility(View.GONE);
+        listView = (ListView) findViewById(R.id.wenda_list_content_list_view);
+        listView.setOnScrollListener(this);
+        //listView.addFooterView(footerView);
+        findViewById(R.id.wenda_list_title_all).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setColour(R.id.wenda_list_title_all, R.id.wenda_list_title_solve, R.id.wenda_list_title_unsolved);
+                startTask();
+            }
+        });
+        findViewById(R.id.wenda_list_title_solve).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setColour(R.id.wenda_list_title_solve, R.id.wenda_list_title_all, R.id.wenda_list_title_unsolved);
+                WendaListAsyncTask wendaListAsyncTask = new WendaListAsyncTask();
+                wendaListAsyncTask.execute("2");
+            }
+        });
+        findViewById(R.id.wenda_list_title_unsolved).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setColour(R.id.wenda_list_title_unsolved, R.id.wenda_list_title_solve, R.id.wenda_list_title_all);
+                WendaListAsyncTask wendaListAsyncTask = new WendaListAsyncTask();
+                wendaListAsyncTask.execute("1");
+            }
+        });
+        findViewById(R.id.wenda_list_button_ok).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText editText = (EditText) findViewById(R.id.wenda_list_edit_text);
+                String content = editText.getText().toString();
+                if (content != null && !content.isEmpty()) {
+                    QuestionAsyncTask questionAsyncTask = new QuestionAsyncTask();
+                    questionAsyncTask.execute(content);
+                } else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "提交的数据不能为空", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                }
+
+            }
+        });
+        findViewById(R.id.wenda_list_button_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText editText = (EditText) findViewById(R.id.wenda_list_edit_text);
+                editText.setText("");
+                editText.setHint(getString(R.string.message_body_hint));
+            }
+        });
+        startTask();
+    }
+
+
+    public void setHeader() {
+        Map<Integer, Object> map = new HashMap<Integer, Object>();
+        map.put(header_title, "楼盘问答");
+        setHeader(map);
+        Map<Integer, Object> map1 = new HashMap<Integer, Object>();
+        setHeader(map1);
+    }
+
+    public void setTitle(String total) {
+        TextView textView = (TextView) findViewById(R.id.wenda_list_count_text_view);
+        textView.setText(String.format(getString(R.string.wenda_count), total));
+    }
+
+    public Page getPage() {
+        return page;
+    }
+
+    public void setPage(Page page) {
+        this.page = page;
+    }
+
+    public void setList(List<WendaListJsonModel> list) {
+        listItems = new ArrayList<Map<String, String>>();
+        for (WendaListJsonModel jsonModel : list) {
+            Map<String, String> map = new HashMap<String, String>();
+            String content = jsonModel.getContent();
+            if (content != null && !content.isEmpty()) {
+                map.put("ASK", content);
+            } else {
+                map.put("ASK", "暂无");
+            }
+            String reply = jsonModel.getReply();
+            if (reply != null && !reply.isEmpty()) {
+                map.put("ANSWER", Html.fromHtml(reply).toString());
+            } else {
+                map.put("ANSWER", "暂无");
+            }
+            String best_answer = jsonModel.getBestAnswer();
+            String post_time = jsonModel.getPosttime();
+            StringBuffer sbStr = new StringBuffer();
+            if (best_answer != null && !best_answer.equals("0")) {
+                sbStr.append("已解决|");
+            } else {
+                sbStr.append("未解决|");
+            }
+            if (post_time != null && !post_time.isEmpty()) {
+                sbStr.append(post_time);
+            } else {
+                sbStr.append("未解决|");
+            }
+
+            map.put("RESULT", sbStr.toString());
+            listItems.add(map);
+        }
+        simpleAdapter = new SimpleAdapter(this, listItems, R.layout.wenda_list_item, LIST_ITEM_FROM, LIST_ITEM_TO);
+        listView.setAdapter(simpleAdapter);
+    }
+
+
+    public void startTask() {
+        WendaListAsyncTask wendaListAsyncTask = new WendaListAsyncTask();
+        wendaListAsyncTask.execute();
+    }
+
+    public JsonResult<List<WendaListJsonModel>> getWendaList(String type) {
+        HttpClientUtils httpClientUtils = HttpClientUtils.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("cityid", Global.NOW_CITY_ID);
+        map.put("hid", hid);
+        if (getPage() != null) {
+            map.put("page", String.valueOf(getPage().getPage()));
+        } else {
+            map.put("page", "1");
+        }
+        if (type != null) {
+            map.put("type", type);
+        }
+
+        Optional<JsonResult<List<WendaListJsonModel>>> optional = httpClientUtils.getUnsignedListByData(WENDA_LIST_URL, map, WendaListJsonModel.class);
+        if (optional.isPresent()) {
+            return optional.get();
+        }
+        return null;
+    }
+
+    public void setNetWorkErrorValue() {
+        findViewById(R.id.wenda_list_wait_load_relative).setVisibility(View.VISIBLE);
+        findViewById(R.id.wenda_list_relative_layout).setVisibility(View.GONE);
+        findViewById(R.id.wenda_list_wait_load__image).setVisibility(View.GONE);
+        TextView textView = (TextView) findViewById(R.id.wenda_list_wait_load__content);
+        textView.setText(Global.ERROR_NET_WORK);
+    }
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+        Log.d("WendaListActivity->adapter", simpleAdapter.getCount() + "");
+        int itemsLastIndex = simpleAdapter.getCount() - 1;    //数据集最后一项的索引
+
+
+        int lastIndex = itemsLastIndex + ((ListView) view).getHeaderViewsCount() + ((ListView) view).getFooterViewsCount();
+        Log.d("WendaListActivity", "visibleLastIndex==" + visibleLastIndex + "  lastIndex==" + lastIndex);
+        if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && visibleLastIndex == lastIndex) {
+            footerView.setVisibility(View.VISIBLE);
+            HousePrivilegeTask task = new HousePrivilegeTask();
+            task.execute();
+        } else {
+            footerView.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        this.visibleItemCount = visibleItemCount;
+        this.visibleLastIndex = firstVisibleItem + visibleItemCount - 1;
+        Log.d("WendaListActivity", "visibleItemCount==" + visibleItemCount + "  firstVisibleItem====" + firstVisibleItem);
+    }
+
+    public void loadData() {
+        int totalPage = getPage().getTotalPage();
+        int nextPage = getPage().getNextPage();
+        int nowPage = getPage().getPage();
+        Log.d("NewHouseDynamicActivity page", totalPage + "");
+        Log.d("NewHouseDynamicActivity page", nextPage + "");
+        Log.d("NewHouseDynamicActivity page", nowPage + "");
+        if (nowPage < totalPage) {
+            //设置当前页要加载的页数
+            getPage().setPage(nextPage);
+            WendaListPageAsyncTask pageAsyncTask = new WendaListPageAsyncTask();
+            pageAsyncTask.execute(pageType);
+        }
+
+        if (nowPage == totalPage && nowPage != 1) {
+            WendaListPageAsyncTask pageAsyncTask = new WendaListPageAsyncTask();
+            pageAsyncTask.execute(pageType);
+        }
+    }
+
+    public void setCommonValue(JsonResult<List<WendaListJsonModel>> jsonResult) {
+        findViewById(R.id.wenda_list_wait_load_relative).setVisibility(View.GONE);
+        findViewById(R.id.wenda_list_relative_layout).setVisibility(View.VISIBLE);
+        setTitle(jsonResult.getTotal());
+        setList(jsonResult.getData());
+
+    }
+
+    public void setColour(int redId, int blackId, int blackTwoId) {
+        ((TextView) findViewById(redId)).setTextColor(Color.parseColor("#FF0033"));
+        ((TextView) findViewById(blackId)).setTextColor(Color.parseColor("#000000"));
+        ((TextView) findViewById(blackTwoId)).setTextColor(Color.parseColor("#000000"));
+    }
+
+    //提交问题
+    public Map<String, String> sendQuestion(String content) {
+        Map<String, String> resultMap = new HashMap<String, String>();
+        HttpClientUtils httpClientUtils = HttpClientUtils.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("houseid", hid);
+        map.put("content", content);
+        map.put("cityid", Global.NOW_CITY_ID);
+        if (!Global.USER_AUTH_STR.equals("")) {
+            map.put("authstr", Global.USER_AUTH_STR);
+        }
+        Optional<Map<String, String>> optional = httpClientUtils.postSignedMap(QUESTION_URL, map, String.class);
+        if (optional.isPresent()) {
+            resultMap.put("status", optional.get().get("status"));
+            resultMap.put("message", optional.get().get("message"));
+            return resultMap;
+        }
+        return null;
+    }
+
+    public class WendaListPageAsyncTask extends AsyncTask<String, Void, JsonResult<List<WendaListJsonModel>>> {
+
+        @Override
+        protected JsonResult<List<WendaListJsonModel>> doInBackground(String... params) {
+
+            return getWendaList(params[0]);
+        }
+
+        @Override
+        protected void onPostExecute(JsonResult<List<WendaListJsonModel>> jsonResult) {
+            if (jsonResult != null && jsonResult.isStatus()) {
+                List<WendaListJsonModel> wendaListJsonModels = jsonResult.getData();
+                for (WendaListJsonModel jsonModel : wendaListJsonModels) {
+                    Map<String, String> map = new HashMap<String, String>();
+                    String content = jsonModel.getContent();
+                    if (content != null && !content.isEmpty()) {
+                        map.put("ASK", content);
+                    } else {
+                        map.put("ASK", "暂无");
+                    }
+                    String reply = jsonModel.getReply();
+                    if (reply != null && !reply.isEmpty()) {
+                        map.put("ANSWER", Html.fromHtml(reply).toString());
+                    } else {
+                        map.put("ANSWER", "暂无");
+                    }
+                    String best_answer = jsonModel.getBestAnswer();
+                    String post_time = jsonModel.getPosttime();
+                    StringBuffer sbStr = new StringBuffer();
+                    if (best_answer != null && !best_answer.equals("0")) {
+                        sbStr.append("已解决|");
+                    } else {
+                        sbStr.append("未解决|");
+                    }
+                    if (post_time != null && !post_time.isEmpty()) {
+                        sbStr.append(post_time);
+                    } else {
+                        sbStr.append("未解决|");
+                    }
+                    map.put("RESULT", sbStr.toString());
+                    listItems.add(map);
+                    simpleAdapter.notifyDataSetChanged();
+                }
+            } else if (jsonResult == null) {
+                setNetWorkErrorValue();
+            }
+
+        }
+    }
+
+    public class WendaListAsyncTask extends AsyncTask<String, Void, JsonResult<List<WendaListJsonModel>>> {
+
+        @Override
+        protected JsonResult<List<WendaListJsonModel>> doInBackground(String... params) {
+            if (params.length == 0) {
+                pageType = null;
+            } else {
+                pageType = params[0];
+            }
+            setPage(null);
+            return getWendaList(pageType);
+        }
+
+        @Override
+        protected void onPostExecute(JsonResult<List<WendaListJsonModel>> jsonResult) {
+            if (jsonResult != null && jsonResult.isStatus()) {
+                Page page = new Page(Integer.valueOf(jsonResult.getTotal()), Global.PAGE_SIZE);
+                setPage(page);
+                if (listView.getFooterViewsCount() == 0) {
+                    Log.d("WendaListAsyncTask", "begin");
+                    listView.addFooterView(footerView);
+                }
+                setCommonValue(jsonResult);
+
+
+            } else if (jsonResult == null) {
+                setNetWorkErrorValue();
+            }
+        }
+    }
+
+    class HousePrivilegeTask extends AsyncTask<Integer, Integer, Void> {
+
+
+        @Override
+        protected Void doInBackground(Integer... params) {
+            return null;
+        }
+
+        /**
+         * 这里的String参数对应AsyncTask中的第三个参数（也就是接收doInBackground的返回值）
+         * 在doInBackground方法执行结束之后在运行，并且运行在UI线程当中 可以对UI空间进行设置
+         */
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            footerView.setVisibility(View.GONE);
+            loadData();
+            listView.setSelection(visibleLastIndex - visibleItemCount + 1); //设置选中项
+        }
+    }
+
+    public class QuestionAsyncTask extends AsyncTask<String, Void, Map<String, String>> {
+
+        @Override
+        protected Map<String, String> doInBackground(String... params) {
+            return sendQuestion(params[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, String> resultMap) {
+            if (resultMap != null) {
+                Toast toast = Toast.makeText(getApplicationContext(), resultMap.get("message"), Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+                EditText editText = (EditText) findViewById(R.id.wenda_list_edit_text);
+                editText.setText("");
+                editText.setHint(getString(R.string.message_body_hint));
+            } else {
+                Toast toast = Toast.makeText(getApplicationContext(), "网络数据获取失败", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+            }
+        }
+    }
+
+    public class OnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.details_back:
+                    finish();
+                    break;
+            }
+        }
+    }
+}

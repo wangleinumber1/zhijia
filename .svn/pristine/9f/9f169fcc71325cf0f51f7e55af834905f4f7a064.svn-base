@@ -1,0 +1,53 @@
+package com.zhijia.service.data.community;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+/**
+ *
+ */
+public class CommunityDetailJsonModel {
+
+    @JsonProperty(value = "communityid")
+    private String communityId ;
+
+    @JsonProperty(value = "communityname")
+    private String communityName ;
+
+    @JsonProperty(value = "slide")
+    private SlideJsonModel slide ;
+
+    @JsonProperty(value = "community_detail")
+    private CommunityDetailInfoJsonModel communityDetail ;
+
+    public CommunityDetailInfoJsonModel getCommunityDetail() {
+        return communityDetail;
+    }
+
+    public void setCommunityDetail(CommunityDetailInfoJsonModel communityDetail) {
+        this.communityDetail = communityDetail;
+    }
+
+    public String getCommunityId() {
+        return communityId;
+    }
+
+    public void setCommunityId(String communityId) {
+        this.communityId = communityId;
+    }
+
+    public String getCommunityName() {
+        return communityName;
+    }
+
+    public void setCommunityName(String communityName) {
+        this.communityName = communityName;
+    }
+
+    public SlideJsonModel getSlide() {
+        return slide;
+    }
+
+    public void setSlide(SlideJsonModel slide) {
+        this.slide = slide;
+    }
+}

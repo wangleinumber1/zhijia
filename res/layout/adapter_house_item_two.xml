@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/new_house_adapter_item"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/common_bg"
+              android:orientation="horizontal">
+
+    <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_vertical">
+
+        <ImageView
+                android:id="@+id/adapter_house_item_two_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:scaleType="fitXY"
+                android:layout_centerInParent="true"
+                android:src="@drawable/house"/>
+
+        <ImageView
+                android:id="@+id/adapter_house_item_two_top_mark"
+                android:layout_alignTop="@+id/adapter_house_item_two_image"
+                android:layout_alignLeft="@+id/adapter_house_item_two_image"
+
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/house_icons_1"/>
+
+        <ImageView
+                android:id="@+id/adapter_house_item_two_bottom"
+                android:visibility="invisible"
+                android:layout_alignRight="@+id/adapter_house_item_two_image"
+                android:layout_alignBottom="@+id/adapter_house_item_two_image"
+                android:src="@drawable/singler"
+                android:padding="5dp"
+                android:layout_marginRight="6dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="vertical">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/adapter_house_item_two_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:textSize="14sp"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:textColor="@color/black"
+                    android:text="精装黄金三楼通透两居室"/>
+
+            <TextView
+                    android:id="@+id/adapter_house_item_two_area"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/adapter_text_size"
+                    android:textColor="@color/font_desc"
+                    android:paddingTop="5dp"
+                    android:layout_below="@+id/adapter_house_item_two_name"
+                    android:text="[桥东区 亚龙花园]"/>
+
+            <TextView
+                    android:id="@+id/adapter_house_item_two_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textColor="@color/black"
+                    android:paddingTop="5dp"
+                    android:layout_below="@+id/adapter_house_item_two_area"
+                    android:text="2室2厅 95平米"/>
+
+            <TextView
+                    android:id="@+id/adapter_house_item_two_des"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:background="@drawable/tags_border"
+                    android:textSize="13sp"
+                    android:textColor="@color/default_font"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/adapter_house_item_two_type"
+                    android:text="高档社区"/>
+
+            <TextView
+                    android:id="@+id/adapter_house_item_two_des_two"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/tags_border"
+                    android:textSize="13sp"
+                    android:textColor="@color/default_font"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_toRightOf="@+id/adapter_house_item_two_des"
+                    android:layout_below="@+id/adapter_house_item_two_type"
+                    android:text="投资精选"/>
+
+            <TextView
+                    android:id="@+id/adapter_house_item_two_des_three"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/tags_border"
+                    android:textSize="13sp"
+                    android:textColor="@color/default_font"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_toRightOf="@+id/adapter_house_item_two_des_two"
+                    android:layout_below="@+id/adapter_house_item_two_type"
+                    android:text="交通便利"/>
+
+
+            <TextView
+                    android:id="@+id/adapter_house_item_two_des_four"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/tags_border"
+                    android:textSize="13sp"
+                    android:textColor="@color/default_font"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_toRightOf="@+id/adapter_house_item_two_des_three"
+                    android:layout_below="@+id/adapter_house_item_two_type"
+                    android:text="成熟商圈"/>
+
+            <TextView
+                    android:id="@+id/adapter_house_item_two_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:textColor="@color/red"
+                    android:paddingRight="10dp"
+                    android:layout_below="@+id/adapter_house_item_two_area"
+                    android:layout_alignParentRight="true"
+                    android:text="58万"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

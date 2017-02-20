@@ -1,0 +1,35 @@
+package com.zhijia.ui.zhijiaActivity;
+
+import android.util.Log;
+import com.google.common.base.Optional;
+import com.zhijia.Global;
+import com.zhijia.service.data.Medol.ConditionJsonModel;
+import com.zhijia.service.data.Medol.JsonResult;
+import com.zhijia.service.network.HttpClientUtils;
+import com.zhijia.ui.list.interfaces.IConditionNetwork;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ *  所有房子列表与地图公共类
+ */
+public class BaseHouseConditionActivity extends BaseHouseActivity implements IConditionNetwork {
+
+    public final String OLD_RENT_COMMUNITY_COUNT="个房源" ;
+
+    public final String NEW_COUNT="个楼盘" ;
+
+    @Override
+    public JsonResult<ConditionJsonModel> getConditionData(String url) {
+        Log.d("BaseHouseConditionActivity getConditionData", "begin")  ;
+        HttpClientUtils httpClientUtils = HttpClientUtils.getInstance() ;
+        Map<String,String> map = new HashMap<String,String>()  ;
+        map.put("cityid", Global.NOW_CITY_ID) ;
+        Optional<JsonResult<ConditionJsonModel>> optional = httpClientUtils.getUnsignedByData(url,map,ConditionJsonModel.class) ;
+        if(optional.isPresent()){
+            return optional.get() ;
+        }
+        return null ;
+    }
+}

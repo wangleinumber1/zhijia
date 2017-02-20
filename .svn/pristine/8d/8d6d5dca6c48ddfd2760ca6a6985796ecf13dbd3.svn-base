@@ -1,0 +1,9 @@
+package com.zhijia.service.data.condition.floor;
+
+import com.zhijia.service.data.condition.CommonJsonModel;
+
+/**
+ *楼层-二手房
+ */
+public class FloorJsonModel extends CommonJsonModel {
+}

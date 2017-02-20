@@ -1,0 +1,256 @@
+package com.zhijia.ui;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import static com.zhijia.Global.DeviceID;
+import static com.zhijia.Global.falg;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Notification;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Debug;
+import android.os.StrictMode;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.ImageView;
+import com.baidu.android.pushservice.CustomPushNotificationBuilder;
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
+import com.google.common.base.Optional;
+import com.zhijia.Global;
+import com.zhijia.baiduyun.Utils;
+import com.zhijia.service.data.JsonResult;
+import com.zhijia.service.data.my.DeviceidModel;
+import com.zhijia.service.data.newhouse.NewHouseDetailJsonModel;
+import com.zhijia.service.network.HttpClientUtils;
+import com.zhijia.ui.frame.FrameActivity;
+import com.zhijia.ui.list.newhouse.NewHouseDetailsActivity.NewHouseDetailsAsyncTask;
+import com.zhijia.ui.selectcity.SelectCityActivity;
+import com.zhijia.ui.tabwidget.IndexFrame;
+import com.zhijia.ui.tabwidget.MoreFrame;
+import com.zhijia.ui.tabwidget.MyFrame;
+import com.zhijia.ui.tabwidget.SearchFrame;
+
+public class MainActivity extends FrameActivity {
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
+		initView();
+		// 默认在首页
+		mTabHost.setCurrentTab(0);
+		// 初始化全局引用
+		Global.BOTTOM_TAB = mTabHost;
+		System.out.println("city_ID:" + Global.NOW_CITY);
+			if (Global.NOW_CITY.equalsIgnoreCase("") || Global.NOW_CITY_ID.equalsIgnoreCase("")) {
+				Intent intent = new Intent(MainActivity.this,SelectCityActivity.class);
+				startActivityForResult(intent, 100);
+			} else {
+				GetDeviceId getDeviceId = new GetDeviceId(MainActivity.this);
+				// 获取设备id，需要判断用模拟器还是真机测试
+				if (falg) {
+					System.out.println("模拟器:" + falg);
+				} else {
+				DeviceID = getDeviceId.getCombinedId();
+				}
+				startTask(DeviceID);
+				//Log.d("推送", "执行");
+				MainAsyncTask mainAsyncTask = new MainAsyncTask();
+				mainAsyncTask.execute();
+			}
+			//Log.d("NOW_CITY_ID_VALUE", Global.NOW_CITY_ID);
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+	}
+
+/**
+* 百度云推送以apikey的方式绑定
+*/
+	private void initWithApiKey() {
+		// Push: 无账号初始化，用api key绑定
+		PushManager.startWork(getApplicationContext(),PushConstants.LOGIN_TYPE_API_KEY,Utils.getMetaValue(MainActivity.this, "api_key"));
+	}
+	/**
+	 * 在android4.0的版本中原来在4.0中，访问网络不能在主程序中进行，有两个方法可以解决，
+	 * 一个是在主程序中增加strictmode(),另一个是线程中
+	 */
+	/*
+	 * public void strictmode() { try { Number number =
+	 * NumberFormat.getInstance(Locale.FRENCH).parse(
+	 * android.os.Build.VERSION.RELEASE); float version = number.floatValue();
+	 * if (version > 2.3) { StrictMode .setThreadPolicy(new
+	 * StrictMode.ThreadPolicy.Builder() .detectDiskReads().detectDiskWrites()
+	 * .detectNetwork().penaltyLog().build());
+	 * 
+	 * StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+	 * .detectLeakedSqlLiteObjects().penaltyLog() .penaltyDeath().build());
+	 * 
+	 * }
+	 * 
+	 * } catch (ParseException e) { e.printStackTrace(); } }
+	 */
+	/**
+	* 开始获取设备id 的任务
+	*/
+	public void startTask(String hid) {
+		System.out.println("Main---->>>>>>>>1" + hid);
+		DeviceTask task = new DeviceTask();
+		task.execute(hid);
+	}
+	/**
+	* 将获取到的设备id传到服务端
+	*/
+	public JsonResult<DeviceidModel> getDetailDataByNetWork(String id) {
+		
+		HttpClientUtils httpClientUtils = HttpClientUtils.getInstance();
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("deviceid", id);
+		map.put("type", "2");
+		Optional<JsonResult<DeviceidModel>> optional = httpClientUtils
+				.getUnsignedByData(Global.API_WEB_URL + "/common/stat", map,DeviceidModel.class);	
+		System.out.println("id:" + id);
+		return null;
+	}
+
+	/**
+	* 获取设备id的任务
+	*/
+	public class DeviceTask extends AsyncTask<String, Void, JsonResult<DeviceidModel>> {
+
+		@Override
+		protected JsonResult<DeviceidModel> doInBackground(String... params) {
+			return getDetailDataByNetWork(params[0]);
+		}
+
+		@Override
+		protected void onPostExecute(JsonResult<DeviceidModel> jsonResult) {
+
+		}
+	}
+
+	/**
+	* 推送任务
+	*/
+	public class MainAsyncTask extends
+			AsyncTask<String, Void, JsonResult<DeviceidModel>> {
+
+		@Override
+		protected JsonResult<DeviceidModel> doInBackground(String... params) {
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(JsonResult<DeviceidModel> jsonResult) {
+			if (!Utils.hasBind(getApplicationContext())) {
+				initWithApiKey();
+				// Push: 如果想基于地理位置推送，可以打开支持地理位置的推送的开关
+				// PushManager.enableLbs(getApplicationContext());
+			}
+			Utils.logStringCache = Utils.getLogText(getApplicationContext());
+			Resources resource = MainActivity.this.getResources();
+			String pkgName = MainActivity.this.getPackageName(); // Push:
+			// 设置自定义的通知样式，具体API介绍见用户手册，如果想使用系统默认的可以不加这段代码 //
+			// 请在通知推送界面中，高级设置->通知栏样式->自定义样式，选中并且填写值：1， // 与下方代码中
+			CustomPushNotificationBuilder cBuilder = new CustomPushNotificationBuilder(getApplicationContext(),
+					resource.getIdentifier("notification_custom_builder","layout", pkgName),
+					resource.getIdentifier("notification_icon", "id", pkgName),
+					resource.getIdentifier("notification_title", "id", pkgName),
+					resource.getIdentifier("notification_text", "id", pkgName));
+			cBuilder.setNotificationFlags(Notification.FLAG_AUTO_CANCEL);
+			cBuilder.setNotificationDefaults(Notification.DEFAULT_SOUND| Notification.DEFAULT_VIBRATE);
+			cBuilder.setStatusbarIcon(MainActivity.this.getApplicationInfo().icon);
+			cBuilder.setLayoutDrawable(resource.getIdentifier("simple_notification_icon", "drawable", pkgName));
+			PushManager.setNotificationBuilder(MainActivity.this, 1, cBuilder);
+
+		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		// 从认证页面回来，才会返回RESULT_OK。
+		if (resultCode == Activity.RESULT_OK) {
+			// 默认在首页
+			mTabHost.setCurrentTab(0);
+		}
+	}
+	/**
+	* 初始化控件
+	*/
+	private void initView() {
+		setContentView(R.layout.main);
+		// R.layout.main是个布局文件即控件都是如何摆放如何显示的，setContentView就是设置一个Activity的显示界面，
+		// 这句话就是设置这个这句话所再的Activity采用R.layout下的main布局文件进行布局
+		// 初始化底部4个tab
+		View tabIndex = createTabItem(R.drawable.tab_index_selector);
+		View tabSearch = createTabItem(R.drawable.tab_search_selector);
+		View tabMy = createTabItem(R.drawable.tab_my_selector);
+		View tabMore = createTabItem(R.drawable.tab_more_selector);
+		addFrame(IndexFrame.class, tabIndex);// FrameActivity
+		addFrame(SearchFrame.class, tabSearch);
+		addFrame(MyFrame.class, tabMy);
+		addFrame(MoreFrame.class, tabMore);
+	}
+
+	// 创建一个Tab。
+	private View createTabItem(int bgId) {
+		View tabItem = getLayoutInflater().inflate(R.layout.main_tab_item, null);//
+		ImageView tabItemImageView = (ImageView) tabItem.findViewById(R.id.tab_item_image);
+		tabItemImageView.setBackgroundResource(bgId);
+		tabItemImageView.setVisibility(View.VISIBLE);
+		return tabItem;
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// 截获后退键
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if (mTabHost.getCurrentTab() != 0) {
+				mTabHost.setCurrentTab(0);
+			} else {
+				AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+				builder.setMessage(this.getResources().getString(R.string.exit_app));
+				builder.setTitle(this.getResources().getString(R.string.prompt));
+				builder.setPositiveButton(this.getResources().getString(R.string.confirm),
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,int which) {
+								dialog.dismiss();
+								MainActivity.this.finish();
+							}
+						});
+				builder.setNegativeButton(this.getResources().getString(R.string.cancel),new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,int which) {
+								dialog.dismiss();
+							}
+						});
+				builder.create().show();
+			}
+		}
+
+		return super.onKeyUp(keyCode, event);
+	}
+}

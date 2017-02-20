@@ -1,0 +1,72 @@
+package com.zhijia.service.data.Medol;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+/**
+ * 用户消息列表
+ */
+public class MessageListModel {
+
+    @JsonProperty(value = "touser")
+    private String toUser;
+
+    private String info;
+
+    @JsonProperty(value = "themeid")
+    private String themeId;
+
+    @JsonProperty(value = "posttime")
+    private String postTime;
+
+    private String avatar;
+
+    private String unread;
+
+    public String getToUser() {
+        return toUser;
+    }
+
+    public void setToUser(String toUser) {
+        this.toUser = toUser;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public String getThemeId() {
+        return themeId;
+    }
+
+    public void setThemeId(String themeId) {
+        this.themeId = themeId;
+    }
+
+    public String getPostTime() {
+        return postTime;
+    }
+
+    public void setPostTime(String postTime) {
+        this.postTime = postTime;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getUnread() {
+        return unread;
+    }
+
+    public void setUnread(String unread) {
+        this.unread = unread;
+    }
+}

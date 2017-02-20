@@ -1,0 +1,144 @@
+package com.zhijia.ui.zhijiaActivity;
+
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.common.base.Optional;
+import com.zhijia.Global;
+import com.zhijia.service.network.HttpClientUtils;
+import com.zhijia.ui.R;
+import static com.zhijia.Global.USER_AUTH_STR;
+import static com.zhijia.Global.SHARED_PREFERENCES_NAME;
+import java.util.HashMap;
+import java.util.Map;
+
+
+/**
+ * 用户登录
+ */
+@SuppressWarnings("unused")
+public class LoginActivity extends Activity {
+
+    private final String URL = Global.API_WEB_URL + "/member/Login";
+
+    //点击事件的侦听
+    private ClickListener clickListener = new ClickListener();
+
+    private TextView loginNameTextView, passwordTextView;
+
+    private String gotoActivity;
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.user_login);
+        gotoActivity = getIntent().getStringExtra("gotoActivity");
+        loginNameTextView = (TextView) findViewById(R.id.login_name);
+        passwordTextView = (TextView) findViewById(R.id.password);
+        findViewById(R.id.back).setOnClickListener(clickListener);
+        findViewById(R.id.register).setOnClickListener(clickListener);
+        findViewById(R.id.forget_password).setOnClickListener(clickListener);
+        findViewById(R.id.login).setOnClickListener(clickListener);
+    }
+
+    private Map<String, String> login() {
+        String loginName = loginNameTextView.getText().toString();
+        String password = passwordTextView.getText().toString();
+        Map<String, String> resultMap = new HashMap<String, String>();
+        HttpClientUtils httpClientUtils = HttpClientUtils.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("username", loginName);
+        map.put("userpass", password);
+        Optional<Map<String, String>> optional = httpClientUtils.postSignedMap(URL, map, String.class);
+        if (optional.isPresent()) {
+            resultMap.put("status", optional.get().get("status"));
+            resultMap.put("message", optional.get().get("message"));
+            resultMap.put("authstr", optional.get().get("authstr"));//可能为null
+        }
+
+        return resultMap;
+    }
+
+    //点击事件的公共类
+    class ClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.back: //后退
+                    finish();
+                    break;
+                case R.id.register://注册
+                    Intent registerIntent = new Intent(view.getContext(), RegisterStepOneActivity.class);
+                    startActivity(registerIntent);
+                    break;
+                case R.id.forget_password://找回密码
+                    Intent findPasswordIntent = new Intent(view.getContext(), FindPasswordStepOneActivity.class);
+                    startActivity(findPasswordIntent);
+                    break;
+                case R.id.login://登录
+                	 String loginName = loginNameTextView.getText().toString();
+                     String password = passwordTextView.getText().toString();
+                     if (loginName.equals("")||password.equals("")) {
+						Toast.makeText(LoginActivity.this, "用户名或密码不能为空", Toast.LENGTH_LONG).show();
+					}else {
+						 LoginAsyncTask task = new LoginAsyncTask(LoginActivity.this);
+		                 task.execute();
+		                 findViewById(R.id.login).setClickable(false);
+					}  
+                   
+                    break;
+            }
+        }
+    }
+
+        class LoginAsyncTask extends AsyncTask<Void, Void, Map<String, String>> {
+        	 private ProgressDialog mProgressBar;  
+		       
+        	 LoginAsyncTask(Context context)  
+  		    {  
+  	         mProgressBar = new ProgressDialog(context);  
+  		     mProgressBar.setCancelable(true);  
+  		     mProgressBar.setIndeterminate(false);
+  	         mProgressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);   
+  		     }  
+
+  		   @Override
+  		protected void onPreExecute() {
+  			mProgressBar.setProgress(0);
+  			mProgressBar.setMessage("正在登陆中...");
+  			mProgressBar.show();
+  		}
+        @Override
+        protected Map<String, String> doInBackground(Void... params) {
+            return login();
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, String> resultMap) {
+            super.onPostExecute(resultMap);
+            if (resultMap.size() > 0 && resultMap.get("status").equalsIgnoreCase("true")) {//登录成功
+            	mProgressBar.setMessage("登录成功");
+            	mProgressBar.dismiss();
+                Global.USER_AUTH_STR = resultMap.get("authstr");
+                System.out.println("登陆成功后的标志位:"+Global.USER_AUTH_STR);
+                SharedPreferences spf = LoginActivity.this.getSharedPreferences(Global.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+                spf.edit().putString("authstr", Global.USER_AUTH_STR).commit();
+                Toast.makeText(getApplicationContext(), getString(R.string.login_success), Toast.LENGTH_SHORT).show();
+                setResult(RESULT_OK, new Intent());
+                finish();
+            } else {
+            	mProgressBar.setMessage("登录失败");
+            	mProgressBar.dismiss();
+                findViewById(R.id.login).setClickable(true);
+                Toast.makeText(getApplicationContext(), "登陆失败!请检查用户名和密码", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+}

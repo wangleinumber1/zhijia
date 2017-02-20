@@ -1,0 +1,9 @@
+package com.zhijia.service.data.condition.room;
+
+import com.zhijia.service.data.condition.CommonJsonModel;
+
+/**
+ * 户型-二手方
+ */
+public class RoomJsonModel extends CommonJsonModel{
+}

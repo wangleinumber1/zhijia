@@ -1,0 +1,13 @@
+package com.zhijia.service.data.condition.circleLine;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.zhijia.service.data.condition.CommonJsonModel;
+
+/**
+ * 环线
+ */
+@JsonAutoDetect(fieldVisibility=JsonAutoDetect.Visibility.ANY)
+public class CircleLineJsonModel extends CommonJsonModel {
+
+
+}

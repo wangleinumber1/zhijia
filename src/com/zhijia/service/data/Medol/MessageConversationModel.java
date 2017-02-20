@@ -1,0 +1,57 @@
+package com.zhijia.service.data.Medol;
+
+/**
+ * 对话的消息模型
+ */
+public class MessageConversationModel {
+
+    //头像图片
+    private String url;
+
+    //内容
+    private String content;
+
+    //发送时间，毫秒
+    private String time;
+
+    private boolean fromMe;
+
+    public MessageConversationModel(String url, String content, String time, boolean fromMe) {
+        this.url = url;
+        this.content = content;
+        this.time = time;
+        this.fromMe = fromMe;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public boolean isFromMe() {
+        return fromMe;
+    }
+
+    public void setFromMe(boolean fromMe) {
+        this.fromMe = fromMe;
+    }
+}

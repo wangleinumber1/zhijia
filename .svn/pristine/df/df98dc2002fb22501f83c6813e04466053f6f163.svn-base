@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/calculator_capacity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/common_bg"
+        android:orientation="vertical">
+    <include layout="@layout/common_two_view_head"/>
+
+    <!--内容-->
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/calculator_bg"
+            android:orientation="vertical">
+
+        <RelativeLayout
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:id="@+id/text_view1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical|left"
+                    android:layout_centerVertical="true"
+                    android:padding="20dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/default_font"
+                    android:text="@string/house_total_price"/>
+
+            <TextView
+                    android:id="@+id/text_view_content1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:gravity="right|center_vertical"
+                    android:layout_margin="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/default_font"/>
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/split_line"
+                    android:layout_alignBottom="@+id/text_view1"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:id="@+id/line2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:id="@+id/text_view2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical|left"
+                    android:layout_centerVertical="true"
+                    android:padding="20dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/default_font"
+                    android:text="@string/house_total_price"/>
+
+            <TextView
+                    android:id="@+id/text_view_content2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:gravity="right|center_vertical"
+                    android:layout_margin="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/default_font"/>
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/split_line"
+                    android:layout_alignBottom="@+id/text_view2"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:id="@+id/line3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:id="@+id/text_view3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical|left"
+                    android:layout_centerVertical="true"
+                    android:padding="20dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/default_font"
+                    android:text="@string/house_total_price"/>
+
+            <TextView
+                    android:id="@+id/text_view_content3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:gravity="right|center_vertical"
+                    android:layout_margin="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/default_font"/>
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/split_line"
+                    android:layout_alignBottom="@+id/text_view3"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:id="@+id/line4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:id="@+id/text_view4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical|left"
+                    android:layout_centerVertical="true"
+                    android:padding="20dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/default_font"
+                    android:text="@string/house_total_price"/>
+
+            <TextView
+                    android:id="@+id/text_view_content4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:gravity="right|center_vertical"
+                    android:layout_margin="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/default_font"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

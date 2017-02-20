@@ -1,0 +1,211 @@
+package com.zhijia.ui.zhijiaActivity;
+
+import android.app.Activity;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.*;
+import com.google.common.base.Optional;
+import com.zhijia.Global;
+import com.zhijia.service.data.Medol.JsonResult;
+import com.zhijia.service.data.Medol.LookHouseModel;
+import com.zhijia.service.network.HttpClientUtils;
+import com.zhijia.ui.R;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+
+/**
+ * 看房
+ */
+public class LookHouseActivity extends Activity{
+
+    private static String GET_LOOK_HOUSE_INFO_URL = Global.API_WEB_URL + "/house/appointment";
+    private static String POST_LOOK_HOUSE_INFO_URL = Global.API_WEB_URL + "/house/appointment";
+
+    private TextView look_house_area_name, look_house_area_area, look_house_area_house_type, look_house_area_house_price;
+    private RadioGroup time_radio_group, hour_radio_group;
+    private EditText look_house_area_explain, look_house_area_username, look_house_area_cellphone;
+
+    private String time = "", hour = "", hid = "", housetype = "";
+
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.look_house);
+
+        look_house_area_name = (TextView) findViewById(R.id.look_house_area_name);
+        look_house_area_area = (TextView) findViewById(R.id.look_house_area_area);
+        look_house_area_house_type = (TextView) findViewById(R.id.look_house_area_house_type);
+        look_house_area_house_price = (TextView) findViewById(R.id.look_house_area_house_price);
+        time_radio_group = (RadioGroup) findViewById(R.id.time_radio_group);
+        hour_radio_group = (RadioGroup) findViewById(R.id.hour_radio_group);
+        look_house_area_explain = (EditText) findViewById(R.id.look_house_area_explain);
+        look_house_area_username = (EditText) findViewById(R.id.look_house_area_username);
+        look_house_area_cellphone = (EditText) findViewById(R.id.look_house_area_cellphone);
+
+        hid = getIntent().getStringExtra("hid");
+        housetype = getIntent().getStringExtra("housetype");
+
+        findViewById(R.id.back).setOnClickListener(new LookHouseOnClickListener());
+        findViewById(R.id.submit).setOnClickListener(new LookHouseOnClickListener());
+
+        GetLookHouseAsyncTask getLookHouseAsyncTask = new GetLookHouseAsyncTask();
+        getLookHouseAsyncTask.execute(hid, housetype);
+    }
+
+    private Map<String, Object> getLookHouseInfo(String hid, String houseType) {
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+
+        HttpClientUtils httpClientUtils = HttpClientUtils.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("hid", hid);
+        map.put("housetype", houseType);
+        map.put("cityid", Global.NOW_CITY_ID);
+        map.put("authstr", Global.USER_AUTH_STR);
+        Optional<JsonResult<LookHouseModel>> optional = httpClientUtils.getUnsignedByData(GET_LOOK_HOUSE_INFO_URL, map, LookHouseModel.class);
+        if (optional.isPresent()) {
+            resultMap.put("status", String.valueOf(optional.get().isStatus()));
+            resultMap.put("message", optional.get().getMessage());
+            if (optional.get().getData() != null) {
+                resultMap.put("lookHouseInfo", optional.get().getData());
+            }
+        }
+
+        return resultMap;
+    }
+
+    private Map<String, String> postLookHouse() {
+        Map<String, String> resultMap = new HashMap<String, String>();
+        HttpClientUtils httpClientUtils = HttpClientUtils.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+
+        map.put("hid", hid);
+        map.put("housetype", housetype);
+        map.put("cityid", Global.NOW_CITY_ID);
+        map.put("identity", housetype);//现在只有1、2，同housetype。
+        map.put("time", time);
+        map.put("hour", hour);
+        map.put("username", look_house_area_username.getText().toString().trim());
+        map.put("mobile", look_house_area_cellphone.getText().toString().trim());
+        map.put("description", look_house_area_explain.getText().toString().trim());
+
+        Log.d(Global.LOG_TAG, map.toString());
+
+        Optional<Map<String, String>> optional = httpClientUtils.postSignedMap(POST_LOOK_HOUSE_INFO_URL, map, String.class);
+        if (optional.isPresent()) {
+            resultMap.put("status", optional.get().get("status"));
+            resultMap.put("message", optional.get().get("message"));
+        }
+
+        return resultMap;
+    }
+
+    public class LookHouseOnClickListener implements  View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.back:
+                    finish();
+                    break;
+                case R.id.submit:
+                    if (time.equalsIgnoreCase("")) {
+                        Toast.makeText(getApplicationContext(), "选择看房时间", Toast.LENGTH_SHORT).show();
+                    } else if (hour.equalsIgnoreCase("")) {
+                        Toast.makeText(getApplicationContext(), "选择看房时段", Toast.LENGTH_SHORT).show();
+                    } else if (look_house_area_username.getText().toString().trim().equalsIgnoreCase("") || look_house_area_cellphone.getText().toString().trim().equalsIgnoreCase("")) {
+                        Toast.makeText(getApplicationContext(), "完善联系方式", Toast.LENGTH_SHORT).show();
+                    } else {
+                        PostLookHouseAsyncTask postLookHouseAsyncTask = new PostLookHouseAsyncTask();
+                        postLookHouseAsyncTask.execute();
+
+                        findViewById(R.id.submit).setClickable(false);
+                    }
+            }
+        }
+    }
+
+    class GetLookHouseAsyncTask extends AsyncTask<String, Void, Map<String, Object>> {
+        @Override
+        protected Map<String, Object> doInBackground(String... params) {
+            return getLookHouseInfo(params[0], params[1]);
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, Object> resultMap) {
+            super.onPostExecute(resultMap);
+
+            if (resultMap.size() > 0 && ((String) resultMap.get("status")).equalsIgnoreCase("true")) {//成功
+                LookHouseModel tempObj = (LookHouseModel) resultMap.get("lookHouseInfo");
+                look_house_area_name.setText(tempObj.getCommunityname());
+                look_house_area_area.setText(tempObj.getArea());
+                look_house_area_house_type.setText(tempObj.getUnit());
+                look_house_area_house_price.setText(tempObj.getPrice());
+                look_house_area_username.setText(tempObj.getTruename());
+                look_house_area_cellphone.setText(tempObj.getMobile());
+
+                Set<Integer> key = tempObj.getTime().keySet();
+                for (Iterator<Integer> it = key.iterator(); it.hasNext(); ) {
+                    final Integer timeId = it.next();
+                    String timeStr = tempObj.getTime().get(timeId);
+
+                    RadioButton radioButton = (RadioButton) getLayoutInflater().inflate(R.layout.get_privilege_radio_button, null);
+                    radioButton.setText(timeStr);
+                    radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            if (isChecked) {
+                                time = timeId.toString();
+                            }
+                        }
+                    });
+                    time_radio_group.addView(radioButton);
+                }
+
+                key = tempObj.getHour().keySet();
+                for (Iterator<Integer> it = key.iterator(); it.hasNext(); ) {
+                    final Integer hourId = it.next();
+                    String hourStr = tempObj.getHour().get(hourId);
+
+                    RadioButton radioButton = (RadioButton) getLayoutInflater().inflate(R.layout.get_privilege_radio_button, null);
+                    radioButton.setText(hourStr);
+                    radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            if (isChecked) {
+                                hour = hourId.toString();
+                            }
+                        }
+                    });
+                    hour_radio_group.addView(radioButton);
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), (String) resultMap.get("message"), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    class PostLookHouseAsyncTask extends AsyncTask<Void, Void, Map<String, String>> {
+        @Override
+        protected Map<String, String> doInBackground(Void... params) {
+            return postLookHouse();
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, String> resultMap) {
+            super.onPostExecute(resultMap);
+
+            if (resultMap.size() > 0 && resultMap.get("status").equalsIgnoreCase("true")) {//成功
+                Toast.makeText(getApplicationContext(), resultMap.get("message"), Toast.LENGTH_SHORT).show();
+                finish();
+            } else {
+                findViewById(R.id.submit).setClickable(true);
+                Toast.makeText(getApplicationContext(), resultMap.get("message"), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+}

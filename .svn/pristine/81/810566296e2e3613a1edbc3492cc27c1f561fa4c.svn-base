@@ -1,0 +1,38 @@
+package com.zhijia.ui.calculator;
+
+/**
+ * 计算器模型
+ *
+ */
+public class CalculatorAdapterModel {
+
+    private  int imageId ;
+
+    private String  textOne ;
+
+    private String textTwo ;
+
+    public int getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
+    }
+
+    public String getTextOne() {
+        return textOne;
+    }
+
+    public void setTextOne(String textOne) {
+        this.textOne = textOne;
+    }
+
+    public String getTextTwo() {
+        return textTwo;
+    }
+
+    public void setTextTwo(String textTwo) {
+        this.textTwo = textTwo;
+    }
+}

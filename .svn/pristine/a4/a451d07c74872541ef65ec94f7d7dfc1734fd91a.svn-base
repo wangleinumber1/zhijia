@@ -1,0 +1,9 @@
+package com.zhijia.service.data.condition.averageprice;
+
+import com.zhijia.service.data.condition.CommonJsonModel;
+
+/**
+ *租金--小区找房里的字段
+ */
+public class AveragePriceJsonModel extends CommonJsonModel{
+}

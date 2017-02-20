@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--3个图片-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="20dp"
+              android:layout_marginBottom="20dp">
+
+    <ImageView
+            android:id="@+id/house_three_image_one"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/new_house_goods"/>
+
+    <ImageView
+            android:id="@+id/house_three_image_two"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/new_hot_house"/>
+
+    <ImageView
+            android:id="@+id/house_three_image_three"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/new_house_rebate"/>
+
+</LinearLayout>

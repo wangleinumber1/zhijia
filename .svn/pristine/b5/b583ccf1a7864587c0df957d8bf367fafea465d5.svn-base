@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/common_bg">
+
+    <!--头部-->
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/head_bg">
+
+        <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/back"
+                android:layout_alignParentLeft="true"
+                android:layout_alignWithParentIfMissing="true"
+                android:layout_centerVertical="true"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:text="@string/about_us"
+                android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:scrollbars="none"
+            android:fillViewport="true"
+            android:fadingEdge="none">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|center_vertical"
+                    android:src="@drawable/about_us"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:layout_gravity="center|center_vertical"
+                    android:text="@string/catchword"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|center_vertical"
+                    android:text="@string/about_us_detail"
+                    android:textScaleX="1.1"
+                    android:lineSpacingExtra="3dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"/>
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:layout_height="1px"
+                    android:background="@color/split_line"/>
+
+            <TextView
+                    android:id="@+id/hot_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:textSize="16sp"
+                    android:gravity="left|center_vertical"
+                    android:text="@string/hot_line"
+                    android:textColor="@color/black"
+                    android:background="@color/white"/>
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/split_line"/>
+
+            <TextView
+                    android:id="@+id/weibo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:textSize="16sp"
+                    android:gravity="left|center_vertical"
+                    android:text="@string/sina_weibo"
+                    android:textColor="@color/black"
+                    android:background="@color/white"/>
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/split_line"/>
+
+            <TextView
+                    android:id="@+id/web_site"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:textSize="16sp"
+                    android:gravity="left|center_vertical"
+                    android:text="@string/web_site"
+                    android:textColor="@color/black"
+                    android:background="@color/white"/>
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/split_line"/>
+
+            <TextView
+                    android:id="@+id/weixin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:textSize="16sp"
+                    android:gravity="left|center_vertical"
+                    android:text="@string/weixin"
+                    android:textColor="@color/black"
+                    android:background="@color/white"/>
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/split_line"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

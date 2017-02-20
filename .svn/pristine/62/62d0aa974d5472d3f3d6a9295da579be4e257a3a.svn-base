@@ -1,0 +1,346 @@
+lilv_array = new Array; 
+//08年12月23日利率下限(7折)
+lilv_array[1] = new Array;
+lilv_array[1][1] = new Array;
+lilv_array[1][2] = new Array;
+lilv_array[1][1][5] = 0.0403;//商贷 1～5年 4.03%
+lilv_array[1][1][10] = 0.0416;//商贷 5-30年 4.16%
+lilv_array[1][2][5] = 0.0333;//公积金 1～5年 3.33%
+lilv_array[1][2][10] = 0.0387;//公积金 5-30年 3.87%
+//08年12月23日利率下限(85折)
+lilv_array[2] = new Array;
+lilv_array[2][1] = new Array;
+lilv_array[2][2] = new Array;
+lilv_array[2][1][5] = 0.049;//商贷 1～5年 4.9%
+lilv_array[2][1][10] = 0.0505;//商贷 5-30年 5.05%
+lilv_array[2][2][5] = 0.0333;//公积金 1～5年 3.33%
+lilv_array[2][2][10] = 0.0387;//公积金 5-30年 3.87%
+//08年12月23日基准利率
+lilv_array[3] = new Array;
+lilv_array[3][1] = new Array;
+lilv_array[3][2] = new Array;
+lilv_array[3][1][5] = 0.0576;//商贷 1～5年 5.76%
+lilv_array[3][1][10] = 0.0594;//商贷 5-30年 5.94%
+lilv_array[3][2][5] = 0.0333;//公积金 1～5年 3.33%
+lilv_array[3][2][10] = 0.0387;//公积金 5-30年 3.87%
+//08年12月23日利率上限(1.1倍)
+lilv_array[4] = new Array;
+lilv_array[4][1] = new Array;
+lilv_array[4][2] = new Array;
+lilv_array[4][1][5] = 0.0634;//商贷 1～5年 6.34%
+lilv_array[4][1][10] = 0.0653;//商贷 5-30年 6.53%
+lilv_array[4][2][5] = 0.0333;//公积金 1～5年 3.33%
+lilv_array[4][2][10] = 0.0387;//公积金 5-30年 3.87%
+//10年10月20日利率下限(7折)
+lilv_array[5] = new Array;
+lilv_array[5][1] = new Array;
+lilv_array[5][2] = new Array;
+lilv_array[5][1][5] = 0.04172;//商贷 1～5年 4.172%
+lilv_array[5][1][10] = 0.04298;//商贷 5-30年 4.298%
+lilv_array[5][2][5] = 0.035;//公积金 1～5年 3.5%
+lilv_array[5][2][10] = 0.0405;//公积金 5-30年 4.05%
+//10年10月20日利率下限(85折)
+lilv_array[6] = new Array;
+lilv_array[6][1] = new Array;
+lilv_array[6][2] = new Array;
+lilv_array[6][1][5] = 0.05066;//商贷 1～5年 5.066%
+lilv_array[6][1][10] = 0.05218;//商贷 5-30年 5.218%
+lilv_array[6][2][5] = 0.035;//公积金 1～5年 3.5%
+lilv_array[6][2][10] = 0.0405;//公积金 5-30年 4.05%
+//10年10月20日基准利率
+lilv_array[7] = new Array;
+lilv_array[7][1] = new Array;
+lilv_array[7][2] = new Array;
+lilv_array[7][1][5] = 0.0596;//商贷 1～5年 5.96%
+lilv_array[7][1][10] = 0.0614;//商贷 5-30年 6.14%
+lilv_array[7][2][5] = 0.035;//公积金 1～5年 3.5%
+lilv_array[7][2][10] = 0.0405;//公积金 5-30年 4.05%
+//10年10月20日利率上限(1.1倍)
+lilv_array[8] = new Array;
+lilv_array[8][1] = new Array;
+lilv_array[8][2] = new Array;
+lilv_array[8][1][5] = 0.06556;//商贷 1～5年 6.556%
+lilv_array[8][1][10] = 0.06754;//商贷 5-30年 6.754%
+lilv_array[8][2][5] = 0.035;//公积金 1～5年 3.5%
+lilv_array[8][2][10] = 0.0405;//公积金 5-30年 4.05%
+//10年12月26日基准利率
+lilv_array[9] = new Array;
+lilv_array[9][1] = new Array;
+lilv_array[9][2] = new Array;
+lilv_array[9][1][5] = 0.0622;//商贷 1～5年 6.22%
+lilv_array[9][1][10] = 0.0640;//商贷 5-30年 6.4%
+lilv_array[9][2][5] = 0.0375;//公积金 1～5年 3.75%
+lilv_array[9][2][10] = 0.0430;//公积金 5-30年 4.3%
+//10年12月26日利率下限(7折)
+lilv_array[10] = new Array;
+lilv_array[10][1] = new Array;
+lilv_array[10][2] = new Array;
+lilv_array[10][1][5] = 0.04354;//商贷 1～5年 4.354%
+lilv_array[10][1][10] = 0.0448;//商贷 5-30年 4.48%
+lilv_array[10][2][5] = 0.0375;//公积金 1～5年 3.75%
+lilv_array[10][2][10] = 0.0430;//公积金 5-30年 4.3%
+//10年12月26日利率上限(1.1倍)
+lilv_array[11] = new Array;
+lilv_array[11][1] = new Array;
+lilv_array[11][2] = new Array;
+lilv_array[11][1][5] = 0.06842;//商贷 1～5年 6.842%
+lilv_array[11][1][10] = 0.0704;//商贷 5-30年 7.04%
+lilv_array[11][2][5] = 0.0375;//公积金 1～5年 3.75%
+lilv_array[11][2][10] = 0.0430;//公积金 5-30年 4.3%
+//11年2月9日基准利率
+lilv_array[12] = new Array;
+lilv_array[12][1] = new Array;
+lilv_array[12][2] = new Array;
+lilv_array[12][1][5] = 0.0645;//商贷 1～5年 6.45%
+lilv_array[12][1][10] = 0.0660;//商贷 5-30年 6.6%
+lilv_array[12][2][5] = 0.0400;//公积金 1～5年 4%
+lilv_array[12][2][10] = 0.0450;//公积金 5-30年 4.5%
+//11年2月9日利率下限(7折)
+lilv_array[13] = new Array;
+lilv_array[13][1] = new Array;
+lilv_array[13][2] = new Array;
+lilv_array[13][1][5] = 0.04515;//商贷 1～5年 4.515%
+lilv_array[13][1][10] = 0.04620;//商贷 5-30年 4.62%
+lilv_array[13][2][5] = 0.0400;//公积金 1～5年 4%
+lilv_array[13][2][10] = 0.0450;//公积金 5-30年 4.5%
+//11年2月9日利率下限(85折)
+lilv_array[14] = new Array;
+lilv_array[14][1] = new Array;
+lilv_array[14][2] = new Array;
+lilv_array[14][1][5] = 0.054825;//商贷 1～5年 5.4825%
+lilv_array[14][1][10] = 0.0561;//商贷 5-30年 5.61%
+lilv_array[14][2][5] = 0.0400;//公积金 1～5年 4%
+lilv_array[14][2][10] = 0.0450;//公积金 5-30年 4.5%
+//11年2月9日利率上限(1.1倍)
+lilv_array[15] = new Array;
+lilv_array[15][1] = new Array;
+lilv_array[15][2] = new Array;
+lilv_array[15][1][5] = 0.07095;//商贷 1～5年 7.095%
+lilv_array[15][1][10] = 0.0726;//商贷 5-30年 7.26%
+lilv_array[15][2][5] = 0.0400;//公积金 1～5年 4%
+lilv_array[15][2][10] = 0.0450;//公积金 5-30年 4.5%
+//11年4月5日基准利率
+lilv_array[16] = new Array;
+lilv_array[16][1] = new Array;
+lilv_array[16][2] = new Array;
+lilv_array[16][1][5] = 0.0665;//商贷 1～5年 6.65%
+lilv_array[16][1][10] = 0.0680;//商贷 5-30年 6.8%
+lilv_array[16][2][5] = 0.0420;//公积金 1～5年 4.2%
+lilv_array[16][2][10] = 0.0470;//公积金 5-30年 4.7%
+//11年4月5日利率下限（7折）
+lilv_array[17] = new Array;
+lilv_array[17][1] = new Array;
+lilv_array[17][2] = new Array;
+lilv_array[17][1][5] = 0.04655;//商贷 1～5年 4.655%
+lilv_array[17][1][10] = 0.0476;//商贷 5-30年 4.76%
+lilv_array[17][2][5] = 0.0420;//公积金 1～5年 4.2%
+lilv_array[17][2][10] = 0.0470;//公积金 5-30年 4.7%
+//11年4月5日利率下限（85折）
+lilv_array[18] = new Array;
+lilv_array[18][1] = new Array;
+lilv_array[18][2] = new Array;
+lilv_array[18][1][5] = 0.056525;//商贷 1～5年 5.6525%
+lilv_array[18][1][10] = 0.0578;//商贷 5-30年 5.78%
+lilv_array[18][2][5] = 0.0420;//公积金 1～5年 4.2%
+lilv_array[18][2][10] = 0.0470;//公积金 5-30年 4.7%
+//11年4月5日利率上限（1.1倍）
+lilv_array[19] = new Array;
+lilv_array[19][1] = new Array;
+lilv_array[19][2] = new Array;
+lilv_array[19][1][5] = 0.07315;//商贷 1～5年 7.315%
+lilv_array[19][1][10] = 0.0748;//商贷 5-30年 7.48%
+lilv_array[19][2][5] = 0.0420;//公积金 1～5年 4.2%
+lilv_array[19][2][10] = 0.0470;//公积金 5-30年 4.7%
+//11年7月6日基准利率
+lilv_array[20] = new Array;
+lilv_array[20][1] = new Array;
+lilv_array[20][2] = new Array;
+lilv_array[20][1][5] = 0.0690;//商贷 1～5年 6.9%
+lilv_array[20][1][10] = 0.0705;//商贷 5-30年 7.05%
+lilv_array[20][2][5] = 0.0445;//公积金 1～5年 4.45%
+lilv_array[20][2][10] = 0.0490;//公积金 5-30年 4.9%
+//11年7月6日利率下限（7折）
+lilv_array[21] = new Array;
+lilv_array[21][1] = new Array;
+lilv_array[21][2] = new Array;
+lilv_array[21][1][5] = 0.0483;//商贷 1～5年 4.83%
+lilv_array[21][1][10] = 0.04935;//商贷 5-30年 4.935%
+lilv_array[21][2][5] = 0.0445;//公积金 1～5年 4.45%
+lilv_array[21][2][10] = 0.0490;//公积金 5-30年 4.9%
+//11年7月6日利率下限（85折）
+lilv_array[22] = new Array;
+lilv_array[22][1] = new Array;
+lilv_array[22][2] = new Array;
+lilv_array[22][1][5] = 0.05865;//商贷 1～5年 5.865%
+lilv_array[22][1][10] = 0.059925;//商贷 5-30年 5.9925%
+lilv_array[22][2][5] = 0.0445;//公积金 1～5年 4.45%
+lilv_array[22][2][10] = 0.0490;//公积金 5-30年 4.9%
+//11年7月6日利率上限（1.1倍）
+lilv_array[23] = new Array;
+lilv_array[23][1] = new Array;
+lilv_array[23][2] = new Array;
+lilv_array[23][1][5] = 0.0759;//商贷 1～5年 7.59%
+lilv_array[23][1][10] = 0.07755;//商贷 5-30年 7.755%
+lilv_array[23][2][5] = 0.0445;//公积金 1～5年 4.45%
+lilv_array[23][2][10] = 0.0490;//公积金 5-30年 4.9%
+//12年6月8日基准利率
+lilv_array[24] = new Array;
+lilv_array[24][1] = new Array;
+lilv_array[24][2] = new Array;
+lilv_array[24][1][5] = 0.0665;//商贷 1～5年 6.65%
+lilv_array[24][1][10] = 0.0680;//商贷 5-30年 6.8%
+lilv_array[24][2][5] = 0.0420;//公积金 1～5年 4.2%
+lilv_array[24][2][10] = 0.0470;//公积金 5-30年 4.7%
+//12年6月8日利率下限（7折）
+lilv_array[25] = new Array;
+lilv_array[25][1] = new Array;
+lilv_array[25][2] = new Array;
+lilv_array[25][1][5] = 0.04655;//商贷 1～5年 4.655%
+lilv_array[25][1][10] = 0.0476;//商贷 5-30年 4.76%
+lilv_array[25][2][5] = 0.0420;//公积金 1～5年 4.2%
+lilv_array[25][2][10] = 0.0470;//公积金 5-30年 4.7%
+//12年6月8日利率下限（85折）
+lilv_array[26] = new Array;
+lilv_array[26][1] = new Array;
+lilv_array[26][2] = new Array;
+lilv_array[26][1][5] = 0.056525;//商贷 1～5年 5.6525%
+lilv_array[26][1][10] = 0.0578;//商贷 5-30年 5.78%
+lilv_array[26][2][5] = 0.0420;//公积金 1～5年 4.2%
+lilv_array[26][2][10] = 0.0470;//公积金 5-30年 4.7%
+//12年6月8日利率上限（1.1倍）
+lilv_array[27] = new Array;
+lilv_array[27][1] = new Array;
+lilv_array[27][2] = new Array;
+lilv_array[27][1][5] = 0.07315;//商贷 1～5年 7.315%
+lilv_array[27][1][10] = 0.0748;//商贷 5-30年 7.48%
+lilv_array[27][2][5] = 0.0420;//公积金 1～5年 4.2%
+lilv_array[27][2][10] = 0.0470;//公积金 5-30年 4.7%
+//12年7月6日基准利率
+lilv_array[28] = new Array;
+lilv_array[28][1] = new Array;
+lilv_array[28][2] = new Array;
+lilv_array[28][1][5] = 0.0640;//商贷 1～5年 6.4%
+lilv_array[28][1][10] = 0.0655;//商贷 5-30年 6.55%
+lilv_array[28][2][5] = 0.0400;//公积金 1～5年 4%
+lilv_array[28][2][10] = 0.0450;//公积金 5-30年 4.5%
+//12年7月6日利率下限（7折）
+lilv_array[29] = new Array;
+lilv_array[29][1] = new Array;
+lilv_array[29][2] = new Array;
+lilv_array[29][1][5] = 0.0448;//商贷 1～5年 4.48%
+lilv_array[29][1][10] = 0.04585;//商贷 5-30年 4.585%
+lilv_array[29][2][5] = 0.0400;//公积金 1～5年 4%
+lilv_array[29][2][10] = 0.0450;//公积金 5-30年 4.5%
+//12年7月6日利率下限（85折）
+lilv_array[30] = new Array;
+lilv_array[30][1] = new Array;
+lilv_array[30][2] = new Array;
+lilv_array[30][1][5] = 0.0544;//商贷 1～5年 5.44%
+lilv_array[30][1][10] = 0.055675;//商贷 5-30年 5.5675%
+lilv_array[30][2][5] = 0.0400;//公积金 1～5年 4%
+lilv_array[30][2][10] = 0.0450;//公积金 5-30年 4.5%
+//12年7月6日利率上限（1.1倍）
+lilv_array[31] = new Array;
+lilv_array[31][1] = new Array;
+lilv_array[31][2] = new Array;
+lilv_array[31][1][5] = 0.0704;//商贷 1～5年 7.04%
+lilv_array[31][1][10] = 0.07205;//商贷 5-30年 7.205%
+lilv_array[31][2][5] = 0.0400;//公积金 1～5年 4%
+lilv_array[31][2][10] = 0.0450;//公积金 5-30年 4.5%
+
+//得到利率
+function getlilv(lilv_class,type,years){
+  var lilv_class = parseInt(lilv_class);
+    if (years<=5){
+     return lilv_array[lilv_class][type][5];
+  }else{
+    return lilv_array[lilv_class][type][10];
+  }
+}
+
+//提前还歀计算
+function play(){
+  dkzys=parseFloat(原贷款金额)*10000;
+
+  if(一次提前还清 && 部分提前还款==''){
+    alert('请填入部分提前还款额度');
+    return false;
+   }
+  s_yhkqs=parseInt(原贷款年限);
+
+  //月利率
+
+  if(公积金贷款){
+    if (s_yhkqs>60){
+      dklv = getlilv(贷款利率,2,10)/12; //公积金贷款利率5年以上4.23%
+    }else{
+      dklv = getlilv(贷款利率,2,3)/12;  //公积金贷款利率5年(含)以下3.78%
+    }
+  }
+  if(商业性贷款){
+    if (s_yhkqs>60){
+      dklv=getlilv(贷款利率,1,10)/12; //商业性贷款利率5年以上5.31%
+    }else{
+      dklv=getlilv(贷款利率,1,3)/12; //商业性贷款利率5年(含)以下4.95%
+    }
+  }
+
+  //已还贷款期数
+  yhdkqs=(parseInt(预计提前还款时间(年))*12+parseInt(预计提前还款时间(月)))-(parseInt(第一次还款时间(年))*12 + parseInt(第一次还款时间(月)));
+
+  if(yhdkqs<0 || yhdkqs>s_yhkqs){
+    alert('预计提前还款时间(年)与第一次还款时间有矛盾，请查实');
+    return false;
+   }
+
+  yhk=dkzys*(dklv*Math.pow((1+dklv),s_yhkqs))/(Math.pow((1+dklv),s_yhkqs)-1);
+  yhkjssj=Math.floor((parseInt(第一次还款时间(年))*12+parseInt(第一次还款时间(月))+s_yhkqs-2)/12)+'年'+((parseInt(第一次还款时间(年))*12+parseInt(第一次还款时间(月))+s_yhkqs-2)%12+1)+'月';
+  yhdkys=yhk*yhdkqs;
+
+  yhlxs=0;
+  yhbjs=0;
+  for(i=1;i<=yhdkqs;i++){
+     yhlxs=yhlxs+(dkzys-yhbjs)*dklv;
+     yhbjs=yhbjs+yhk-(dkzys-yhbjs)*dklv;
+   }
+
+  remark='';
+  if(部分提前还款){
+    tqhkys=parseInt(部分提前还款)*10000;
+     if(tqhkys+yhk>=(dkzys-yhbjs)*(1+dklv)){
+         remark='您的提前还款额已足够还清所欠贷款！';
+     }else{
+          yhbjs=yhbjs+yhk;
+            byhk=yhk+tqhkys;
+      if(缩短还款年限，月还款额基本不变){
+        yhbjs_temp=yhbjs+tqhkys;
+              for(xdkqs=0;yhbjs_temp<=dkzys;xdkqs++) yhbjs_temp=yhbjs_temp+yhk-(dkzys-yhbjs_temp)*dklv;
+        xdkqs=xdkqs-1;
+              xyhk=(dkzys-yhbjs-tqhkys)*(dklv*Math.pow((1+dklv),xdkqs))/(Math.pow((1+dklv),xdkqs)-1);
+              jslx=yhk*s_yhkqs-yhdkys-byhk-xyhk*xdkqs;
+        xdkjssj=Math.floor((parseInt(预计提前还款时间(年))*12+parseInt(预计提前还款时间(月))+xdkqs-2)/12)+'年'+((parseInt(预计提前还款时间(年))*12+parseInt(预计提前还款时间(月))+xdkqs-2)%12+1)+'月'; 
+             }else{
+           xyhk=(dkzys-yhbjs-tqhkys)*(dklv*Math.pow((1+dklv),(s_yhkqs-yhdkqs)))/(Math.pow((1+dklv),(s_yhkqs-yhdkqs))-1);
+               jslx=yhk*s_yhkqs-yhdkys-byhk-xyhk*(s_yhkqs-yhdkqs);
+         xdkjssj=yhkjssj;
+        }
+       }
+   }
+
+  if(一次提前还清 || remark!=''){
+    byhk=(dkzys-yhbjs)*(1+dklv);
+    xyhk=0;
+    jslx=yhk*s_yhkqs-yhdkys-byhk;
+    xdkjssj=预计提前还款时间(年)+'年'+预计提前还款时间(月)+'月';
+  }
+
+  原月还款=Math.round(yhk*100)/100;
+  已还款总额=Math.round(yhdkys*100)/100;
+  已还利息额=Math.round(yhlxs*100)/100;
+  该月一次还款额=Math.round(byhk*100)/100;
+  下月起月还款额=Math.round(xyhk*100)/100;
+  节省利息支出=Math.round(jslx*100)/100;
+  原最后还款期=yhkjssj;
+  新的最后还款期=xdkjssj;
+  计算结果提示=remark;
+}

@@ -1,0 +1,77 @@
+package com.zhijia.ui.list.adapter;
+
+import android.content.Context;
+import android.content.Intent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.zhijia.service.data.Medol.HouseListItemModel;
+import com.zhijia.ui.R;
+import com.zhijia.ui.zhijiaActivity.NewHouseDetailsActivity;
+
+import java.util.List;
+
+/**
+ * 近期开盘的Adapter
+ */
+public class RecentOpenHouseListViewAdapter extends AbstractHouseListViewAdapter {
+
+    public RecentOpenHouseListViewAdapter(Context context, List<HouseListItemModel> items) {
+        super(context, items);
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        if (this.items != null && !this.items.isEmpty()) {
+            if (convertView == null) {
+                convertView = this.getLayoutInflater().inflate(R.layout.adapter_house_common_list_item, null);
+            }
+            final HouseListItemModel recentOpenHouse = this.items.get(position);
+
+            if (recentOpenHouse.getErrorDefault() == null) {
+                ImageView imageView = (ImageView) convertView.findViewById(R.id.adapter_house_image_one);
+
+                setImage(recentOpenHouse, imageView);
+
+                TextView textViewOne = (TextView) convertView.findViewById(R.id.adapter_house_content_one);
+                textViewOne.setText(recentOpenHouse.getHouseContentOne());
+
+                TextView textViewTwo = (TextView) convertView.findViewById(R.id.adapter_house_content_two);
+                textViewTwo.setText(recentOpenHouse.getHouseContentTwo());
+
+                TextView textViewThree = (TextView) convertView.findViewById(R.id.adapter_house_content_three);
+                textViewThree.setText(recentOpenHouse.getHouseContentThree());
+                textViewThree.setTextColor(convertView.getResources().getColor(R.color.font_desc));
+
+                TextView textViewFour = (TextView) convertView.findViewById(R.id.adapter_house_content_four);
+                textViewFour.setText(recentOpenHouse.getHouseContentFour());
+                textViewFour.setTextColor(convertView.getResources().getColor(R.color.font_desc));
+
+                TextView textViewFive = (TextView) convertView.findViewById(R.id.adapter_house_content_five);
+                textViewFive.setText(recentOpenHouse.getHouseContentFive());
+                textViewFive.setTextColor(convertView.getResources().getColor(R.color.red));
+
+                TextView textViewAction = (TextView) convertView.findViewById(R.id.item_action);
+                textViewAction.setVisibility(View.GONE);
+
+                convertView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent newHouseDetails = new Intent(view.getContext(), NewHouseDetailsActivity.class);
+                        newHouseDetails.putExtra("hid", recentOpenHouse.getHid());
+                        view.getContext().startActivity(newHouseDetails);
+                    }
+                });
+            } else {
+                return setErrorValue(recentOpenHouse);
+            }
+
+        } else {
+            convertView = this.getLayoutInflater().inflate(R.layout.house_list_wait_load, null);
+        }
+
+        return convertView;
+    }
+}

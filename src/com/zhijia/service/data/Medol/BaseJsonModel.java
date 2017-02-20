@@ -1,0 +1,78 @@
+package com.zhijia.service.data.Medol;
+
+/**
+ * json基类
+ */
+
+public abstract class BaseJsonModel {
+
+    private boolean status;
+
+    private String message;
+
+    private String total;
+
+    private String unread;
+
+    private String touser;
+
+    private String url;
+
+    private Integer is_status;
+
+    public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getUnread() {
+        return unread;
+    }
+
+    public void setUnread(String unread) {
+        this.unread = unread;
+    }
+
+    public String getTouser() {
+        return touser;
+    }
+
+    public void setTouser(String touser) {
+        this.touser = touser;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Integer getIs_status() {
+        return is_status;
+    }
+
+    public void setIs_status(Integer is_status) {
+        this.is_status = is_status;
+    }
+}

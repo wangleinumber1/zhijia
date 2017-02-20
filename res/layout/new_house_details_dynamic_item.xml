@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:background="@drawable/common_bg">
+
+	<ImageView
+			android:id="@+id/point_line"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/point_line"/>
+
+	<TextView
+			android:id="@+id/new_house_details_dynamic_item_time"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="5dp"
+			android:layout_alignParentTop="true"
+			android:layout_toRightOf="@+id/point_line"
+			android:textSize="14sp"
+			android:textColor="@color/default_font"/>
+
+	<TextView
+			android:id="@+id/new_house_details_dynamic_item_privilege_desc"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="5dp"
+			android:textColor="@color/high_light_font"
+			android:singleLine="true"
+			android:ellipsize="end"
+			android:textSize="14sp"
+			android:layout_alignParentBottom="true"
+			android:layout_toRightOf="@+id/point_line"/>
+</RelativeLayout>

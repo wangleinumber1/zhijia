@@ -1,0 +1,240 @@
+package com.zhijia.ui.list.newhouse;
+
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+import com.google.common.base.Optional;
+import com.zhijia.Global;
+import com.zhijia.service.data.JsonResult;
+import com.zhijia.service.data.newhouse.ImpressionListJsonModel;
+import com.zhijia.service.network.HttpClientUtils;
+import com.zhijia.ui.R;
+import com.zhijia.ui.list.BaseDetailsActivity;
+import com.zhijia.ui.list.ItemAdapter;
+import com.zhijia.util.gridview.ZjGridView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ *
+ */
+public class ImpressionListActivity extends BaseDetailsActivity {
+
+    private final String IMPRESSION_URL = Global.API_WEB_URL + "/xinfang/impression";
+
+    private final String IMPRESSION_SUPPORT_URL = Global.API_WEB_URL + "/xinfang/impressionsupport";
+    private final int header_title = R.id.details_title;
+    private String hid;
+    private OnClickListener onClickListener = new OnClickListener();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.impression_list);
+        hid = getIntent().getStringExtra("hid");
+        setHeader();
+        startTask();
+        findViewById(R.id.details_back).setOnClickListener(onClickListener);
+    }
+
+    public void setHeader() {
+        Map<Integer, Object> map = new HashMap<Integer, Object>();
+        map.put(header_title, "楼盘印象");
+        setHeader(map);
+        Map<Integer, Object> map1 = new HashMap<Integer, Object>();
+        setHeader(map1);
+    }
+
+    public void setImpression(List<ImpressionListJsonModel> jsonList) {
+        final List<Map<Integer, Object>> gridList = new ArrayList<Map<Integer, Object>>();
+        for (ImpressionListJsonModel tempJson : jsonList) {
+            Map<Integer, Object> map = new HashMap<Integer, Object>();
+            String color = tempJson.getBgcolor();
+            if (color != null && !color.isEmpty() && color.length() > 6) {
+                map.put(R.id.new_house_details_description_grid_text, "background:" + tempJson.getBgcolor() + ":" + tempJson.getName() + "(" + tempJson.getSupport() + ")");
+            } else {
+                map.put(R.id.new_house_details_description_grid_text, "background:#00CCCC" + ":" + tempJson.getName() + "(" + tempJson.getSupport() + ")");
+            }
+            map.put(-1, tempJson.getId());
+            gridList.add(map);
+        }
+        ItemAdapter adapter = new ItemAdapter(ImpressionListActivity.this, R.layout.new_house_details_grid_item, gridList);
+        ZjGridView gridView = (ZjGridView) findViewById(R.id.impression_list_content_grid_view);
+        gridView.setAdapter(adapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Map<Integer, Object> tempMap = gridList.get(position);
+                String impressId = (String) tempMap.get(-1);
+                ImpressionSupportAsyncTask impressionSupportAsyncTask = new ImpressionSupportAsyncTask();
+                impressionSupportAsyncTask.execute(impressId);
+            }
+        });
+    }
+
+
+    public JsonResult<List<ImpressionListJsonModel>> getImpressionList(String url) {
+        HttpClientUtils httpClientUtils = HttpClientUtils.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("cityid", Global.NOW_CITY_ID);
+        map.put("hid", hid);
+        Optional<JsonResult<List<ImpressionListJsonModel>>> optional = httpClientUtils.getUnsignedListByData(url, map, ImpressionListJsonModel.class);
+        if (optional.isPresent()) {
+            return optional.get();
+        }
+        return null;
+    }
+
+    public void setCount(String total) {
+        TextView textView = (TextView) findViewById(R.id.impression_list_count_text_view);
+        textView.setText(String.format(getString(R.string.impression_count), total));
+    }
+
+    public void startTask() {
+        ImpressionListAsyncTask impressionListAsyncTask = new ImpressionListAsyncTask();
+        impressionListAsyncTask.execute(IMPRESSION_URL);
+    }
+
+    public void bindEvent() {
+        //发送印象
+        findViewById(R.id.impression_list_button_ok).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText editText = (EditText) findViewById(R.id.impression_list_edit_text);
+                String content = editText.getText().toString();
+                if (content != null && !content.isEmpty()) {
+                    Map<String, String> paramMap = new HashMap<String, String>();
+                    paramMap.put("url", IMPRESSION_URL);
+                    paramMap.put("name", content);
+                    paramMap.put("hid", hid);
+                    SendImpressionAsyncTask sendImpressionAsyncTask = new SendImpressionAsyncTask();
+                    sendImpressionAsyncTask.execute(paramMap);
+                } else {
+                    Toast.makeText(getApplicationContext(), "提交的数据不能为空", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        findViewById(R.id.impression_list_button_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                succeed();
+            }
+        });
+    }
+
+    public Map<String, String> sendImpression(Map<String, String> param) {
+        String url = param.get("url");
+        String hid = param.get("hid");
+        String name = param.get("name");
+        Map<String, String> resultMap = new HashMap<String, String>();
+        HttpClientUtils httpClientUtils = HttpClientUtils.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("hid", hid);
+        map.put("name", name);
+        map.put("cityid", Global.NOW_CITY_ID);
+        Optional<Map<String, String>> optional = httpClientUtils.postSignedMap(url, map, String.class);
+        if (optional.isPresent()) {
+            resultMap.put("status", optional.get().get("status"));
+            resultMap.put("message", optional.get().get("message"));
+            return resultMap;
+        }
+        return null;
+    }
+
+    public Map<String, String> sendImpressionSupport(String impressionId) {
+        Map<String, String> resultMap = new HashMap<String, String>();
+        HttpClientUtils httpClientUtils = HttpClientUtils.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("id", impressionId);
+        Optional<Map<String, String>> optional = httpClientUtils.postSignedMap(IMPRESSION_SUPPORT_URL, map, String.class);
+        if (optional.isPresent()) {
+            resultMap.put("status", optional.get().get("status"));
+            resultMap.put("message", optional.get().get("message"));
+            return resultMap;
+        }
+        return null;
+    }
+
+    public void succeed() {
+        EditText editText = (EditText) findViewById(R.id.impression_list_edit_text);
+        editText.setText("");
+        editText.setHint(getString(R.string.new_house_detail_impress));
+    }
+
+    class ImpressionListAsyncTask extends AsyncTask<String, Void, JsonResult<List<ImpressionListJsonModel>>> {
+
+        @Override
+        protected JsonResult<List<ImpressionListJsonModel>> doInBackground(String... params) {
+            return getImpressionList(params[0]);
+        }
+
+        @Override
+        protected void onPostExecute(JsonResult<List<ImpressionListJsonModel>> jsonResult) {
+            findViewById(R.id.impression_list_wait_load_relative).setVisibility(View.GONE);
+            if (jsonResult != null && jsonResult.isStatus()) {
+                setCount(jsonResult.getTotal());
+                findViewById(R.id.impression_list_relative_layout).setVisibility(View.VISIBLE);
+                List<ImpressionListJsonModel> jsonList = jsonResult.getData();
+                setImpression(jsonList);
+                bindEvent();
+            } else if (jsonResult == null) {
+
+            }
+        }
+    }
+
+    public class ImpressionSupportAsyncTask extends AsyncTask<String, Void, Map<String, String>> {
+
+        @Override
+        protected Map<String, String> doInBackground(String... params) {
+            return sendImpressionSupport(params[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, String> resultMap) {
+            if (resultMap != null) {
+                Toast.makeText(getApplicationContext(), resultMap.get("message"), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "网络数据获取失败", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public class SendImpressionAsyncTask extends AsyncTask<Map<String, String>, Void, Map<String, String>> {
+
+        @Override
+        protected Map<String, String> doInBackground(Map<String, String>... params) {
+            return sendImpression(params[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, String> resultMap) {
+            if (resultMap != null) {
+                succeed();
+                Toast.makeText(getApplicationContext(), resultMap.get("message"), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "网络数据获取失败", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public class OnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.details_back:
+                    finish();
+                    break;
+            }
+        }
+    }
+}

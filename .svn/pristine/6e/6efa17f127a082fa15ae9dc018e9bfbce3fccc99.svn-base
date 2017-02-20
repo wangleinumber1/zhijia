@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:orientation="vertical"
+			  android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <HorizontalScrollView
+			android:layout_width="match_parent"
+			android:layout_height="50dp"
+			android:fadingEdge="none"
+			android:scrollbars="none"
+			android:fillViewport="true"
+            android:id="@+id/horizontalScrollView">
+
+        <RelativeLayout
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+                android:background="@color/common_bg">
+
+            <RadioGroup
+					android:id="@+id/radioGroup"
+					android:layout_width="match_parent"
+					android:layout_height="49dp"
+					android:orientation="horizontal"
+                    android:layout_alignParentTop="true"/>
+            <ImageView
+					android:id="@+id/img1"
+                    android:layout_marginLeft="15dp"
+					android:layout_width="50dp"
+					android:layout_height="4dp"
+					android:background="@color/red"
+                    android:layout_alignParentBottom="true"/>
+        </RelativeLayout>
+	</HorizontalScrollView>
+</LinearLayout>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/common_bg">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|center_vertical"
+            android:padding="30dp"
+            android:orientation="horizontal">
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/box"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/default_font"
+                android:text="@string/condo_tour_list_no_data"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/input">
+
+        <EditText
+                android:id="@+id/input_intention_house"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textSize="16sp"
+                android:singleLine="true"
+                android:hint="@string/input_intention_house_with_star_hint"
+                android:background="@drawable/input_underline"/>
+
+        <ListView
+                android:id="@+id/select_result_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:fadingEdge="none"
+                android:fillViewport="true"
+                android:divider="@color/split_line"
+                android:dividerHeight="1dp"
+                android:visibility="gone"
+                android:background="@color/default_font"/>
+    </LinearLayout>
+
+    <TextView
+            android:id="@+id/immediately_apply_no_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:padding="10dp"
+            android:gravity="center|center_vertical"
+            android:layout_gravity="center|center_vertical"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:text="@string/immediately_apply"
+            android:background="@drawable/red_button"/>
+</LinearLayout>

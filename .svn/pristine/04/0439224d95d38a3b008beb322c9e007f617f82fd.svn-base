@@ -1,0 +1,468 @@
+package com.zhijia.util.defaultdata;
+
+import android.text.Html;
+import android.util.Log;
+import android.widget.TextView;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
+import com.typesafe.config.ConfigRenderOptions;
+import com.zhijia.ui.R;
+import com.zhijia.ui.list.AdapterModel;
+import com.zhijia.ui.list.ListType;
+import com.zhijia.ui.list.adapter.HouseListItemModel;
+
+import java.io.IOException;
+import java.util.*;
+
+/**
+ * 常用的默认数据
+ */
+public class DefaultDataUtils {
+
+    public static void setDefaultHint(List<Map<Integer, Object>> list, String content) {
+        if (list.size() == 0) {
+            Map<Integer, Object> noDataMap = new HashMap<Integer, Object>();
+            noDataMap.put(0, content);
+            list.add(noDataMap);
+        }
+    }
+
+
+    public static void setValue(String value, TextView textView) {
+        if (value != null && !value.isEmpty()) {
+            textView.setText(Html.fromHtml(value));
+        } else {
+            textView.setText("暂无");
+        }
+    }
+
+    public static void setDefaultHoseCommonList(List<HouseListItemModel> items, String content) {
+
+        if (items.size() == 0) {
+            items.add(new HouseListItemModel(content));
+        }
+    }
+
+    public static <T> T convertObjectByString(String str, Class<T> cla) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            str = str.replaceAll("http://", "");
+            str = str.replaceAll("=", ":");
+            str = str.replaceAll(":,", ":null,");
+            str = str.replaceAll("#", "＃");
+            str = str.replaceAll("\n", "");
+            int site = str.indexOf("?") ;
+            if(site !=-1){
+                Log.d("DefaultDataUtils->>>site", str);
+                str = str.replaceAll("\\?cityid(=|:)[0-9]+","") ; ;
+            }
+            str = "{temp:" + str + "}";
+            Log.d("DefaultDataUtils->>>convertObjectByString", str);
+            Config config = ConfigFactory.parseString(str);
+            str = config.getObject("temp").render(ConfigRenderOptions.concise());
+            return mapper.readValue(str, cla);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d("DefaultDataUtils->>>convertObjectByString", e.getMessage());
+        }
+        return null;
+    }
+
+    /**
+     * 默认区域的数据
+     *
+     * @param areaId
+     * @param listType
+     * @return
+     */
+    public static Map<String, List<String>> getDefaultArea(int areaId, ListType listType) {
+
+        Map<String, List<String>> resultMap = new LinkedHashMap<String, List<String>>();
+
+        switch (listType) {
+            case NEW:
+                switch (areaId) {
+                    case R.id.house_area_one:
+                        List<String> subList = new ArrayList<String>();
+                        resultMap.put("全部区域:0:area", null);
+                        subList.add("北道岔:10001:area");
+                        subList.add("长征街:10002:area");
+                        subList.add("大经街:10003:area");
+                        subList.add("东风西路:10004:area");
+                        resultMap.put("桥东区:1:area", subList);
+                        List<String> subList1 = new ArrayList<String>();
+                        subList1.add("北杜:20001:area");
+                        subList1.add("滨河:20002:area");
+                        subList1.add("城角:20003:area");
+                        subList1.add("东五里:2004:area");
+                        resultMap.put("桥西区:2:area", subList1);
+                        break;
+
+                    case R.id.gone_house_area_one:
+                        List<String> goneSubList = new ArrayList<String>();
+                        resultMap.put("全部区域", null);
+                        goneSubList.add("金水东路");
+                        goneSubList.add("金水路");
+                        goneSubList.add("海淀路");
+                        goneSubList.add("管城回族路");
+                        resultMap.put("金水区", goneSubList);
+                        List<String> goneSubList1 = new ArrayList<String>();
+                        goneSubList1.add("金水东路1");
+                        goneSubList1.add("金水路1");
+                        goneSubList1.add("海淀路1");
+                        goneSubList1.add("管城回族路1");
+                        resultMap.put("海淀区", goneSubList1);
+                        resultMap.put("管城回族区", goneSubList1);
+                        break;
+
+                    case R.id.house_area_two:
+                        resultMap.put("无限", null);
+                        resultMap.put("10000元/m²以下", null);
+                        break;
+
+                    case R.id.gone_house_area_two:
+                        resultMap.put("无限", null);
+                        resultMap.put("10000元/m²以下", null);
+                        break;
+
+                    case R.id.house_area_three:
+                        resultMap.put("无限", null);
+                        resultMap.put("住宅", null);
+                        resultMap.put("适用经济房", null);
+                        resultMap.put("写字楼", null);
+                        break;
+
+                    case R.id.gone_house_area_three:
+                        resultMap.put("无限", null);
+                        resultMap.put("住宅", null);
+                        resultMap.put("适用经济房", null);
+                        resultMap.put("写字楼", null);
+                        break;
+
+                    case R.id.house_area_four:
+                        resultMap.put("特色", null);
+                        resultMap.put("装修情况", null);
+                        resultMap.put("开盘时间", null);
+                        resultMap.put("排序", null);
+                        break;
+
+                    case R.id.gone_house_area_four:
+                        resultMap.put("特色", null);
+                        resultMap.put("装修情况", null);
+                        resultMap.put("开盘时间", null);
+                        resultMap.put("排序", null);
+                        break;
+                }
+                break;
+
+            case OLD:
+                switch (areaId) {
+                    case R.id.house_area_one:
+                        resultMap.put("无限", null);
+                        resultMap.put("平房", null);
+                        resultMap.put("楼房", null);
+                        resultMap.put("四合院", null);
+                        break;
+
+                    case R.id.gone_house_area_one:
+                        resultMap.put("无限", null);
+                        resultMap.put("平房", null);
+                        resultMap.put("楼房", null);
+                        resultMap.put("四合院", null);
+                        break;
+
+                    case R.id.house_area_two:
+                        List<String> subList = new ArrayList<String>();
+                        resultMap.put("全部区域", null);
+                        subList.add("金水东路");
+                        subList.add("金水路");
+                        subList.add("海淀路");
+                        subList.add("管城回族路");
+                        resultMap.put("金水区", subList);
+                        List<String> subList1 = new ArrayList<String>();
+                        subList1.add("金水东路1");
+                        subList1.add("金水路1");
+                        subList1.add("海淀路1");
+                        subList1.add("管城回族路1");
+                        resultMap.put("海淀区", subList1);
+                        resultMap.put("管城回族区", subList1);
+                        break;
+
+                    case R.id.gone_house_area_two:
+                        List<String> goneSubList = new ArrayList<String>();
+                        resultMap.put("全部区域", null);
+                        goneSubList.add("金水东路");
+                        goneSubList.add("金水路");
+                        goneSubList.add("海淀路");
+                        goneSubList.add("管城回族路");
+                        resultMap.put("金水区", goneSubList);
+                        List<String> goneSubList1 = new ArrayList<String>();
+                        goneSubList1.add("金水东路1");
+                        goneSubList1.add("金水路1");
+                        goneSubList1.add("海淀路1");
+                        goneSubList1.add("管城回族路1");
+                        resultMap.put("海淀区", goneSubList1);
+                        resultMap.put("管城回族区", goneSubList1);
+                        break;
+
+                    case R.id.house_area_three:
+                        resultMap.put("无限", null);
+                        resultMap.put("100万", null);
+                        resultMap.put("100-200万", null);
+                        resultMap.put("200-300万", null);
+                        break;
+
+                    case R.id.gone_house_area_three:
+                        resultMap.put("无限", null);
+                        resultMap.put("100万", null);
+                        resultMap.put("100-200万", null);
+                        resultMap.put("200-300万", null);
+                        break;
+
+                    case R.id.house_area_four:
+                        resultMap.put("特色", null);
+                        resultMap.put("装修情况", null);
+                        resultMap.put("开盘时间", null);
+                        resultMap.put("排序", null);
+                        break;
+
+                    case R.id.gone_house_area_four:
+                        resultMap.put("特色", null);
+                        resultMap.put("装修情况", null);
+                        resultMap.put("开盘时间", null);
+                        resultMap.put("排序", null);
+                        break;
+                }
+                break;
+
+            case RENT:
+                switch (areaId) {
+                    case R.id.house_area_one:
+                        resultMap.put("无限", null);
+                        resultMap.put("平房", null);
+                        resultMap.put("楼房", null);
+                        resultMap.put("四合院", null);
+                        break;
+
+                    case R.id.gone_house_area_one:
+                        resultMap.put("无限", null);
+                        resultMap.put("平房", null);
+                        resultMap.put("楼房", null);
+                        resultMap.put("四合院", null);
+                        break;
+
+                    case R.id.house_area_two:
+                        List<String> subList = new ArrayList<String>();
+                        resultMap.put("全部区域", null);
+                        subList.add("金水东路");
+                        subList.add("金水路");
+                        subList.add("海淀路");
+                        subList.add("管城回族路");
+                        resultMap.put("金水区", subList);
+                        List<String> subList1 = new ArrayList<String>();
+                        subList1.add("金水东路1");
+                        subList1.add("金水路1");
+                        subList1.add("海淀路1");
+                        subList1.add("管城回族路1");
+                        resultMap.put("海淀区", subList1);
+                        resultMap.put("管城回族区", subList1);
+                        break;
+
+                    case R.id.gone_house_area_two:
+                        List<String> goneSubList = new ArrayList<String>();
+                        resultMap.put("全部区域", null);
+                        goneSubList.add("金水东路");
+                        goneSubList.add("金水路");
+                        goneSubList.add("海淀路");
+                        goneSubList.add("管城回族路");
+                        resultMap.put("金水区", goneSubList);
+                        List<String> goneSubList1 = new ArrayList<String>();
+                        goneSubList1.add("金水东路1");
+                        goneSubList1.add("金水路1");
+                        goneSubList1.add("海淀路1");
+                        goneSubList1.add("管城回族路1");
+                        resultMap.put("海淀区", goneSubList1);
+                        resultMap.put("管城回族区", goneSubList1);
+                        break;
+
+                    case R.id.house_area_three:
+                        resultMap.put("无限", null);
+                        resultMap.put("100万", null);
+                        resultMap.put("100-200万", null);
+                        resultMap.put("200-300万", null);
+                        break;
+
+                    case R.id.gone_house_area_three:
+                        resultMap.put("无限", null);
+                        resultMap.put("100万", null);
+                        resultMap.put("100-200万", null);
+                        resultMap.put("200-300万", null);
+                        break;
+
+                    case R.id.house_area_four:
+                        resultMap.put("特色", null);
+                        resultMap.put("装修情况", null);
+                        resultMap.put("开盘时间", null);
+                        resultMap.put("排序", null);
+                        break;
+
+                    case R.id.gone_house_area_four:
+                        resultMap.put("特色", null);
+                        resultMap.put("装修情况", null);
+                        resultMap.put("开盘时间", null);
+                        resultMap.put("排序", null);
+                        break;
+                }
+                break;
+            case LOOK_HOUSE:
+                switch (areaId) {
+                    case R.id.house_area_one:
+                        List<String> subList = new ArrayList<String>();
+                        resultMap.put("全部区域", null);
+                        subList.add("金水东路");
+                        subList.add("金水路");
+                        subList.add("海淀路");
+                        subList.add("管城回族路");
+                        resultMap.put("金水区", subList);
+                        List<String> subList1 = new ArrayList<String>();
+                        subList1.add("金水东路1");
+                        subList1.add("金水路1");
+                        subList1.add("海淀路1");
+                        subList1.add("管城回族路1");
+                        resultMap.put("海淀区", subList1);
+                        resultMap.put("管城回族区", subList1);
+                        break;
+
+
+                    case R.id.house_area_two:
+                        resultMap.put("无限", null);
+                        resultMap.put("100万", null);
+                        resultMap.put("100-200万", null);
+                        resultMap.put("200-300万", null);
+                        break;
+
+
+                    case R.id.house_area_three:
+                        resultMap.put("无限", null);
+                        resultMap.put("100万", null);
+                        resultMap.put("100-200万", null);
+                        resultMap.put("200-300万", null);
+                        break;
+
+
+                    case R.id.house_area_four:
+                        resultMap.put("特色", null);
+                        resultMap.put("装修情况", null);
+                        resultMap.put("开盘时间", null);
+                        resultMap.put("排序", null);
+                        break;
+
+                }
+                break;
+        }
+        return resultMap;
+    }
+
+
+    /**
+     * 默认列表数据
+     *
+     * @param type
+     * @return
+     */
+    public static List<Map<Integer, Object>> getListData(ListType type) {
+        Map<Integer, Object> map = new HashMap<Integer, Object>();
+        List<Map<Integer, Object>> resultList = new ArrayList<Map<Integer, Object>>();
+
+        switch (type) {
+            case NEW:
+                map.put(R.id.adapter_image, R.drawable.house);
+                map.put(R.id.adapter_house_name, "怀特 翰墨儒林");
+                map.put(R.id.adapter_house_distance, "1.25KM");
+                map.put(R.id.adapter_house_area_name, "裕华区");
+                map.put(R.id.adapter_house_money, "7200元/m");
+                map.put(R.id.adapter_house_address, "育才街槐安路交口南街100米路西");
+                map.put(R.id.adapter_house_des, "减1000元/m  投资地产");
+
+                for (int i = 0; i < 10; i++) {
+                    resultList.add(map);
+                }
+                break;
+            case OLD:
+                map.put(R.id.adapter_house_item_two_image, R.drawable.house);
+                map.put(R.id.adapter_house_item_two_top_mark, R.drawable.house_icons_1);
+                map.put(R.id.adapter_house_item_two_bottom, R.drawable.singler);
+                map.put(R.id.adapter_house_item_two_name, "精装黄金三楼通透两居室");
+                map.put(R.id.adapter_house_item_two_area, "[桥东区 亚龙花园]");
+                map.put(R.id.adapter_house_item_two_type, "2室2厅 95平米");
+                map.put(R.id.adapter_house_item_two_des, "高档社区");
+                map.put(R.id.adapter_house_item_two_des_two, "投资精选");
+                map.put(R.id.adapter_house_item_two_des_three, "交通便利");
+                map.put(R.id.adapter_house_item_two_des_four, "成熟商圈");
+                map.put(R.id.adapter_house_item_two_price, "58万");
+                for (int i = 0; i < 9; i++) {
+                    resultList.add(map);
+                }
+                break;
+            case RENT:
+                map.put(R.id.adapter_house_item_two_image, R.drawable.house);
+                map.put(R.id.adapter_house_item_two_top_mark, R.drawable.house_icons_1);
+                map.put(R.id.adapter_house_item_two_bottom, R.drawable.singler);
+                map.put(R.id.adapter_house_item_two_name, "精装黄金三楼通透两居室");
+                map.put(R.id.adapter_house_item_two_area, "[桥东区 亚龙花园]");
+                map.put(R.id.adapter_house_item_two_type, "2室2厅 95平米");
+                map.put(R.id.adapter_house_item_two_des, "高档社区");
+                map.put(R.id.adapter_house_item_two_des_two, "投资精选");
+                map.put(R.id.adapter_house_item_two_des_three, "交通便利");
+                map.put(R.id.adapter_house_item_two_des_four, "成熟商圈");
+                map.put(R.id.adapter_house_item_two_price, "2500/月");
+                for (int i = 0; i < 9; i++) {
+                    resultList.add(map);
+                }
+                break;
+            case LOOK_HOUSE:
+                map.put(R.id.community_list_name, "天然城");
+                map.put(R.id.community_list_sell_houses, "出售601套");
+                map.put(R.id.community_list_rent_houses, "出租27套");
+                map.put(R.id.community_list_area, "[桥东区] 祁连大街122号");
+                map.put(R.id.community_list_type, "7800/m²");
+                map.put(R.id.community_list_split_up_rate, "0.08%");
+                map.put(R.id.community_list_split_rate_up_image, R.drawable.house_up);
+                map.put(R.id.community_list_split_price, "2300/月");
+                map.put(R.id.community_list_split_down_rate, "0.02%");
+                map.put(R.id.community_list_split_rate_down_image, R.drawable.house_down);
+                for (int i = 0; i < 9; i++) {
+                    resultList.add(map);
+                }
+                break;
+
+        }
+        return resultList;
+    }
+
+
+    /**
+     * 主要使用来前期做测试用的
+     * <p/>
+     *
+     * @return
+     */
+    public static List<AdapterModel> getTestDataAdapterModel() {
+        AdapterModel model = new AdapterModel();
+        model.setAdapterImage(R.drawable.house);
+        model.setAdapterHouseName("怀特 翰墨儒林");
+        model.setAdapterHouseDistance("1.25KM");
+        model.setAdapterHouseAreaName("裕华区");
+        model.setAdapterHouseMoney("7200元/m");
+        model.setAdapterHouseAddress("育才街槐安路交口南街100米路西");
+        model.setAdapterHouseDes("减1000元/m  投资地产");
+        List<AdapterModel> adapterModelList = new ArrayList<AdapterModel>();
+
+        for (int i = 0; i < 22; i++) {
+            adapterModelList.add(model);
+        }
+        return adapterModelList;
+    }
+
+}

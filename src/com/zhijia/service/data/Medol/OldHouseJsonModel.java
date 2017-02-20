@@ -1,0 +1,129 @@
+package com.zhijia.service.data.Medol;
+
+import java.util.List;
+
+/**
+ * 二手房数据
+ */
+public class OldHouseJsonModel {
+
+    private String hid ;
+
+    private String communityname ;
+
+    private String  titlepic ;
+
+    private String title ;
+
+    private String area ;
+
+    private String price ;
+
+    private String renttype ;
+
+    private String usertype ;
+
+    private String tag ;
+
+    private List<String> tagtext ;
+
+    private String areaname ;
+
+    private String unit ;
+
+    public String getHid() {
+        return hid;
+    }
+
+    public void setHid(String hid) {
+        this.hid = hid;
+    }
+
+    public String getCommunityname() {
+        return communityname;
+    }
+
+    public void setCommunityname(String communityname) {
+        this.communityname = communityname;
+    }
+
+    public String getTitlepic() {
+        return titlepic;
+    }
+
+    public void setTitlepic(String titlepic) {
+        this.titlepic = titlepic;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getUsertype() {
+        return usertype;
+    }
+
+    public void setUsertype(String usertype) {
+        this.usertype = usertype;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public List<String> getTagtext() {
+        return tagtext;
+    }
+
+    public void setTagtext(List<String> tagtext) {
+        this.tagtext = tagtext;
+    }
+
+    public String getAreaname() {
+        return areaname;
+    }
+
+    public void setAreaname(String areaname) {
+        this.areaname = areaname;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public String getRenttype() {
+        return renttype;
+    }
+
+    public void setRenttype(String renttype) {
+        this.renttype = renttype;
+    }
+}

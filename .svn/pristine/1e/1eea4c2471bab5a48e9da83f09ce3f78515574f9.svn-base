@@ -1,0 +1,246 @@
+package com.zhijia.ui.message;
+
+import android.app.Activity;
+import android.content.Context;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.*;
+import com.google.common.base.Optional;
+import com.zhijia.Global;
+import com.zhijia.service.data.JsonResult;
+import com.zhijia.service.data.message.MessageConversationDetailModel;
+import com.zhijia.service.image.DownloadImageTask;
+import com.zhijia.service.network.HttpClientUtils;
+import com.zhijia.ui.R;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 用户对话列表
+ */
+public class MessageConversationDetailActivity extends Activity {
+
+    private static String MESSAGE_DETAIL_URL = Global.API_WEB_URL + "/message/view";
+
+    private static String SEND_MESSAGE_URL = Global.API_WEB_URL + "/message/send";
+
+    //点击事件的侦听
+    private ClickListener clickListener = new ClickListener();
+
+    private ListView messageListView;
+
+    private List<MessageConversationModel> conversationModelList;
+
+    private EditText message;
+
+    private String themeId, toUser = "";
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        themeId = getIntent().getStringExtra("themeId");
+
+        if (themeId == null || themeId.equalsIgnoreCase("")) {//不能为空
+            finish();
+        }
+
+        setContentView(R.layout.message_conversation_detail_list);
+        message = (EditText) MessageConversationDetailActivity.this.findViewById(R.id.message_content);
+
+        //注册事件侦听
+        findViewById(R.id.back).setOnClickListener(clickListener);
+        findViewById(R.id.send_message).setOnClickListener(clickListener);
+
+        GetMessageListAsyncTask getMessageListAsyncTask = new GetMessageListAsyncTask();
+        getMessageListAsyncTask.execute(themeId);
+    }
+
+    private void updateUI() {
+        ((TextView) findViewById(R.id.message_title)).setText(getResources().getText(R.string.with) + toUser + getResources().getText(R.string.conversation_history));
+        messageListView = (ListView) this.findViewById(R.id.message_list);
+        messageListView.setAdapter(new MessageListAdapter(getBaseContext(), conversationModelList));
+        //滚动到最下面
+        messageListView.setSelection(conversationModelList.size());
+    }
+
+    /**
+     * 获得信息
+     *
+     * @return
+     */
+    private Map<String, Object> getMessageInfo(String themeId) {
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+
+        if (!Global.USER_AUTH_STR.equals("")) {
+            HttpClientUtils httpClientUtils = HttpClientUtils.getInstance();
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("authstr", Global.USER_AUTH_STR);
+            map.put("themeid", themeId);
+            Optional<JsonResult<List<MessageConversationDetailModel>>> optional = httpClientUtils.getUnsignedListByData(MESSAGE_DETAIL_URL, map, MessageConversationDetailModel.class);
+            if (optional.isPresent()) {
+                resultMap.put("status", String.valueOf(optional.get().isStatus()));
+                resultMap.put("message", optional.get().getMessage());
+                resultMap.put("touser", optional.get().getTouser());
+                if (optional.get().getData() != null) {
+                    resultMap.put("messageDetailList", optional.get().getData());
+                }
+            }
+        }
+
+        return resultMap;
+    }
+
+    private Map<String, String> sendMessage() {
+        String messageStr = message.getText().toString();
+
+        Map<String, String> resultMap = new HashMap<String, String>();
+        HttpClientUtils httpClientUtils = HttpClientUtils.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("authstr", Global.USER_AUTH_STR);
+        map.put("info", messageStr);
+        map.put("touser", toUser);
+
+        Optional<Map<String, String>> optional = httpClientUtils.postSignedMap(SEND_MESSAGE_URL, map, String.class);
+        if (optional.isPresent()) {
+            resultMap.put("status", optional.get().get("status"));
+            resultMap.put("message", optional.get().get("message"));
+        }
+
+        return resultMap;
+    }
+
+    //点击事件的公共类
+    class ClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.back: //后退
+                    finish();
+                    break;
+                case R.id.send_message: //发送
+                    if (message.getText().length() < 2) {
+                        Toast.makeText(MessageConversationDetailActivity.this.getBaseContext(), R.string.less_than_message_min_length, Toast.LENGTH_SHORT).show();
+                        message.requestFocus();
+                        break;
+                    } else {
+                        SendMessageAsyncTask sendMessageAsyncTask = new SendMessageAsyncTask();
+                        sendMessageAsyncTask.execute();
+                        break;
+                    }
+            }
+        }
+    }
+
+    /**
+     * 全部消息的Adapter
+     */
+    private class MessageListAdapter extends BaseAdapter {
+        private LayoutInflater inflater;
+        private List<MessageConversationModel> list;
+
+        public MessageListAdapter(Context context, List<MessageConversationModel> list) {
+            this.inflater = LayoutInflater.from(context);
+            this.list = list;
+        }
+
+        @Override
+        public int getCount() {
+            return list.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return list.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            final ViewHolder holder = new ViewHolder();
+
+            if (list.get(position).isFromMe()) {
+                convertView = inflater.inflate(R.layout.message_conversation_detail_from_me_item, parent, false);
+            } else {
+                convertView = inflater.inflate(R.layout.message_conversation_detail_from_other_item, parent, false);
+            }
+
+            holder.userHead = (ImageView) convertView.findViewById(R.id.user_head);
+            holder.messageTime = (TextView) convertView.findViewById(R.id.message_time);
+            holder.messageContent = (TextView) convertView.findViewById(R.id.message_content);
+
+            new DownloadImageTask().doInBackground(list.get(position).getUrl(), holder.userHead, R.drawable.default_head);
+
+            holder.messageTime.setText(list.get(position).getTime());
+            holder.messageContent.setText(list.get(position).getContent());
+
+            holder.messageTime.setVisibility(View.VISIBLE);
+
+            return convertView;
+        }
+
+        private class ViewHolder {
+            ImageView userHead;
+            TextView messageTime;
+            TextView messageContent;
+        }
+    }
+
+    class GetMessageListAsyncTask extends AsyncTask<String, Void, Map<String, Object>> {
+        @Override
+        protected Map<String, Object> doInBackground(String... params) {
+            return getMessageInfo(params[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, Object> resultMap) {
+            super.onPostExecute(resultMap);
+            conversationModelList = new ArrayList<MessageConversationModel>();
+
+            if (resultMap.size() > 0 && resultMap.get("status").equals("true")) {//成功
+                MessageConversationDetailActivity.this.toUser = (String) resultMap.get("touser");
+
+                List<MessageConversationDetailModel> messageListModelList = (List<MessageConversationDetailModel>) resultMap.get("messageDetailList");
+                if (messageListModelList != null) {
+                    for (MessageConversationDetailModel model : messageListModelList) {
+                        conversationModelList.add(new MessageConversationModel(model.getAvatar(), model.getInfo(), model.getPostTime(), model.isOn()));
+                    }
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), (String) resultMap.get("message"), Toast.LENGTH_SHORT).show();
+            }
+
+            updateUI();
+        }
+    }
+
+    class SendMessageAsyncTask extends AsyncTask<Void, Void, Map<String, String>> {
+        @Override
+        protected Map<String, String> doInBackground(Void... params) {
+            return sendMessage();
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, String> resultMap) {
+            super.onPostExecute(resultMap);
+
+            if (resultMap.size() > 0 && resultMap.get("status").equalsIgnoreCase("true")) {//成功
+                conversationModelList.add(new MessageConversationModel(Global.USER_AVATAR, message.getText().toString(), Global.DEFAULT_DF.format(System.currentTimeMillis()), true));
+                messageListView.setAdapter(new MessageListAdapter(getBaseContext(), conversationModelList));
+                messageListView.setSelection(conversationModelList.size());
+                message.setText("");
+            } else {
+                Toast.makeText(getApplicationContext(), resultMap.get("message"), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+}

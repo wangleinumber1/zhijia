@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent"
+              android:orientation="horizontal"
+              android:background="@color/white">
+
+    <ListView
+			android:id="@+id/house_listView_popup"
+			android:divider="@color/split_line"
+			android:dividerHeight="1dp"
+			android:fadingEdge="none"
+			android:fillViewport="true"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+            android:cacheColorHint="#00000000"
+			android:background="@color/white"/>
+	<ImageView
+			android:id="@+id/comment_list_split_line_one"
+			android:layout_toLeftOf="@+id/comment_list_content_name_text_view"
+			android:layout_width="1px"
+			android:layout_height="match_parent"
+			android:layout_centerVertical="true"
+			android:background="@color/split_line"/>
+
+	<ListView
+			android:id="@+id/house_listView_subpopup"
+			android:divider="@color/split_line"
+			android:dividerHeight="1dp"
+			android:fadingEdge="none"
+			android:fillViewport="true"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:visibility="gone"
+            android:listSelector="@null"
+            android:cacheColorHint="@null"/>
+</LinearLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:paddingLeft="10dp"
+              android:paddingRight="10dp"
+              android:gravity="center_vertical"
+              android:background="@drawable/common_bg"
+              android:orientation="horizontal">
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:src="@drawable/time"/>
+
+    <TextView
+            android:id="@+id/news_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/default_font"
+            android:textSize="12sp"
+            android:text="2014-04-28"/>
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:padding="0dp"
+
+            android:src="@drawable/point_line_short"/>
+
+    <TextView
+            android:id="@+id/news_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/default_font"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="12sp"
+            android:text="台媒称台北买房难度超香港伦敦:要15年不吃不喝"/>
+</LinearLayout>

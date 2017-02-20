@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--9宫格-->
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/index_mid9"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/common_bg"
+        android:orientation="vertical">
+
+    <LinearLayout
+            android:id="@+id/index_mid9_line1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+        <ImageView
+                android:id="@+id/mid_icons_9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/mid_icons_9"/>
+        <ImageView
+                android:id="@+id/mid_icons_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/mid_icons_2"
+                android:visibility="invisible"/>
+        <ImageView
+                android:id="@+id/mid_icons_11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/mid_icons_3"
+                android:visibility="invisible"/>
+        <ImageView
+                android:id="@+id/mid_icons_12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/mid_icons_4"
+                android:visibility="invisible"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/index_mid9_line2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+        <ImageView
+                android:id="@+id/mid_icons_13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/mid_icons_5"
+                android:visibility="invisible"/>
+        <ImageView
+                android:id="@+id/mid_icons_14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/mid_icons_6"
+                android:visibility="invisible"/>
+        <ImageView
+                android:id="@+id/mid_icons_15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/mid_icons_7"
+                android:visibility="invisible"/>
+        <ImageView
+                android:id="@+id/mid_icons_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/mid_icons_8"
+                android:visibility="invisible"/>
+    </LinearLayout>
+
+</LinearLayout>

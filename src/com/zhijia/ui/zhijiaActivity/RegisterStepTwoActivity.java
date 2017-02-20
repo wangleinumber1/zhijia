@@ -1,0 +1,148 @@
+package com.zhijia.ui.zhijiaActivity;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.common.base.Optional;
+import com.zhijia.Global;
+import com.zhijia.service.network.HttpClientUtils;
+import com.zhijia.ui.R;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 注册第二步
+ */
+public class RegisterStepTwoActivity extends Activity {
+
+    private static final String REGISTER_URL = Global.API_WEB_URL + "/member/setregisterinfo";
+
+    private String mobile, authstr;
+
+    private TextView loginId, passwordTextView, passwordAgainTextView;
+
+
+    //点击事件的侦听
+    private ClickListener clickListener = new ClickListener();
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.register_step_two);
+        loginId = (TextView) findViewById(R.id.login_id);
+        passwordTextView = (TextView) findViewById(R.id.password);
+        passwordAgainTextView = (TextView) findViewById(R.id.password_again);
+
+        mobile = getIntent().getStringExtra("mobile");
+        authstr = getIntent().getStringExtra("authstr");
+
+        findViewById(R.id.back).setOnClickListener(clickListener);
+        findViewById(R.id.complete_register).setOnClickListener(clickListener);
+    }
+
+    /**
+     * 找回密码
+     *
+     * @return
+     */
+    private Map<String, String> register() {
+        Map<String, String> resultMap = new HashMap<String, String>();
+        HttpClientUtils httpClientUtils = HttpClientUtils.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("mobile", mobile);
+        map.put("authstr", authstr);
+        map.put("username", loginId.getText().toString());
+        map.put("userpass", passwordTextView.getText().toString());
+        map.put("confirmpassword", passwordAgainTextView.getText().toString());
+        Optional<Map<String, String>> optional = httpClientUtils.postSignedMap(REGISTER_URL, map, String.class);
+        if (optional.isPresent()) {
+            resultMap.put("status", optional.get().get("status"));
+            resultMap.put("message", optional.get().get("message"));
+        }
+
+        return resultMap;
+    }
+
+    class RegisterAsyncTask extends AsyncTask<Void, Void, Map<String, String>> {
+    	 private ProgressDialog mProgressBar;  
+	       
+    	 RegisterAsyncTask(Context context)  
+		    {  
+	         mProgressBar = new ProgressDialog(context);  
+		     mProgressBar.setCancelable(true);  
+		     mProgressBar.setIndeterminate(false);
+	         mProgressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);  
+		     mProgressBar.setMax(100);  
+		     }  
+
+		   @Override
+		protected void onPreExecute() {
+			mProgressBar.setProgress(0);
+			mProgressBar.setMessage("正在注册...");
+			mProgressBar.show();
+		}
+        @Override
+        protected Map<String, String> doInBackground(Void... params) {
+            return register();
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, String> resultMap) {
+            super.onPostExecute(resultMap);
+
+            if (resultMap.size() > 0 && resultMap.get("status").equalsIgnoreCase("true")) {//成功
+            	mProgressBar.dismiss();
+                Toast.makeText(RegisterStepTwoActivity.this, getResources().getString(R.string.register_success), Toast.LENGTH_SHORT).show();
+                finish();
+            } else {
+            	mProgressBar.dismiss();
+                Toast.makeText(RegisterStepTwoActivity.this, resultMap.get("message"), Toast.LENGTH_SHORT).show();
+            }
+
+            findViewById(R.id.complete_register).setClickable(true);
+        }
+    }
+
+    //点击事件的公共类
+    class ClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.back: //后退
+                    finish();
+                    break;
+                case R.id.complete_register://注册
+                	String loginid=loginId.getText().toString();
+                    String password = passwordTextView.getText().toString();
+                    String passwordAgain = passwordAgainTextView.getText().toString();
+                    if (!password.equals(passwordAgain) && loginid.equals("") && loginid.equals("")) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterStepTwoActivity.this);
+                        builder.setMessage(view.getResources().getString(R.string.password_not_equal));
+                        builder.setTitle(view.getResources().getString(R.string.prompt));
+                        builder.setPositiveButton(view.getResources().getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                passwordTextView.setText("");
+                                passwordAgainTextView.setText("");
+                            }
+                        });
+                        builder.create().show();
+                    } else {
+                        RegisterAsyncTask registerAsyncTask = new RegisterAsyncTask(RegisterStepTwoActivity.this);
+                        registerAsyncTask.execute();
+                        findViewById(R.id.complete_register).setClickable(false);
+                    }
+                    break;
+            }
+        }
+    }
+}

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/message_index"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical">
+    <!--头部-->
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/head_bg"
+            android:orientation="horizontal">
+
+        <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+            <ImageView
+                    android:id="@+id/message_index_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/back"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:text="@string/my_message"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical">
+
+            <TextView
+                    android:id="@+id/write_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:gravity="center|center_vertical"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/white"
+                    android:background="@drawable/top_menu_button"
+                    android:text="@string/write_message"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/dark_bg">
+
+        <TextView
+                android:id="@+id/short_message"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:gravity="center|center_vertical"
+                android:background="@color/common_bg"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="@string/short_message"/>
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/v_split"/>I
+
+        <TextView
+                android:id="@+id/system_notification"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:gravity="center|center_vertical"
+                android:background="@color/common_bg"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="@string/system_notification"/>
+    </LinearLayout>-->
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/dark_bg">
+
+        <TextView
+                android:id="@+id/all_message_desc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="15dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginTop="1px"
+                android:gravity="left|center_vertical"
+                android:background="@color/common_bg"
+                android:textColor="@color/font_desc"/>
+    </LinearLayout>
+
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+
+        <com.zhijia.ui.common.CommonSwipeListView
+                xmlns:swipe="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/message_list"
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fadingEdge="none"
+                android:choiceMode="none"
+                swipe:swipeBackView="@+id/message_operator"
+                swipe:swipeOpenOnLongPress="false"
+                swipe:swipeCloseAllItemsWhenMoveList="true"
+                swipe:swipeFrontView="@+id/message_item"
+                swipe:swipeMode="left"/>
+
+        <RelativeLayout
+                android:id="@+id/message_index_relative"
+                android:visibility="gone"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+            <com.zhijia.ui.gif.CustomGifView
+                    android:id="@+id/message_index_image"
+                    android:src="@drawable/animation"
+                    android:layout_width="150px"
+                    android:layout_height="150px"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+
+                    />
+            <TextView
+                    android:id="@+id/message_index_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="20dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/loading_content"
+                    android:layout_toRightOf="@+id/house_list_wait_load_image"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

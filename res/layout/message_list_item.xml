@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@drawable/common_bg">
+
+    <LinearLayout
+            android:id="@+id/message_operator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/split_line"
+            android:gravity="center|right">
+
+        <Button
+                android:id="@+id/remove_message"
+                android:layout_width="@dimen/swipe_delete_button_width"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@color/high_light_font"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:text="@string/delete">
+        </Button>
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/message_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+        <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|center_vertical"
+                android:layout_gravity="center_vertical">
+
+            <ImageView
+                    android:id="@+id/message_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:layout_marginRight="5dp"
+                    android:layout_alignParentLeft="true"/>
+
+            <TextView
+                    android:id="@+id/message_new_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignRight="@+id/message_image"
+                    android:gravity="center"
+                    android:background="@drawable/mail_size"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:text="@string/mail_size"/>
+        </RelativeLayout>
+
+        <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:orientation="vertical">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:id="@+id/message_title"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:gravity="left|center_vertical"
+                        android:textSize="16sp"
+                        android:singleLine="true"
+                        android:textColor="@color/default_font"/>
+
+                <TextView
+                        android:id="@+id/message_time"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:gravity="right|center_vertical"
+                        android:layout_marginRight="5dp"
+                        android:textSize="14sp"
+                        android:textColor="@color/font_desc"/>
+            </LinearLayout>
+
+            <TextView
+                    android:id="@+id/message_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="left"
+                    android:textSize="16sp"
+                    android:singleLine="true"
+                    android:textColor="@color/font_desc"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

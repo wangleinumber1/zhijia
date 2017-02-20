@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:background="@drawable/common_bg">
+
+
+	<RelativeLayout
+			android:id="@+id/comment_reply_item_item_relative_layout"
+			android:layout_marginTop="20dp"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+
+		<ImageView
+				android:id="@+id/comment_reply_item_item_image_view"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="20dp"
+				android:src="@drawable/user_head_default"/>
+
+		<TextView
+				android:id="@+id/comment_reply_item_item_user_type"
+				android:layout_toRightOf="@+id/comment_reply_item_item_image_view"
+				android:layout_centerVertical="true"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textColor="@color/black"
+				android:layout_marginLeft="10dp"
+				android:text="游客"/>
+
+
+		<TextView
+				android:id="@+id/comment_reply_item_item_time"
+				android:layout_toRightOf="@+id/comment_reply_item_item_user_type"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_centerVertical="true"
+				android:layout_marginRight="10dp"
+				android:gravity="right"
+				android:layout_marginLeft="10dp"
+				android:text="2013-03-13"/>
+	</RelativeLayout>
+
+	<RelativeLayout
+			android:id="@+id/comment_reply_item_item_content_relative_layout"
+			android:layout_below="@+id/comment_reply_item_item_relative_layout"
+			android:layout_width="match_parent"
+			android:gravity="center"
+			android:layout_height="wrap_content">
+		<TextView
+				android:id="@+id/comment_reply_item_item_content_text_view"
+				android:layout_centerVertical="true"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textColor="@color/black"
+				android:layout_marginLeft="10dp"
+				android:singleLine="true"
+				android:ellipsize="end"
+				android:text="附近没有公交站，出行有点不方便"/>
+	</RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,11 @@
+package com.zhijia.service.data.condition.decorate;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.zhijia.service.data.condition.CommonJsonModel;
+
+/**
+ * 装修情况的JSON
+ */
+@JsonAutoDetect(fieldVisibility=JsonAutoDetect.Visibility.ANY)
+public class DecorateJsonModel extends CommonJsonModel{
+}

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		android:background="@drawable/common_bg">
+
+	<RelativeLayout
+			android:id="@+id/new_house_album_details_list_wait_load_relative"
+			android:gravity="center|center_vertical"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="@drawable/common_bg">
+		<com.zhijia.ui.view.CustomGifView
+				android:id="@+id/new_house_list_wait_load__image"
+				android:src="@drawable/animation"
+				android:gravity="center_vertical"
+				android:layout_width="150px"
+				android:layout_height="150px"/>
+
+		<TextView
+				android:id="@+id/new_house_album_details_list_wait_load__content"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_margin="20dp"
+				android:gravity="center_vertical"
+				android:layout_toRightOf="@+id/new_house_list_wait_load__image"
+				android:text="@string/loading_content"/>
+
+	</RelativeLayout>
+
+	<LinearLayout
+			android:id="@+id/new_house_album_details_linear_layout"
+			android:visibility="gone"
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+
+		<include android:id="@+id/new_house_album_head" layout="@layout/details_head"/>
+
+		<android.support.v4.view.ViewPager
+				android:id="@+id/new_house_album_details_view_page"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"/>
+
+	</LinearLayout>
+</LinearLayout>

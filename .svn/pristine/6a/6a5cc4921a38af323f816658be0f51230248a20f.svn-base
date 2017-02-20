@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.zhijia.ui"
+    android:versionCode="3"
+    android:versionName="1.2" xmlns:android="http://schemas.android.com/apk/res/android">
+     <uses-sdk android:minSdkVersion="10" />
+     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />  
+	 <uses-permission android:name="android.permission.BLUETOOTH" />
+	 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>  
+	 <uses-permission  android:name="android.permission.WRITE_SETTINGS"/>  
+    <application
+        android:name="com.zhijia.Global"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" >
+        </service>
+
+        <!-- <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="OynW2G4OIZFUPKOdekbvoSEd" />  -->
+
+        <!-- 在百度开发者中心查询应用的API Key -->
+        <!-- OIvfOl6ZeEt0EwUD4qFGtozY -->
+        <meta-data
+            android:name="api_key"
+            android:value="ZLR471AAFcgt5TnkRrTW6Sl8" />
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="ZLR471AAFcgt5TnkRrTW6Sl8" /> 
+        <activity
+            android:name=".SplashActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTask"
+            android:hardwareAccelerated="true" 
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".list.newhouse.NewHouseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".list.newhouse.NewHouseMapActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".list.newhouse.NewHouseDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".list.newhouse.NewHouseAlbumActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".list.newhouse.NewHouseAlbumDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".list.newhouse.NewHouseDynamicActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".list.newhouse.NewHouseDynamicDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".list.newhouse.ImpressionListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".list.newhouse.WendaListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".list.newhouse.CommentListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <activity
+            android:name=".list.newhouse.CommentReplyActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <activity
+            android:name=".list.oldhouse.OldHouseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".list.oldhouse.OldHouseMapActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".list.oldhouse.OldHouseAreaDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".list.oldhouse.OldCommunityListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".list.renthouse.RentHouseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".list.renthouse.RentHouseMapActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".list.renthouse.RentHouseDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".list.renthouse.RentCommunityListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".list.houseprivilege.HouseCommonListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".list.oldhouse.OldHouseDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".list.lookhouse.LookHouseActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <activity
+            android:name=".calculator.CalculatorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".calculator.CalculatorCapacityActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".calculator.CalculatorLoanActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".calculator.CalculatorFundsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".calculator.CalculatorBeforeLoanActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".calculator.CalculatorTaxActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".news.NewsListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".selectcity.SelectCityActivity"
+            android:screenOrientation="portrait"
+            android:hardwareAccelerated="true" 
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <activity
+            android:name=".message.MessageIndexActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".message.MessageEditActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".message.SystemMessageDetailListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".message.MessageNewsListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".message.MessageConversationDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <activity
+            android:name=".more.FeedbackActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".authentication.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".authentication.RegisterStepOneActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".authentication.RegisterStepTwoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".authentication.FindPasswordStepOneActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".authentication.FindPasswordStepTwoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".more.AboutUSActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".more.DisclaimerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".news.NewsDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".list.houseprivilege.GetPrivilegeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".commission.EarnCommissionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".commission.RecommendedBuyHouseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".list.community.CommunityMapActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".list.community.CommunityListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".list.community.CommunityAlbumDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".group.CondoTourListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <activity
+            android:name=".group.CondoTourMustKnowActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".group.CondoTourApplyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".group.CondoTourDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.MyInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".authentication.AuthenticationMobileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.MyAttentionCommunityActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.MyBrowseNewHouseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.MyBrowseOldHouseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.MyBrowseRentHouseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.MyOrderWatchOldHouseRecordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.MyOrderWatchRentHouseRecordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.MyBrowseCommunityActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.MyFavoritesOldHouseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.MyFavoritesRentHouseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.MyAttentionNewHouseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.MyCommissionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".authentication.CertificationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".authentication.ValidationBankCardActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.MyAlreadyEarnCommissionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".authentication.CertificationInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.MyAlreadyRecommendBuyerListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.MyCustomerProgressDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".calculator.CalculatorTaxResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".calculator.CalculatorFundsResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".calculator.CalculatorCapacityResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".calculator.CalculatorBeforeLoanResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".calculator.CalculatorLoanResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".tabwidget.IndexFrame_one"
+            android:hardwareAccelerated="true" 
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.baidu.push.example.CustomActivity"
+            android:launchMode="singleTask"
+            android:configChanges="orientation|keyboardHidden" >
+        </activity>
+        <!-- push应用定义消息receiver声明 -->
+        <receiver android:name="com.zhijia.baiduyun.MyPushMessageReceiver">
+            <intent-filter>
+                <!-- 接收push消息 -->
+                <action android:name="com.baidu.android.pushservice.action.MESSAGE" />
+                <!-- 接收bind,unbind,fetch,delete等反馈消息 -->
+                <action android:name="com.baidu.android.pushservice.action.RECEIVE" />
+                <action android:name="com.baidu.android.pushservice.action.notification.CLICK" />
+            </intent-filter>
+        </receiver>       
+        <!-- push必须的receviver和service声明 -->
+        <receiver android:name="com.baidu.android.pushservice.PushServiceReceiver"
+            android:process=":bdservice_v1">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="com.baidu.android.pushservice.action.notification.SHOW" />
+                <action android:name="com.baidu.android.pushservice.action.media.CLICK" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.baidu.android.pushservice.RegistrationReceiver"
+            android:process=":bdservice_v1">
+            <intent-filter>
+                <action android:name="com.baidu.android.pushservice.action.METHOD" />
+                <action android:name="com.baidu.android.pushservice.action.BIND_SYNC" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+                <data android:scheme="package" />
+            </intent-filter>                   
+        </receiver>
+        <service
+            android:name="com.baidu.android.pushservice.PushService"
+            android:exported="true"
+            android:process=":bdservice_v1"  >
+            <intent-filter>
+                <action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE" />
+            </intent-filter>
+        </service>
+        <!-- push结束 -->
+    </application>
+    
+
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    <!-- 更多上的客服热线使用 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!-- 新闻加载URL使用 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 照相 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <!-- 百度地图定位API使用的权限 Begin -->
+    <!-- 这个权限用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 用于访问wifi网络信息,wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 这个权限用于获取wifi的获取权限,wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 访问网络，网络定位需要上网 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- SD卡读取权限，用户写入离线定位数据 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!-- 允许应用读取低级别的系统日志文件 -->
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <!-- 百度地图API使用的权限 End -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <!-- 百度地图图层使用权限 Begin -->
+    <!-- 使用网络功能所需权限 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- SDK离线地图和cache功能需要读写外部存储器 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <!-- 获取设置信息和详情页直接拨打电话需要以下权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!-- 百度地图图层使用权限 End -->
+    <!-- 其他权限往下继续加 -->
+    <!-- Push service 运行需要的权限 -->
+     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+     <uses-permission android:name="android.permission.VIBRATE" />
+     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+     <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
+     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+</manifest>

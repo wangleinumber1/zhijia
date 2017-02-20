@@ -1,0 +1,200 @@
+package com.zhijia.ui.zhijiaActivity;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+import com.google.common.base.Optional;
+import com.zhijia.Global;
+import com.zhijia.service.network.HttpClientUtils;
+import com.zhijia.ui.R;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 实名认证页
+ */
+public class CertificationActivity extends Activity {
+
+    private static String UPLOAD_URL = Global.API_WEB_URL + "/member/uploadid";
+
+    private static String POST_DATA_URL = Global.API_WEB_URL + "/member/truename";
+
+    private static String TMP_FILE_PATH = Global.DB_PATH + "/tempIdCard.jpg";
+    private static int CAPTURE_CODE = 200;
+    //点击事件的侦听
+    private ClickListener clickListener = new ClickListener();
+    private TextView realNameTextView, identityCardTextView;
+    private ImageView idCardImageView;
+    private Bitmap idCardBitmap = null;
+
+    //上传后返回的地址
+    private String idCardUploadURLResult = null;
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.certification);
+
+        realNameTextView = (TextView) findViewById(R.id.real_name);
+        identityCardTextView = (TextView) findViewById(R.id.identity_card);
+
+        idCardImageView = (ImageView) findViewById(R.id.id_card_image);
+
+        findViewById(R.id.back).setOnClickListener(clickListener);
+        findViewById(R.id.submit).setOnClickListener(clickListener);
+        findViewById(R.id.upload).setOnClickListener(clickListener);
+        idCardImageView.setOnClickListener(clickListener);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != RESULT_OK) {
+            return;
+        } else if (requestCode == CAPTURE_CODE && resultCode == RESULT_OK) {
+            Bundle bundle = data.getExtras();
+            if (bundle != null) {
+                idCardBitmap = (Bitmap) bundle.get("data");
+                idCardImageView.setImageBitmap(idCardBitmap);
+                Bitmap2File(idCardBitmap);
+            }
+        }
+
+    }
+
+    private void Bitmap2File(Bitmap bitmap) {
+        FileOutputStream fileOutputStream = null;
+        try {
+            fileOutputStream = new FileOutputStream(TMP_FILE_PATH);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (fileOutputStream != null) {
+                try {
+                    fileOutputStream.flush();
+                    fileOutputStream.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private Map<String, String> uploadIdCard() {
+        Map<String, String> resultMap = new HashMap<String, String>();
+        HttpClientUtils httpClientUtils = HttpClientUtils.getInstance();
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("authstr", Global.USER_AUTH_STR);
+        map.put("upload", new File(TMP_FILE_PATH));
+        Optional<Map<String, String>> optional = httpClientUtils.postFileSignedMap(UPLOAD_URL, map, String.class);
+        if (optional.isPresent()) {
+            resultMap.put("status", optional.get().get("status"));
+            resultMap.put("message", optional.get().get("message"));
+            resultMap.put("url", optional.get().get("url"));
+        }
+
+        return resultMap;
+    }
+
+    private Map<String, String> updateUserInfo() {
+        Map<String, String> resultMap = new HashMap<String, String>();
+        HttpClientUtils httpClientUtils = HttpClientUtils.getInstance();
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("authstr", Global.USER_AUTH_STR);
+        map.put("cityid", Global.NOW_CITY_ID);
+        map.put("truename", realNameTextView.getText().toString());
+        map.put("identity_num", identityCardTextView.getText().toString());
+        map.put("card_url", idCardUploadURLResult);
+        Optional<Map<String, String>> optional = httpClientUtils.postFileSignedMap(POST_DATA_URL, map, String.class);
+        if (optional.isPresent()) {
+            resultMap.put("status", optional.get().get("status"));
+            resultMap.put("message", optional.get().get("message"));
+            resultMap.put("url", optional.get().get("url"));
+        }
+
+        return resultMap;
+    }
+
+    //点击事件的公共类
+    class ClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.back: //后退
+                    finish();
+                    break;
+                case R.id.submit: //提交
+                    if (idCardUploadURLResult != null && !realNameTextView.getText().toString().trim().equalsIgnoreCase("") && !identityCardTextView.getText().toString().trim().equals("")) {
+                        UpdateUserInfoAsyncTask updateUserInfoAsyncTask = new UpdateUserInfoAsyncTask();
+                        updateUserInfoAsyncTask.execute();
+                        findViewById(R.id.submit).setClickable(false);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "信息填写不完整或没有上传照片", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                case R.id.id_card_image://照相
+                    Intent takePhotoIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(takePhotoIntent, CAPTURE_CODE);
+                    break;
+                case R.id.upload://上传照片
+                    if (idCardBitmap != null) {
+                        UploadIdCardAsyncTask uploadIdCardAsyncTask = new UploadIdCardAsyncTask();
+                        uploadIdCardAsyncTask.execute();
+                        findViewById(R.id.upload).setClickable(false);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "点击上面图片选择照片", Toast.LENGTH_SHORT).show();
+                    }
+            }
+        }
+    }
+
+    class UploadIdCardAsyncTask extends AsyncTask<Void, Void, Map<String, String>> {
+        @Override
+        protected Map<String, String> doInBackground(Void... params) {
+            return uploadIdCard();
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, String> resultMap) {
+            super.onPostExecute(resultMap);
+
+            if (resultMap.size() > 0 && resultMap.get("status").equalsIgnoreCase("true")) {//成功
+                Toast.makeText(getApplicationContext(), resultMap.get("message"), Toast.LENGTH_SHORT).show();
+                idCardUploadURLResult = resultMap.get("url");
+            } else {
+                Toast.makeText(getApplicationContext(), resultMap.get("message"), Toast.LENGTH_SHORT).show();
+            }
+
+            findViewById(R.id.upload).setClickable(true);
+        }
+    }
+
+    class UpdateUserInfoAsyncTask extends AsyncTask<Void, Void, Map<String, String>> {
+        @Override
+        protected Map<String, String> doInBackground(Void... params) {
+            return updateUserInfo();
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, String> resultMap) {
+            super.onPostExecute(resultMap);
+
+            if (resultMap.size() > 0 && resultMap.get("status").equalsIgnoreCase("true")) {//成功
+                Toast.makeText(getApplicationContext(), resultMap.get("message"), Toast.LENGTH_SHORT).show();
+                finish();
+            } else {
+                Toast.makeText(getApplicationContext(), resultMap.get("message"), Toast.LENGTH_SHORT).show();
+            }
+
+            findViewById(R.id.submit).setClickable(true);
+        }
+    }
+}

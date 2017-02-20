@@ -1,0 +1,305 @@
+package com.zhijia.ui.my;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.*;
+import com.google.common.base.Optional;
+import com.zhijia.Global;
+import com.zhijia.service.data.JsonResult;
+import com.zhijia.service.data.my.AttentionNewHouseModel;
+import com.zhijia.service.data.news.NewsItemModel;
+import com.zhijia.service.image.DownloadImageTask;
+import com.zhijia.service.network.HttpClientUtils;
+import com.zhijia.ui.R;
+import com.zhijia.ui.list.newhouse.NewHouseDetailsActivity;
+import com.zhijia.ui.news.NewsDetailActivity;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 我关注的新房列表
+ */
+public class MyAttentionNewHouseActivity extends Activity {
+
+    private static String LIST_URL = Global.API_WEB_URL + "/member/attentionxfList";
+    private static String CANCEL_ATTENTION_URL = Global.API_WEB_URL + "/xinfang/attention";
+
+    //点击事件的侦听
+    private ClickListener clickListener = new ClickListener();
+
+    private View loadingView;
+
+    //列表
+    private ListView listView;
+
+    private View noDataView;
+
+    //可见视图最后的一个索引
+    private int visibleLastIndex = 0, currentPage = 1;
+    //当前窗口可见项总数
+    private int visibleItemCount;
+    private List<AttentionNewHouseModel> dataList = new ArrayList<AttentionNewHouseModel>();
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.my_common_house_list);
+        ((TextView) findViewById(R.id.title)).setText(getString(R.string.my_attention_new_house));
+        loadingView = findViewById(R.id.loading_relative);
+        noDataView = findViewById(R.id.no_date_tip);
+        listView = (ListView) findViewById(R.id.my_common_house_list);
+        listView.setOnScrollListener(new OnScrollListener());
+
+        //注册事件绑定
+        findViewById(R.id.back).setOnClickListener(clickListener);
+
+        ListPageAsyncTask listPageAsyncTask = new ListPageAsyncTask();
+        listPageAsyncTask.execute(String.valueOf(currentPage));
+    }
+
+    /**
+     * 更新总条数显示
+     */
+    private void updateTotalCountUI(int totalCount) {
+        ((TextView) findViewById(R.id.total_count_desc)).setText(String.format(getString(R.string.total_attention_new_house_count), String.valueOf(totalCount)));
+    }
+
+    //点击事件的公共类
+    class ClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.back: //后退
+                    finish();
+                    break;
+            }
+        }
+    }
+
+    /**
+     * 资讯消息的Adapter
+     */
+    private class HouseListAdapter extends BaseAdapter {
+        private LayoutInflater inflater;
+        private List<AttentionNewHouseModel> list;
+
+        public HouseListAdapter(Context context, List<AttentionNewHouseModel> list) {
+            this.inflater = LayoutInflater.from(context);
+            this.list = list;
+        }
+
+        @Override
+        public int getCount() {
+            return list.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return list.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            final ViewHolder holder;
+            if (convertView == null) {
+                convertView = inflater.inflate(R.layout.my_attention_new_house_list_item, parent, false);
+                holder = new ViewHolder();
+                holder.adapterHouseImageOne = (ImageView) convertView.findViewById(R.id.adapter_house_image_one);
+                holder.adapterHouseContentOne = (TextView) convertView.findViewById(R.id.adapter_house_content_one);
+                holder.adapterHouseContentTwo = (TextView) convertView.findViewById(R.id.adapter_house_content_two);
+                holder.adapterHouseContentThree = (TextView) convertView.findViewById(R.id.adapter_house_content_three);
+                holder.adapterHouseContentFour = (TextView) convertView.findViewById(R.id.adapter_house_content_four);
+                holder.itemAction = (TextView) convertView.findViewById(R.id.item_action);
+                holder.relatedNewsList = (LinearLayout) convertView.findViewById(R.id.related_news_list);
+
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+
+            final AttentionNewHouseModel obj = list.get(position);
+
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent newHouseDetails = new Intent(getApplicationContext(), NewHouseDetailsActivity.class);
+                    newHouseDetails.putExtra("hid", obj.getId());
+                    startActivity(newHouseDetails);
+                }
+            });
+
+            new DownloadImageTask().doInBackground(obj.getTitlepic(), holder.adapterHouseImageOne, R.drawable.house);
+            holder.adapterHouseImageOne.setScaleType(ImageView.ScaleType.FIT_XY);
+            holder.adapterHouseContentOne.setText(obj.getName());
+            holder.adapterHouseContentTwo.setText(obj.getAverageprice());
+            holder.adapterHouseContentThree.setText(obj.getPlace());
+            holder.adapterHouseContentFour.setText(obj.getAddress());
+            //不RemoveAll来回滚动会出现重复现象
+            holder.relatedNewsList.removeAllViews();
+            if (obj.getNews() != null && obj.getNews().size() > 0) {
+                for (final NewsItemModel news : obj.getNews()) {
+                    View newsLayout = inflater.inflate(R.layout.my_attention_new_house_related_news_list_item, parent, false);
+                    ((TextView) newsLayout.findViewById(R.id.news_time)).setText(news.getPublished());
+                    ((TextView) newsLayout.findViewById(R.id.news_title)).setText(news.getTitle());
+
+                    newsLayout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent newsDetailIntent = new Intent(getApplicationContext(), NewsDetailActivity.class);
+                            newsDetailIntent.putExtra("newsTypeName", "相关资讯");
+                            newsDetailIntent.putExtra("url", news.getUrl());
+                            startActivity(newsDetailIntent);
+                        }
+                    });
+
+                    holder.relatedNewsList.addView(newsLayout);
+                }
+            }
+
+            holder.itemAction.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CancelAsyncTask cancelAsyncTask = new CancelAsyncTask();
+                    cancelAsyncTask.execute(obj.getId(), String.valueOf(position));
+                }
+            });
+
+            return convertView;
+        }
+
+        private class ViewHolder {
+            ImageView adapterHouseImageOne;
+            TextView adapterHouseContentOne;
+            TextView adapterHouseContentTwo;
+            TextView adapterHouseContentThree;
+            TextView adapterHouseContentFour;
+            TextView itemAction;
+            LinearLayout relatedNewsList;
+        }
+    }
+
+    class CancelAsyncTask extends AsyncTask<String, Void, Map<String, String>> {
+
+        private String id, position;
+
+        @Override
+        protected Map<String, String> doInBackground(String... params) {
+            id = params[0];
+            position = params[1];
+
+            Map<String, String> resultMap = new HashMap<String, String>();
+            HttpClientUtils httpClientUtils = HttpClientUtils.getInstance();
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("authstr", Global.USER_AUTH_STR);
+            map.put("cityid", Global.NOW_CITY_ID);
+            map.put("id", id);
+            Optional<Map<String, String>> optional = httpClientUtils.getUnsignedMap(CANCEL_ATTENTION_URL, map, String.class);
+            if (optional.isPresent()) {
+                resultMap.put("status", optional.get().get("status"));
+                resultMap.put("message", optional.get().get("message"));
+                resultMap.put("position", position);
+            }
+
+            return resultMap;
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, String> resultMap) {
+            super.onPostExecute(resultMap);
+
+            if (resultMap.size() > 0 && resultMap.get("status").equalsIgnoreCase("true")) {
+                Toast.makeText(getApplicationContext(), resultMap.get("message"), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), resultMap.get("message"), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public class OnScrollListener implements AbsListView.OnScrollListener {
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            int itemsLastIndex = listView.getAdapter().getCount() - 1;    //数据集最后一项的索引
+            Log.d("itemsLastIndex", "itemsLastIndex===" + itemsLastIndex);
+            //加上header和footer view的数量。
+            int lastIndex = itemsLastIndex + ((ListView) view).getHeaderViewsCount() + ((ListView) view).getFooterViewsCount();
+            Log.d("meessage-> lastIndex", lastIndex + ": visibleLastIndex==" + visibleLastIndex);
+            if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && visibleLastIndex == lastIndex) {
+
+                loadingView.setVisibility(View.VISIBLE);
+                Log.d("footerView", "footerView end");
+                ListPageAsyncTask listPageAsyncTask = new ListPageAsyncTask();
+                listPageAsyncTask.execute(String.valueOf(currentPage));
+            } else {
+                loadingView.setVisibility(View.GONE);
+            }
+
+        }
+
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem, int _visibleItemCount, int totalItemCount) {
+            visibleItemCount = _visibleItemCount;
+            visibleLastIndex = firstVisibleItem + visibleItemCount - 1;
+        }
+    }
+
+    class ListPageAsyncTask extends AsyncTask<String, Void, JsonResult<List<AttentionNewHouseModel>>> {
+        private String page;
+
+        @Override
+        protected JsonResult<List<AttentionNewHouseModel>> doInBackground(String... params) {
+            page = params[0];
+            if (!Global.USER_AUTH_STR.equals("")) {
+                HttpClientUtils httpClientUtils = HttpClientUtils.getInstance();
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("cityid", Global.NOW_CITY_ID);
+                map.put("authstr", Global.USER_AUTH_STR);
+                map.put("page", page.toString());
+                Optional<JsonResult<List<AttentionNewHouseModel>>> optional = httpClientUtils.getUnsignedListByData(LIST_URL, map, AttentionNewHouseModel.class);
+                if (optional.isPresent() && optional.get().getData() != null && optional.get().getData().size() > 0) {
+                    currentPage++;
+                    return optional.get();
+                } else {
+                    return null;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JsonResult<List<AttentionNewHouseModel>> listJsonResult) {
+            loadingView.setVisibility(View.GONE);
+            if (listJsonResult != null && String.valueOf(listJsonResult.isStatus()).equalsIgnoreCase("true")) {//成功
+                if (Integer.parseInt(listJsonResult.getTotal()) > 0 && listJsonResult.getData() != null) {
+                    List<AttentionNewHouseModel> tempList = listJsonResult.getData();
+                    dataList.addAll(tempList);
+                    listView.setAdapter(new HouseListAdapter(getApplicationContext(), dataList));//数据集变化后,通知adapter
+                    listView.setSelection(visibleLastIndex - visibleItemCount + 1); //设置选中项
+                    updateTotalCountUI(dataList.size());
+                } else {
+                    listView.setVisibility(View.GONE);
+                    noDataView.setVisibility(View.VISIBLE);
+                    updateTotalCountUI(dataList.size());
+                }
+            } else if (page.equalsIgnoreCase("1")) {
+                listView.setVisibility(View.GONE);
+                noDataView.setVisibility(View.VISIBLE);
+                updateTotalCountUI(0);
+            }
+        }
+    }
+}

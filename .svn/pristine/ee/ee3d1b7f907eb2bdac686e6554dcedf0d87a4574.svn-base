@@ -1,0 +1,7 @@
+## This file must *NOT* be checked into Version Control Systems,
+# as it contains information specific to your local configuration.
+#
+# Location of the SDK. This is only used by Gradle.
+#
+#Tue Jul 15 08:48:36 CST 2014
+sdk.dir=C\:\\Users\\Administrator\\AppData\\Local\\Android\\android-studio\\sdk

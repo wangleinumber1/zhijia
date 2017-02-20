@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/common_bg"
+    android:orientation="vertical" >
+
+    <!-- 城市定位 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/common_bg"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:gravity="left|center_vertical"
+            android:text="@string/gps_city"
+            android:textColor="@color/font_dark"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/city_dark_bg"
+            android:orientation="horizontal"
+            android:padding="5dp" >
+
+            <TextView
+                android:id="@+id/gps_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="8dp"
+                android:background="@drawable/button_city"
+                android:gravity="center|center_vertical"
+                android:text="@string/gpsing"
+                android:textColor="@color/default_font"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/gps_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_city"
+                android:gravity="center|center_vertical"
+                android:text="重新加载"
+                android:textColor="@color/default_font"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+    <!-- 城市定位 -->
+    <!-- 热门城市 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/common_bg"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:gravity="left|center_vertical"
+            android:text="@string/hot_city"
+            android:textColor="@color/font_dark"
+            android:textSize="16sp" />
+
+        <GridView
+            android:id="@+id/hot_city_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/city_dark_bg"
+            android:gravity="center|center_vertical"
+            android:horizontalSpacing="5dp"
+            android:numColumns="3"
+            android:padding="5dp"
+            android:verticalSpacing="5dp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:gravity="left|center_vertical"
+        android:text="@string/all_city"
+        android:textColor="@color/font_dark"
+        android:textSize="16sp" />
+
+</LinearLayout>

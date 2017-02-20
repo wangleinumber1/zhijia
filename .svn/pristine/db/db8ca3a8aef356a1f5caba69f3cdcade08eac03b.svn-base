@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/common_bg">
+
+
+    <RelativeLayout
+            android:id="@+id/impression_list_wait_load_relative"
+            android:gravity="center|center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/common_bg">
+        <com.zhijia.ui.gif.CustomGifView
+                android:id="@+id/impression_list_wait_load__image"
+                android:src="@drawable/animation"
+                android:gravity="center_vertical"
+                android:layout_width="150px"
+                android:layout_height="150px"/>
+
+        <TextView
+                android:id="@+id/impression_list_wait_load__content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="center_vertical"
+                android:layout_toRightOf="@+id/impression_list_wait_load__image"
+                android:text="@string/loading_content"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/impression_list_relative_layout"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/common_bg">
+        <include android:id="@+id/impression_list_head" layout="@layout/details_head"/>
+
+        <TextView
+                android:id="@+id/impression_list_count_text_view"
+                android:layout_below="@+id/impression_list_head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="共有10个楼盘印象"/>
+
+        <LinearLayout
+                android:id="@+id/impression_list_content_linear_layout"
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:id="@+id/impression_list_content_name_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="我要添加印象"/>
+                <ImageView
+                        android:id="@+id/impression_list_split_line_one"
+                        android:layout_toLeftOf="@+id/impression_list_content_name_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_centerVertical="true"
+                        android:background="@color/split_line"/>
+
+                <ImageView
+                        android:id="@+id/impression_list_split_line_two"
+                        android:layout_toRightOf="@+id/impression_list_content_name_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_centerVertical="true"
+                        android:background="@color/split_line"/>
+
+            </RelativeLayout>
+
+            <EditText
+                    android:id="@+id/impression_list_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    android:textSize="16sp"
+                    android:hint="@string/new_house_detail_impress"
+                    android:background="@drawable/input"/>
+            <RelativeLayout
+                    android:id="@+id/impression_list_button_relative_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_gravity="center_horizontal">
+
+                <TextView
+                        android:id="@+id/impression_list_button_cancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="取消"
+                        android:textColor="@color/white"
+                        android:background="@color/dark_bg"/>
+
+                <TextView
+                        android:id="@+id/impression_list_button_ok"
+                        android:layout_toRightOf="@+id/impression_list_button_cancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="10dp"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="确定"
+                        android:textColor="@color/white"
+                        android:background="@color/red"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+
+        <com.zhijia.util.gridview.ZjGridView
+                android:id="@+id/impression_list_content_grid_view"
+                android:layout_above="@+id/impression_list_content_linear_layout"
+                android:layout_below="@+id/impression_list_count_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:numColumns="3"
+                android:padding="5dp"
+                android:clickable="false"
+                android:verticalSpacing="10dp"
+                android:horizontalSpacing="5dp"
+                android:gravity="center_vertical"
+                android:background="@color/common_bg"/>
+    </RelativeLayout>
+</LinearLayout>

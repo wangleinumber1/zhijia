@@ -1,0 +1,139 @@
+package com.zhijia.ui.commission;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.text.Html;
+import android.view.View;
+import android.widget.TextView;
+import com.google.common.base.Optional;
+import com.zhijia.Global;
+import com.zhijia.service.data.JsonResult;
+import com.zhijia.service.data.my.UserInfoModel;
+import com.zhijia.service.network.HttpClientUtils;
+import com.zhijia.ui.R;
+import com.zhijia.ui.authentication.AuthenticationMobileActivity;
+import com.zhijia.ui.authentication.LoginActivity;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 赚佣金首页
+ */
+public class EarnCommissionActivity extends Activity {
+
+    private static String USER_INFO_URL = Global.API_WEB_URL + "/member/info";
+
+    //是否手机号已经验证
+    private boolean isAuthenticationMobile = false;
+
+    //推荐流程详情
+    private TextView recommendedProcessDetail;
+
+    //推荐规则详情
+    private TextView recommendedRulesDetail;
+
+    private OnClickListener clickListener = new OnClickListener();
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.earn_commission);
+        recommendedProcessDetail = (TextView) findViewById(R.id.recommended_process_detail);
+        recommendedRulesDetail = (TextView) findViewById(R.id.recommended_rules_detail);
+        findViewById(R.id.back).setOnClickListener(clickListener);
+        findViewById(R.id.start_earn_commission).setOnClickListener(clickListener);
+
+        recommendedProcessDetail.setText(Html.fromHtml("<font color=\"#E94820\">注册置家网会员</font><br/>30秒完成会员注册，轻松简单。<br/><br/>" +
+                "<font color=\"#E94820\">推荐购房人</font><br/>填写推荐信息，即可全程跟踪被推荐人购房进度。<br/><br/>" +
+                "<font color=\"#E94820\">赚取佣金</font><br/>被推荐人通过网站成功购房，推荐人即可获得佣金。"));
+        recommendedRulesDetail.setText(Html.fromHtml("1.网站将对会员信息严格保密，未经会员允许不向任何第三方泄露会员信息。<br/><br/>" +
+                "2.会员的每个推荐信息有效周期为3个月，有效期内被推荐人未通过网站优惠购房的，推荐信息作废；被推荐人确有购房需求的，会员可再次推荐。<br/><br/>" +
+                "3.已在开发商处办理任一有关房产买卖手续（如办理VIP卡、交纳定金或签订认购书等）的推荐信息，为无效推荐信息。<br/><br/>" +
+                "4.经网站认定为恶意推荐的，网站将关闭该会员推荐功能。 <br/>"));
+    }
+
+    /**
+     * 获得当前登录用户的用户信息
+     *
+     * @return
+     */
+    private Map<String, String> getUserInfo() {
+        Map<String, String> resultMap = new HashMap<String, String>();
+
+        if (!Global.USER_AUTH_STR.equals("")) {
+            HttpClientUtils httpClientUtils = HttpClientUtils.getInstance();
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("authstr", Global.USER_AUTH_STR);
+            Optional<JsonResult<UserInfoModel>> optional = httpClientUtils.getUnsignedByData(USER_INFO_URL, map, UserInfoModel.class);
+            if (optional.isPresent()) {
+                resultMap.put("status", String.valueOf(optional.get().isStatus()));
+                resultMap.put("message", optional.get().getMessage());
+                if (optional.get().getData() != null) {
+                    resultMap.put("uid", optional.get().getData().getUid());
+                    resultMap.put("usertype", optional.get().getData().getUserType());
+                    resultMap.put("avatar", optional.get().getData().getAvatar());
+                    resultMap.put("identity_name", optional.get().getData().getIdentityName());
+                    resultMap.put("mobile", optional.get().getData().getMobile());
+                    resultMap.put("mobile_status", optional.get().getData().getMobileStatus());
+                    resultMap.put("username", optional.get().getData().getUserName());
+                }
+            }
+        }
+
+        return resultMap;
+    }
+
+    public class OnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.back:
+                    finish();
+                    break;
+                case R.id.start_earn_commission: //开始赚佣金
+                    GetUserInfoAsyncTask getUserInfoAsyncTask = new GetUserInfoAsyncTask();
+                    getUserInfoAsyncTask.execute();
+                    break;
+            }
+        }
+    }
+
+    class GetUserInfoAsyncTask extends AsyncTask<Void, Void, Map<String, String>> {
+        @Override
+        protected Map<String, String> doInBackground(Void... params) {
+            return getUserInfo();
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, String> resultMap) {
+            super.onPostExecute(resultMap);
+            isAuthenticationMobile = false;
+
+            if (resultMap.size() > 0 && resultMap.get("status").equalsIgnoreCase("true")) {//成功
+                Global.USER_AVATAR = resultMap.get("avatar");
+                if (resultMap.get("mobile_status") != null && resultMap.get("mobile_status").equalsIgnoreCase("1")) {
+                    isAuthenticationMobile = true;
+                    SharedPreferences spf = EarnCommissionActivity.this.getSharedPreferences(Global.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+                    spf.edit().putBoolean("isAuthenticationMobile", isAuthenticationMobile).commit();
+                    Global.USER_AUTHENTICATION_MOBILE = isAuthenticationMobile;
+                    Intent recommendedBuyHouseIntent = new Intent(getApplicationContext(), RecommendedBuyHouseActivity.class);
+                    startActivity(recommendedBuyHouseIntent);
+                    finish();
+                } else {
+                    SharedPreferences spf = EarnCommissionActivity.this.getSharedPreferences(Global.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+                    spf.edit().putBoolean("isAuthenticationMobile", isAuthenticationMobile).commit();
+                    Global.USER_AUTHENTICATION_MOBILE = isAuthenticationMobile;
+                    Intent authenticationMobileIntent = new Intent(getApplicationContext(), AuthenticationMobileActivity.class);
+                    startActivity(authenticationMobileIntent);
+                }
+            } else {
+                Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(loginIntent);
+            }
+        }
+    }
+}

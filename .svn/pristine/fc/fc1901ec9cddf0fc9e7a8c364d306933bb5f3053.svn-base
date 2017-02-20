@@ -1,0 +1,25 @@
+function runjs3(obj) {
+	var dj3 = parseFloat(单价);
+	var mj3 = parseFloat(面积);
+	var fkz3 = dj3 * mj3;
+	var yh = fkz3 * 0.0005;
+	if (dj3 <= 9432) {
+		var q = fkz3 * 0.015;
+	} else if (dj3 > 9432) {
+		var q = fkz3 * 0.03;
+	}
+	if (mj3 <= 120) {
+		var fw = 500;
+	} else if (120 < mj3 && mj3 <= 5000) {
+	  var fw = 1500;
+	}
+	if (mj3 > 5000) {
+		var	fw = 5000;
+	}
+	var gzh = fkz3 * 0.003;
+	印花税 = Math.round(yh * 100, 5) / 100;
+	房屋总价 = Math.round(fkz3 * 100, 5) / 100;
+	公证费 = Math.round(gzh * 100, 5) / 100;
+	委托办理产权 = Math.round(gzh * 100, 5) / 100;
+	房屋买卖手续费 = Math.round(fw * 100, 5) / 100;
+}

@@ -1,0 +1,9 @@
+package com.zhijia.service.data.condition.projecttype;
+
+import com.zhijia.service.data.condition.CommonJsonModel;
+
+/**
+ *房子类型
+ */
+public class ProjectTypeJsonModel extends CommonJsonModel{
+}

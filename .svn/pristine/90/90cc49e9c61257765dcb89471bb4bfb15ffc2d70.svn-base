@@ -1,0 +1,49 @@
+1.购房能力评估
+
+rhb=new Array(440.104,301.103,231.7,190.136,163.753,144.08,129.379,117.991,108.923,101.542,95.425,90.282,85.902,82.133,78.861,75.997,73.473,71.236,69.241,67.455,65.848,64.397,63.082,61.887,60.798,59.802,58.890,58.052,57.282)
+
+yhz=new Array(1.978,2.9344,3.8699,4.7847,5.6794,6.5544,7.4102,8.2472,9.0657,9.8662,10.6491,11.4148,12.1636,12.8959,13.6121,14.3126,14.9977,15.6677,16.3229,16.9637,17.5904,18.2034,18.8028,19.389,19.9624,20.5231,21.0715,21.6078,22.1323)
+
+变量：现可用于购房的资金，现家庭月收入，家庭每月用于购房支出，您计划购买房屋的面积，您期望偿还贷款的年限，
+<option selected="selected" value="24">2年(24期)</option>
+<option value="36">3年(36期)</option>
+<option value="48">4年(48期)</option>
+<option value="60">5年(60期)</option>
+<option value="72">6年(72期)</option>
+<option value="84">7年(84期)</option>
+<option value="96">8年(96期)</option>
+<option value="108">9年(108期)</option>
+<option value="120">10年(120期)</option>
+<option value="180">15年(180期)</option>
+<option value="240">20年(240期)</option>
+<option value="300">25年(300期)</option>
+<option value="360">30年(360期)</option>
+
+公式：
+if (parseFloat(现可用于购房的资金)<4.7)
+	alert("--您确定是"+parseFloat(现可用于购房的资金)+"万元?--"+"\n\n"+"那么您目前尚不具备购房能力，"+"\n\n"+"建议积攒积蓄或能筹集更多的资金。")
+if (parseFloat(现可用于购房的资金)>10000)
+	alert("您确定拥有超过一亿元的购房资金？");
+
+
+if (parseFloat(家庭每月用于购房支出)>parseFloat(现家庭月收入)*0.7)
+	alert("您预计家庭每月可用于购房支出已超过家庭月收入的70%，"+"\n\n"+"是否确定不会影响您的正常生活消费？"+"\n\n"+"建议在40%（"+parseFloat(现家庭月收入)*0.4+"元）左右")
+
+js00=parseFloat(现可用于购房的资金)*10000
+js01=parseFloat(家庭每月用于购房支出)
+js02=Math.round(js01/rhb[parseInt(您期望偿还贷款的年限[selectedIndex].value)/12-2])*10000
+js03=parseFloat(您计划购买房屋的面积)
+
+if (js02>js00*3.2)
+	js02=js00*3.2
+您可购买的房屋总价=Math.round((js02+0.8*js00)*100)/100
+您可购买的房屋单价=Math.round(parseFloat(您可购买的房屋总价)/js03*100)/100
+if (js03<120)
+	契税=Math.round(parseFloat(您可购买的房屋总价)*2)/100
+else
+	契税=Math.round((parseFloat(您可购买的房屋总价)-parseFloat(您可购买的房屋单价)*120)*4+parseFloat(您可购买的房屋单价)*120*2)/100
+公共维修基金=Math.round(parseFloat(您可购买的房屋总价)*2)/100
+首付款=Math.round(parseFloat(您可购买的房屋总价)*20)/100
+保险费=Math.round(Math.round(parseFloat(您可购买的房屋总价)*0.05)/100*yhz[parseInt(您期望偿还贷款的年限[selectedIndex].value)/12-2]*100)/100
+律师费=Math.round(parseFloat(您可购买的房屋总价)*0.3)/100
+抵押登记费="200~500"

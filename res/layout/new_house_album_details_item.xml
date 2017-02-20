@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		android:background="@drawable/common_bg">
+
+	<RelativeLayout
+			android:id="@+id/new_house_album_details_item_list_wait_load_relative"
+			android:gravity="center|center_vertical"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="@drawable/common_bg">
+		<com.zhijia.ui.view.CustomGifView
+				android:id="@+id/new_house_album_details_item_list_wait_load__image"
+				android:src="@drawable/animation"
+				android:gravity="center_vertical"
+                android:layout_width="150px"
+                android:layout_height="150px"/>
+
+        <TextView
+				android:id="@+id/new_house_album_details_item_list_wait_load__content"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_margin="20dp"
+				android:gravity="center_vertical"
+				android:layout_toRightOf="@+id/new_house_album_details_item_list_wait_load__image"
+				android:text="@string/loading_content"/>
+
+	</RelativeLayout>
+	<LinearLayout
+			android:id="@+id/new_house_album_details_item_linear_layout"
+			android:visibility="gone"
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="@drawable/common_bg">
+
+		<RelativeLayout
+				android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+            <ImageView
+					android:id="@+id/new_house_album_details_item_image"
+                    android:scaleType="fitCenter"
+					android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            <TextView
+					android:id="@+id/new_house_album_details_item_name_text_view"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_alignBottom="@+id/new_house_album_details_item_image"
+					android:layout_marginBottom="5dp"
+					android:gravity="center_horizontal"
+					android:textColor="@color/black"/>
+		</RelativeLayout>
+
+		<ImageView
+				android:id="@+id/new_house_album_details_item_split_image"
+				android:layout_width="match_parent"
+				android:layout_height="1px"
+				android:src="@color/split_line"/>
+
+		<TextView
+				android:id="@+id/new_house_album_details_item_units"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+				android:textColor="@color/black"/>
+
+		<ImageView
+				android:id="@+id/new_house_album_details_item_split_image_two"
+				android:layout_width="match_parent"
+				android:layout_height="1px"
+				android:src="@color/split_line"/>
+
+		<TextView
+				android:id="@+id/new_house_album_details_item_content"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_margin="10dp"
+				android:layout_gravity="center_horizontal"
+				android:textColor="@color/black"/>
+	</LinearLayout>
+</LinearLayout>

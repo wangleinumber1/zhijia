@@ -1,0 +1,9 @@
+package com.zhijia.Enum;
+
+/**
+ * Created by xiaozhi on 14-3-17.
+ */
+public enum ListType {
+
+    NEW,OLD,RENT,LOOK_HOUSE,OLD_LOOK_HOUSE,RENT_LOOK_HOUSE
+}

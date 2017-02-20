@@ -1,0 +1,12 @@
+package com.zhijia.service.data.condition.type;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.zhijia.service.data.condition.CommonJsonModel;
+
+/**
+ * 类型json
+ */
+@JsonAutoDetect(fieldVisibility=JsonAutoDetect.Visibility.ANY)
+public class TypeJsonModel extends CommonJsonModel{
+
+}

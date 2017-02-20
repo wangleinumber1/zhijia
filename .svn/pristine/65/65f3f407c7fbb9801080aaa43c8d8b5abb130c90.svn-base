@@ -1,0 +1,200 @@
+package com.zhijia.ui.my;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+import com.google.common.base.Optional;
+import com.zhijia.Global;
+import com.zhijia.service.data.JsonResult;
+import com.zhijia.service.data.my.UserInfoModel;
+import com.zhijia.service.image.DownloadImageTask;
+import com.zhijia.service.network.HttpClientUtils;
+import com.zhijia.ui.R;
+import com.zhijia.ui.authentication.AuthenticationMobileActivity;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 我的信息
+ */
+public class MyInfoActivity extends Activity {
+
+    private static String USER_INFO_URL = Global.API_WEB_URL + "/member/info";
+
+    private TextView myName, myLevelDesc, authenticationMobile, authenticationEmail;
+
+    private ImageView userHead, authenticationMobileState;
+
+    //点击事件的侦听
+    private ClickListener clickListener = new ClickListener();
+
+    //是否手机号已经验证
+    private boolean isAuthenticationMobile = false;
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.my_info);
+
+        myName = (TextView) findViewById(R.id.my_name);
+        myLevelDesc = (TextView) findViewById(R.id.my_level_desc);
+        authenticationMobile = (TextView) findViewById(R.id.authentication_mobile);
+        authenticationEmail = (TextView) findViewById(R.id.authentication_email);
+
+        userHead = (ImageView) findViewById(R.id.user_head);
+        authenticationMobileState = (ImageView) findViewById(R.id.authentication_mobile_state);
+
+        findViewById(R.id.back).setOnClickListener(clickListener);
+        findViewById(R.id.authentication_mobile).setOnClickListener(clickListener);
+        findViewById(R.id.authentication_email).setOnClickListener(clickListener);
+        findViewById(R.id.logout).setOnClickListener(clickListener);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        GetUserInfoAsyncTask getUserInfoAsyncTask = new GetUserInfoAsyncTask();
+        getUserInfoAsyncTask.execute();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //从认证页面回来，才会返回RESULT_OK。
+        if (resultCode == Activity.RESULT_OK) {
+            GetUserInfoAsyncTask getUserInfoAsyncTask = new GetUserInfoAsyncTask();
+            getUserInfoAsyncTask.execute();
+        }
+    }
+
+    /**
+     * 获得当前登录用户的用户信息
+     *
+     * @return
+     */
+    private Map<String, String> getUserInfo() {
+        Map<String, String> resultMap = new HashMap<String, String>();
+
+        if (!Global.USER_AUTH_STR.equals("")) {
+            HttpClientUtils httpClientUtils = HttpClientUtils.getInstance();
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("authstr", Global.USER_AUTH_STR);
+            Optional<JsonResult<UserInfoModel>> optional = httpClientUtils.getUnsignedByData(USER_INFO_URL, map, UserInfoModel.class);
+            if (optional.isPresent()) {
+                resultMap.put("status", String.valueOf(optional.get().isStatus()));
+                resultMap.put("message", optional.get().getMessage());
+                if (optional.get().getData() != null) {
+                    resultMap.put("uid", optional.get().getData().getUid());
+                    resultMap.put("usertype", optional.get().getData().getUserType());
+                    resultMap.put("avatar", optional.get().getData().getAvatar());
+                    resultMap.put("identity_name", optional.get().getData().getIdentityName());
+                    resultMap.put("mobile", optional.get().getData().getMobile());
+                    resultMap.put("mobile_status", optional.get().getData().getMobileStatus());
+                    resultMap.put("username", optional.get().getData().getUserName());
+                }
+            }
+        }
+
+        return resultMap;
+    }
+
+    //点击事件的公共类
+    class ClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.back: //后退
+                    finish();
+                    break;
+                case R.id.authentication_mobile://验证手机号
+                    if (!isAuthenticationMobile) {
+                        Intent authenticationMobileIntent = new Intent(MyInfoActivity.this, AuthenticationMobileActivity.class);
+                        startActivityForResult(authenticationMobileIntent, 100);
+                    }
+                    break;
+                case R.id.authentication_email:
+//                    Intent authenticationMobileIntent = new Intent(MyInfoActivity.this, AuthenticationMobileActivity.class);
+//                    startActivityForResult(authenticationMobileIntent, 100);
+                    break;
+                case R.id.logout: //退出
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MyInfoActivity.this);
+                    builder.setMessage(getResources().getString(R.string.confirm_logout));
+                    builder.setTitle(getResources().getString(R.string.prompt));
+                    builder.setPositiveButton(getResources().getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+
+                            Global.USER_AUTH_STR = "";
+                            Global.USER_AUTHENTICATION_MOBILE = false;
+                            SharedPreferences spf = MyInfoActivity.this.getSharedPreferences(Global.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+                            spf.edit().putString("authstr", "").commit();
+                            spf.edit().putBoolean("isAuthenticationMobile", false).commit();
+
+                            Toast.makeText(MyInfoActivity.this, getString(R.string.logout_success), Toast.LENGTH_SHORT).show();
+
+                            finish();
+                        }
+                    });
+                    builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    builder.create().show();
+
+                    break;
+            }
+        }
+    }
+
+    class GetUserInfoAsyncTask extends AsyncTask<Void, Void, Map<String, String>> {
+        @Override
+        protected Map<String, String> doInBackground(Void... params) {
+            return getUserInfo();
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, String> resultMap) {
+            super.onPostExecute(resultMap);
+            isAuthenticationMobile = false;
+
+            if (resultMap.size() > 0 && resultMap.get("status").equalsIgnoreCase("true")) {//成功
+                Global.USER_AVATAR = resultMap.get("avatar");
+
+                myName.setText(resultMap.get("username"));
+                myLevelDesc.setText(resultMap.get("identity_name"));
+                authenticationMobile.setText(resultMap.get("mobile"));
+                if (resultMap.get("mobile_status") != null && resultMap.get("mobile_status").equalsIgnoreCase("1")) {
+                    authenticationMobileState.setImageResource(R.drawable.yes);
+                    isAuthenticationMobile = true;
+                } else {
+                    authenticationMobileState.setImageResource(R.drawable.no);
+                }
+
+                SharedPreferences spf = MyInfoActivity.this.getSharedPreferences(Global.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+                spf.edit().putBoolean("isAuthenticationMobile", isAuthenticationMobile).commit();
+                Global.USER_AUTHENTICATION_MOBILE = isAuthenticationMobile;
+
+                new DownloadImageTask().doInBackground(resultMap.get("avatar"), userHead, R.drawable.default_head);
+                Log.d(Global.LOG_TAG, resultMap.get("avatar"));
+            } else {
+                Toast.makeText(MyInfoActivity.this, resultMap.get("message"), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+}

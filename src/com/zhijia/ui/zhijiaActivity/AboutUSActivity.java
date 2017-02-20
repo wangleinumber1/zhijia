@@ -1,0 +1,111 @@
+package com.zhijia.ui.zhijiaActivity;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+import com.google.common.base.Optional;
+import com.zhijia.Global;
+import com.zhijia.service.data.Medol.CityAboutUsModel;
+import com.zhijia.service.data.Medol.JsonResult;
+import com.zhijia.service.network.HttpClientUtils;
+import com.zhijia.ui.R;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 关于我们
+ */
+public class AboutUSActivity extends Activity {
+
+    private String SETTING_URL = Global.API_WEB_URL + "/common/setting";
+
+    //点击事件的侦听
+    private ClickListener clickListener = new ClickListener();
+
+    private TextView webSite, weibo, weixin, hotLine;
+
+    private String webSiteStr = "http://www.zhijia.com";
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.about_us);
+
+        webSite = (TextView) findViewById(R.id.web_site);
+        weibo = (TextView) findViewById(R.id.weibo);
+        weixin = (TextView) findViewById(R.id.weixin);
+        hotLine = (TextView) findViewById(R.id.hot_line);
+
+        findViewById(R.id.back).setOnClickListener(clickListener);
+        findViewById(R.id.web_site).setOnClickListener(clickListener);
+
+        GetSettingsAsyncTask getSettingsAsyncTask = new GetSettingsAsyncTask();
+        getSettingsAsyncTask.execute();
+    }
+
+    //获得关于我们的信息
+    private Map<String, String> getSettings() {
+        Map<String, String> resultMap = new HashMap<String, String>();
+        HttpClientUtils httpClientUtils = HttpClientUtils.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("cityid", Global.NOW_CITY_ID != "" ? Global.NOW_CITY_ID : "1");
+        Optional<JsonResult<CityAboutUsModel>> optional = httpClientUtils.getUnsignedByData(SETTING_URL, map, CityAboutUsModel.class);
+        if (optional.isPresent()) {
+            resultMap.put("status", String.valueOf(optional.get().isStatus()));
+            resultMap.put("message", optional.get().getMessage());
+            if (optional.get().getData() != null) {
+                resultMap.put("site", optional.get().getData().getSite());
+                webSiteStr = optional.get().getData().getSite();
+                resultMap.put("tel", optional.get().getData().getTel());
+                resultMap.put("wx", optional.get().getData().getWx());
+                resultMap.put("weibo", optional.get().getData().getWeibo());
+            }
+        }
+
+        return resultMap;
+    }
+
+    //点击事件的公共类
+    class ClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.back: //后退
+                    finish();
+                    break;
+                case R.id.web_site: // 网址
+                    Uri webURI = Uri.parse(webSiteStr);
+                    Intent webIntent = new Intent(Intent.ACTION_VIEW, webURI);
+                    AboutUSActivity.this.startActivity(webIntent);
+                    break;
+            }
+        }
+    }
+
+    class GetSettingsAsyncTask extends AsyncTask<Void, Void, Map<String, String>> {
+        @Override
+        protected Map<String, String> doInBackground(Void... params) {
+            return getSettings();
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, String> resultMap) {
+            super.onPostExecute(resultMap);
+
+            if (resultMap.size() > 0 && resultMap.get("status").equalsIgnoreCase("true")) {//成功
+            	Global.HOT_LINE=resultMap.get("tel");
+                webSite.setText("网站地址:"+resultMap.get("site"));
+                hotLine.setText("客服热线:"+resultMap.get("tel"));
+                weibo.setText("新浪微博:"+resultMap.get("weibo"));
+                weixin.setText("微信:"+resultMap.get("wx"));
+            } else {
+                Toast.makeText(AboutUSActivity.this, resultMap.get("message"), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+}

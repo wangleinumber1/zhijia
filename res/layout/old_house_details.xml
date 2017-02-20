@@ -1,0 +1,857 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/common_bg"
+    android:id="@+id/house_details"
+    android:orientation="horizontal" >
+    <!--   <include
+        layout="@layout/comment_load" /> -->
+   <RelativeLayout
+        android:id="@+id/house_list_wait_load_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center"
+        android:background="@drawable/common_bg"
+        android:gravity="center" >
+
+        <com.zhijia.ui.view.CustomGifView
+            android:id="@+id/house_list_wait_load_image"
+            android:layout_width="150px"
+            android:layout_height="150px"
+            android:src="@drawable/animation" />
+
+        <TextView
+            android:id="@+id/house_list_wait_load_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_toRightOf="@+id/house_list_wait_load_image"
+            android:gravity="center_vertical"
+            android:text="@string/loading_content" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/old_house_details_relative"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/common_bg"
+        android:visibility="gone" >
+         <!--   -->
+        <include
+            android:id="@+id/old_house_head"
+            layout="@layout/details_head" />
+        <!--  -->
+        <com.zhijia.ui.list.oldhouse.TransparentPanel
+            android:id="@+id/old_house_details_tier"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center|center_vertical"
+            android:orientation="horizontal" >
+       
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+               
+                <TextView
+                    android:id="@+id/old_house_details_telephone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:gravity="left"
+                    android:text="400-700-5150"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
+                             
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="       "
+                    />
+                <TextView
+                    android:id="@+id/old_house_details_telephone_counseling"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/common_bule_button"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:text="打 电 话"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+                 <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  "
+                    />
+                <TextView
+                    android:id="@+id/old_house_details_immediately_apply"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/common_red_button"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:text="预约报名"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+           </LinearLayout>
+        </com.zhijia.ui.list.oldhouse.TransparentPanel>
+
+        <!--
+            <TextView
+                android:id="@+id/old_house_details_telephone_counseling"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/red_button"
+                android:paddingBottom="5dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="5dp"
+                android:text="@string/linkman"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/old_house_details_immediately_apply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/red_button"
+                android:paddingBottom="5dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="5dp"
+                android:text="@string/order_watch_house"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        -->
+
+        <com.zhijia.ui.view.MyScrollView
+            android:id="@+id/old_house_details_scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/old_house_details_tier"
+            android:layout_below="@+id/old_house_head"
+            android:background="@color/common_bg"
+            android:scrollbars="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:id="@+id/index_splash_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <!-- 轮播页 -->
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/old_house_details_house_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="450px"
+                        android:focusable="true" />
+
+                    <TextView
+                        android:id="@+id/old_house_details_house_image_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignRight="@+id/old_house_details_house_image"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/black"
+                        android:padding="5dp"
+                        android:text="共有21"
+                        android:textColor="@color/white" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:gravity="center"
+                        android:orientation="vertical" >
+
+                        <LinearLayout
+                            android:id="@+id/old_house_details_house_dotsId"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dip"
+                            android:gravity="center"
+                            android:orientation="horizontal" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/old_house_details_house_split_line_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/split_line" />
+                <!-- 房子的介绍布局 -->
+
+                <RelativeLayout
+                    android:id="@+id/old_house_details_house_introduce"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp" >
+
+                    <TextView
+                        android:id="@+id/old_house_details_house_introduce_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="红星花园无双税首付17万精装修双学区片内急售"
+                        android:textColor="@color/black"
+                        android:textSize="14dp" />
+
+                    <ImageView
+                        android:id="@+id/old_house_details_time_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/old_house_details_house_introduce_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/time" />
+
+                    <TextView
+                        android:id="@+id/old_house_details_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/old_house_details_house_introduce_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@+id/old_house_details_time_image"
+                        android:text="今天18:44更新"
+                        android:textColor="@color/dark_bg" />
+
+                    <TextView
+                        android:id="@+id/old_house_details_impression"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/old_house_details_house_introduce_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@+id/old_house_details_time"
+                        android:background="@drawable/mid_button"
+                        android:padding="2dp"
+                        android:text="@string/invest_sift"
+                        android:textColor="@color/black"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:id="@+id/old_house_details_impression_one"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/old_house_details_house_introduce_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@+id/old_house_details_impression"
+                        android:background="@drawable/mid_button"
+                        android:padding="2dp"
+                        android:text="@string/elevator_house"
+                        android:textColor="@color/black"
+                        android:textSize="12dp" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/old_house_details_house_split_line_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/split_line" />
+                <!-- 房子的价钱、面积等相关信息 -->
+
+                <RelativeLayout
+                    android:id="@+id/old_house_details_house_money_area_more"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp" >
+
+                    <TextView
+                        android:id="@+id/old_house_details_introduce_price_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="@string/selling_price"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/old_house_details_introduce_price_money_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/old_house_details_introduce_price_money"
+                        android:text="68万(8994元/m²)"
+                        android:textColor="@color/red" />
+
+                    <RelativeLayout
+                        android:id="@+id/old_house_details_introduce_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/old_house_details_introduce_price_money" >
+
+                        <TextView
+                            android:id="@+id/old_house_details_introduce_price_area"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/proportion"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/old_house_details_introduce_price_area_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_toRightOf="@+id/old_house_details_introduce_price_area"
+                            android:text="75.6m²"
+                            android:textColor="@color/dark_bg" />
+
+                        <TextView
+                            android:id="@+id/old_house_details_introduce_price_orientation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/old_house_details_introduce_price_area"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/orientation"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/old_house_details_introduce_price_orientation_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/old_house_details_introduce_price_area_value"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_toRightOf="@+id/old_house_details_introduce_price_orientation"
+                            android:text="南"
+                            android:textColor="@color/dark_bg" />
+
+                        <TextView
+                            android:id="@+id/old_house_details_introduce_price_house_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/old_house_details_introduce_price_orientation"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/type"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/old_house_details_introduce_price_house_type_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/old_house_details_introduce_price_orientation_value"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_toRightOf="@+id/old_house_details_introduce_price_house_type"
+                            android:text="住宅"
+                            android:textColor="@color/dark_bg" />
+
+                        <TextView
+                            android:id="@+id/old_house_details_introduce_price_equity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/old_house_details_introduce_price_house_type"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/equity"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/old_house_details_introduce_price_equity_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/old_house_details_introduce_price_house_type_value"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_toRightOf="@+id/old_house_details_introduce_price_equity"
+                            android:text="70年"
+                            android:textColor="@color/dark_bg" />
+                    </RelativeLayout>
+                    <!-- 右边的布局 -->
+
+                    <RelativeLayout
+                        android:id="@+id/old_house_details_introduce_right"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/old_house_details_introduce_price_money"
+                        android:layout_toRightOf="@+id/old_house_details_introduce_left" >
+
+                        <TextView
+                            android:id="@+id/old_house_details_introduce_price_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/room_type"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/old_house_details_introduce_price_type_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_toRightOf="@+id/old_house_details_introduce_price_type"
+                            android:text="2室2厅1卫"
+                            android:textColor="@color/dark_bg" />
+
+                        <TextView
+                            android:id="@+id/old_house_details_introduce_price_floors"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/old_house_details_introduce_price_type"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/floor"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/old_house_details_introduce_price_floors_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/old_house_details_introduce_price_type_value"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_toRightOf="@+id/old_house_details_introduce_price_floors"
+                            android:text="第2层/第7层"
+                            android:textColor="@color/dark_bg" />
+
+                        <TextView
+                            android:id="@+id/old_house_details_introduce_price_decorate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/old_house_details_introduce_price_floors"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/decorate"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/old_house_details_introduce_price_decorate_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/old_house_details_introduce_price_floors_value"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_toRightOf="@+id/old_house_details_introduce_price_decorate"
+                            android:text="精装"
+                            android:textColor="@color/dark_bg" />
+
+                        <TextView
+                            android:id="@+id/old_house_details_introduce_price_house_age"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/old_house_details_introduce_price_decorate"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/house_age"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/old_house_details_introduce_price_house_age_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/old_house_details_introduce_price_decorate_value"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_toRightOf="@+id/old_house_details_introduce_price_house_age"
+                            android:text="2000年"
+                            android:textColor="@color/dark_bg" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/old_house_details_house_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/bg_blue"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="5dp"
+                    android:text="@string/house_description"
+                    android:textColor="@color/white" />
+                <!-- 房子的描述 -->
+
+                <LinearLayout
+                    android:id="@+id/old_house_details_description_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <com.zhijia.ui.view.ZjGridView
+                        android:id="@+id/old_house_details_description_grid"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/common_bg"
+                        android:clickable="false"
+                        android:gravity="center_vertical"
+                        android:horizontalSpacing="5dp"
+                        android:numColumns="3"
+                        android:padding="5dp"
+                        android:verticalSpacing="10dp" />
+
+                    <ImageView
+                        android:id="@+id/old_house_details_house_split_line_three"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_below="@+id/old_house_details_description_grid"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/split_line" />
+
+                    <ListView
+                        android:id="@+id/old_house_details_description_list_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/common_bg"
+                        android:divider="@color/split_line"
+                        android:dividerHeight="1dp"
+                        android:fadingEdge="none"
+                        android:fillViewport="true" />
+                </LinearLayout>
+
+                <!-- 小区简介 -->
+
+                <LinearLayout
+                    android:id="@+id/old_house_details_house_intro_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/old_house_details_house_intro"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/bg_blue"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="5dp"
+                        android:text="@string/area_intro"
+                        android:textColor="@color/white" />
+
+                    <RelativeLayout
+                        android:id="@+id/old_house_details_house_intro_relative"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp" >
+
+                        <TextView
+                            android:id="@+id/old_house_details_house_intro_relative_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:text="@string/area_name"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/old_house_details_house_intro_relative_name_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@+id/old_house_details_house_intro_relative_name"
+                            android:text="君泽苑"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/old_house_details_house_intro_relative_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/old_house_details_house_intro_relative_name"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/month_price"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/old_house_details_house_intro_relative_price_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/old_house_details_house_intro_relative_name_value"
+                            android:layout_marginTop="5dp"
+                            android:layout_toRightOf="@+id/old_house_details_house_intro_relative_price"
+                            android:text="7800/m²"
+                            android:textColor="@color/red" />
+
+                        <TextView
+                            android:id="@+id/old_house_details_house_intro_relative_compare"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/old_house_details_house_intro_relative_price"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/sell_rate"
+                            android:textColor="@color/black" />
+
+                        <!-- <ImageView -->
+                        <!-- android:id="@+id/old_house_details_house_intro_relative_compare_image" -->
+                        <!-- android:layout_toRightOf="@+id/old_house_details_house_intro_relative_compare" -->
+                        <!-- android:layout_below="@+id/old_house_details_house_intro_relative_price_value" -->
+                        <!-- android:layout_width="wrap_content" -->
+                        <!-- android:layout_height="wrap_content" -->
+                        <!-- android:layout_marginTop="5dp" -->
+                        <!-- android:src="@drawable/house_down"/> -->
+
+                        <TextView
+                            android:id="@+id/old_house_details_house_intro_relative_compare_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/old_house_details_house_intro_relative_price_value"
+                            android:layout_marginTop="5dp"
+                            android:layout_toRightOf="@+id/old_house_details_house_intro_relative_compare"
+                            android:text="0.8%"
+                            android:textColor="@color/green" />
+
+                        <!-- <TextView -->
+                        <!-- android:id="@+id/old_house_details_house_intro_relative_compare_year" -->
+                        <!-- android:layout_width="wrap_content" -->
+                        <!-- android:layout_height="wrap_content" -->
+                        <!-- android:textColor="@color/black" -->
+                        <!-- android:layout_marginTop="5dp" -->
+                        <!-- android:layout_marginLeft="20dp" -->
+                        <!-- android:layout_toRightOf="@+id/old_house_details_house_intro_relative_compare_value" -->
+                        <!-- android:layout_below="@+id/old_house_details_house_intro_relative_price_value" -->
+                        <!-- android:text="@string/compare_year"/> -->
+
+
+                        <!-- <ImageView -->
+                        <!-- android:id="@+id/old_house_details_house_intro_relative_compare_year_image" -->
+                        <!-- android:layout_toRightOf="@+id/old_house_details_house_intro_relative_compare_year" -->
+                        <!-- android:layout_below="@+id/old_house_details_house_intro_relative_price_value" -->
+                        <!-- android:layout_width="wrap_content" -->
+                        <!-- android:layout_height="wrap_content" -->
+                        <!-- android:layout_marginTop="5dp" -->
+                        <!-- android:src="@drawable/house_up"/> -->
+
+
+                        <!-- <TextView -->
+                        <!-- android:id="@+id/old_house_details_house_intro_relative_compare_year_value" -->
+                        <!-- android:layout_toRightOf="@+id/old_house_details_house_intro_relative_compare_year_image" -->
+                        <!-- android:layout_below="@+id/old_house_details_house_intro_relative_price_value" -->
+                        <!-- android:layout_width="wrap_content" -->
+                        <!-- android:layout_height="wrap_content" -->
+                        <!-- android:textColor="@color/red" -->
+                        <!-- android:layout_marginTop="5dp" -->
+                        <!-- android:text="16.8%"/> -->
+
+
+                        <!-- <TextView -->
+                        <!-- android:id="@+id/old_house_details_house_intro_area_images" -->
+                        <!-- android:layout_width="wrap_content" -->
+                        <!-- android:layout_height="wrap_content" -->
+                        <!-- android:background="@drawable/blue_button" -->
+                        <!-- android:layout_alignParentRight="true" -->
+                        <!-- android:layout_marginRight="10dp" -->
+                        <!-- android:textColor="@color/white" -->
+                        <!-- android:layout_below="@+id/old_house_details_house_intro_relative_price_value" -->
+                        <!-- android:text="@string/area_photo"/> -->
+
+                        <ImageView
+                            android:id="@+id/old_house_details_house_split_line_four"
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_below="@+id/old_house_details_house_intro_relative_compare_value"
+                            android:layout_marginTop="5dp"
+                            android:background="@color/split_line" />
+
+                        <TextView
+                            android:id="@+id/old_house_details_house_intro_sell_old_house"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/old_house_details_house_split_line_four"
+                            android:layout_centerVertical="true"
+                            android:padding="10dp"
+                            android:text="君泽苑在售二手房"
+                            android:textColor="@color/black" />
+
+                        <ImageView
+                            android:id="@+id/old_house_details_house_intro_sell_old_house_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_below="@+id/old_house_details_house_split_line_four"
+                            android:layout_centerVertical="true"
+                            android:padding="10dp"
+                            android:src="@drawable/calculator_right" />
+
+                        <ImageView
+                            android:id="@+id/old_house_details_house_split_line_five"
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_below="@+id/old_house_details_house_intro_sell_old_house"
+                            android:background="@color/split_line" />
+
+                        <TextView
+                            android:id="@+id/old_house_details_house_intro_rent_old_house"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/old_house_details_house_split_line_five"
+                            android:layout_centerVertical="true"
+                            android:padding="10dp"
+                            android:text="君泽苑出租房"
+                            android:textColor="@color/black" />
+
+                        <ImageView
+                            android:id="@+id/old_house_details_house_intro_rent_old_house_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_below="@+id/old_house_details_house_split_line_five"
+                            android:layout_centerVertical="true"
+                            android:padding="10dp"
+                            android:src="@drawable/calculator_right" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <!-- 价格走势 -->
+
+                <RelativeLayout
+                    android:id="@+id/old_house_details_house_trend_relative"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/old_house_details_house_trend"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/bg_blue"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="5dp"
+                        android:text="@string/price_tend"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/old_house_details_house_trend_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="160dp"
+                        android:layout_below="@+id/old_house_details_house_trend"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/house_bg" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/old_house_details_house_trend_image"
+                        android:gravity="center|center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:id="@+id/old_house_details_house_trend_attention"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/common_red_button"
+                            android:padding="5dp"
+                            android:text="@string/attention_area"
+                            android:textColor="@color/white" />
+
+                        <TextView
+                            android:id="@+id/old_house_details_house_trend_detail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/common_red_button"
+                            android:padding="5dp"
+                            android:text="@string/area_detail_message"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </RelativeLayout>
+                <!-- 交通地图 -->
+
+                <RelativeLayout
+                    android:id="@+id/old_house_details_house_traffic_relative"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/old_house_details_house_traffic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/bg_blue"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="5dp"
+                        android:text="@string/traffic_map"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/old_house_details_house_traffic_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/old_house_details_house_traffic"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:scaleType="center"
+                        android:src="@drawable/house_bg" />
+
+                    <TextView
+                        android:id="@+id/old_house_details_house_traffic_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/old_house_details_house_traffic_image"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/traffic_map"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/old_house_details_house_traffic_address_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/old_house_details_house_traffic_address"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
+                        android:text="杏石口路81号"
+                        android:textColor="@color/dark_bg" />
+
+                    <TextView
+                        android:id="@+id/old_house_details_house_traffic_way"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/old_house_details_house_traffic_address_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/bus_way"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/old_house_details_house_traffic_way_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/old_house_details_house_traffic_way"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
+                        android:text="暂无"
+                        android:textColor="@color/dark_bg" />
+                </RelativeLayout>
+            </LinearLayout>
+        </com.zhijia.ui.view.MyScrollView>
+    </RelativeLayout>
+
+</LinearLayout>

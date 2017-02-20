@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/calculator_capacity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/common_bg"
+        android:orientation="vertical">
+
+    <include layout="@layout/calculator_head"/>
+    <!--标题的头-->
+    <LinearLayout
+            android:id="@+id/calculator_before_loan_type_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:orientation="horizontal"
+            android:background="@drawable/calculator_before_loan_one">
+
+        <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_gravity="center_vertical">
+
+            <TextView
+                    android:id="@+id/calculator_before_loan_title_one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="商业贷款还款"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_gravity="center_vertical">
+
+            <TextView
+                    android:id="@+id/calculator_before_loan_title_two"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/red"
+                    android:text="公积金还款"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--整个内容-->
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/calculator_bg"
+            android:orientation="vertical">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="10dp"
+                    android:textSize="@dimen/calculator_text_size"
+                    android:textColor="@color/default_font"
+                    android:text="原贷款金额(万元)"
+                    />
+
+            <LinearLayout
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right|center_vertical"
+                    android:layout_gravity="right|center_vertical">
+
+                <EditText
+                        android:id="@+id/loan_total_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:inputType="numberDecimal"
+                        android:layout_marginRight="10dp"
+                        android:textColor="@color/default_font"
+                        android:gravity="center|center_vertical"
+                        android:background="@drawable/calculator_input"
+                        android:singleLine="true"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/split_line"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="@dimen/calculator_text_size"
+                    android:padding="10dp"
+                    android:textColor="@color/default_font"
+                    android:text="原贷款年限"
+                    />
+
+            <LinearLayout
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:layout_gravity="center_vertical|right">
+
+                <TextView
+                        android:id="@+id/loan_total_years"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/calculator_text_size"
+                        android:text="20年（240期）"
+                        android:textColor="@color/default_font"/>
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:src="@drawable/calculator_right"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/split_line"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="@dimen/calculator_text_size"
+                    android:padding="10dp"
+                    android:textColor="@color/default_font"
+                    android:text="贷款利率"
+                    />
+
+            <LinearLayout
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:layout_gravity="center_vertical|right">
+
+                <TextView
+                        android:id="@+id/loan_rate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/calculator_text_size"
+                        android:text="12年7月6日基准利率"
+                        android:textColor="@color/default_font"/>
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:src="@drawable/calculator_right"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/split_line"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="10dp"
+                    android:textSize="@dimen/calculator_text_size"
+                    android:textColor="@color/default_font"
+                    android:text="第一次还款时间"
+                    />
+
+            <LinearLayout
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:layout_gravity="center_vertical|right">
+
+                <TextView
+                        android:id="@+id/first_payment_month"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/calculator_text_size"
+                        android:text="2014-2"
+                        android:textColor="@color/default_font"/>
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:src="@drawable/calculator_right"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/split_line"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="10dp"
+                    android:textSize="@dimen/calculator_text_size"
+                    android:textColor="@color/default_font"
+                    android:text="预计提前还款时间"
+                    />
+
+            <LinearLayout
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:layout_gravity="center_vertical|right">
+
+                <TextView
+                        android:id="@+id/last_payment_month"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/calculator_text_size"
+                        android:text="2014-2"
+                        android:textColor="@color/default_font"/>
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:src="@drawable/calculator_right"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/split_line"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="10dp"
+                    android:textSize="@dimen/calculator_text_size"
+                    android:textColor="@color/default_font"
+                    android:text="提前还款方式"
+                    />
+
+            <LinearLayout
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical|right"
+                    android:layout_gravity="center_vertical|right">
+
+                <RadioGroup
+                        android:id="@+id/before_loan_method"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp">
+
+                    <RadioButton
+                            android:id="@+id/before_loan_method_once_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/radio_button_selector"
+                            android:text="一次性还清"
+                            android:textColor="@color/default_font"
+                            android:button="@null"/>
+
+                    <RadioButton
+                            android:id="@+id/before_loan_method_part_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/radio_button_selector"
+                            android:paddingTop="5dp"
+                            android:text="部分还清"
+                            android:textColor="@color/default_font"
+                            android:button="@null"/>
+                </RadioGroup>
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+                android:id="@+id/before_loan_price_split_line"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/split_line"/>
+
+      <!--   <LinearLayout
+                android:id="@+id/before_loan_price_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="6dp"
+                    android:textSize="@dimen/calculator_text_size"
+                    android:textColor="@color/default_font"
+                    android:text="部分还款金额( 万元 )"/>
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right|center_vertical"
+                    android:layout_gravity="right|center_vertical">
+
+                <EditText
+                        android:id="@+id/before_loan_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:layout_marginRight="10dp"
+                        android:inputType="numberDecimal"
+                        android:gravity="center|center_vertical"
+                        android:textColor="@color/default_font"
+                        android:background="@drawable/calculator_input"
+                        android:singleLine="true"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+                android:id="@+id/before_loan_method_part_time_split_line"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/split_line"/>
+
+        <LinearLayout
+                android:id="@+id/before_loan_method_part_time_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="10dp"
+                    android:textSize="@dimen/calculator_text_size"
+                    android:textColor="@color/default_font"
+                    android:text="处理方式"
+                    />
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical|right"
+                    android:layout_gravity="center_vertical|right">
+
+                <RadioGroup
+                        android:id="@+id/deal_method_group"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <RadioButton
+                            android:id="@+id/deal_method_reduce_years"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/radio_button_selector"
+                            android:text="缩短还款年限"
+                            android:textColor="@color/default_font"
+                            android:button="@null"/>
+
+                    <RadioButton
+                            android:id="@+id/deal_method_reduce_money"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/radio_button_selector"
+                            android:text="减少月还款额"
+                            android:paddingTop="5dp"
+                            android:textColor="@color/default_font"
+                            android:button="@null"/>
+                </RadioGroup>
+            </LinearLayout>
+
+        </LinearLayout> -->
+          <!--按钮-->
+    </LinearLayout>
+      <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center_vertical">
+
+        <TextView
+                android:id="@+id/compute"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:layout_gravity="center_vertical"
+                android:padding="10dp"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:text="计算"/>
+    </LinearLayout>
+
+  
+</LinearLayout>

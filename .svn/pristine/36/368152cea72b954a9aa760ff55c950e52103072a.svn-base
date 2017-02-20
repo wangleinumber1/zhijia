@@ -1,0 +1,204 @@
+package com.zhijia.ui.frame;
+
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TabHost;
+import android.widget.TabHost.OnTabChangeListener;
+import android.widget.TabHost.TabContentFactory;
+
+import java.util.*;
+
+/**
+ * 是一个容器，主要是装载Frame的。
+ */
+public class FrameActivity extends FragmentActivity implements TabContentFactory, OnTabChangeListener {
+    private final Map<String, Frame> mFrames = new HashMap<String, Frame>(4);
+    protected TabHost mTabHost;
+    private Frame preFrame;
+    private List<String> frame_names = new ArrayList<String>();
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getCurrentFrame().onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        getCurrentFrame().onPause();
+    }
+
+    public void addFrame(Class<? extends Frame> clz, View tab) {
+        if (mTabHost == null) {
+            mTabHost = (TabHost) findViewById(android.R.id.tabhost);
+            mTabHost.setup();
+            mTabHost.setOnTabChangedListener(this);
+        }
+
+        frame_names.add(clz.getName());
+
+        mTabHost.addTab(mTabHost.newTabSpec(clz.getName()).setIndicator(tab).setContent(this));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Collection<Frame> all = mFrames.values();
+        for (Frame frame : all) {
+            frame.onActivityResult(requestCode, resultCode, data);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Collection<Frame> all = mFrames.values();
+        for (Frame frame : all) {
+            frame.onConfigurationChanged(newConfig);
+        }
+    }
+
+    @Override
+    public void onContentChanged() {
+        super.onContentChanged();
+        for (Frame frame : mFrames.values()) {
+            frame.onContentChanged();
+        }
+    }
+
+
+    @Override
+    public View createTabContent(String tag) {
+        View content;
+        Frame frame;
+        try {
+            frame = (Frame) Class.forName(tag).newInstance();
+        } catch (Exception e) {
+            return null;
+        }
+        frame.setActivity(this);
+        content = frame.onCreateView(getLayoutInflater());
+        frame.setContentView(content);
+        frame.onCreate();
+        mFrames.put(tag, frame);
+        return content;
+    }
+
+    
+    @Override
+    public void onTabChanged(String tabId) {
+        if (preFrame != null) {
+            preFrame.onDestroy();
+        }
+
+        preFrame = getCurrentFrame();
+        preFrame.onResume();
+    }
+
+
+    protected Frame getCurrentFrame() {
+        return mFrames.get(mTabHost.getCurrentTabTag());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Collection<Frame> all = mFrames.values();
+
+        //将所有的Frame销毁
+        for (Frame frame : all) {
+            frame.onDestroy();
+        }
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getCurrentFrame().onCreateContextMenu(menu, v, menuInfo);
+    }
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String currentTabTag = mTabHost.getCurrentTabTag();
+        if (currentTabTag != null) {
+            outState.putString("currentTab", currentTabTag);
+        }
+
+        Collection<Frame> all = mFrames.values();
+        for (Frame frame : all) {
+            frame.onSaveInstanceState(outState);
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        String cur = savedInstanceState.getString("currentTab");
+        if (cur != null) {
+            mTabHost.setCurrentTabByTag(cur);
+        }
+
+        Collection<Frame> all = mFrames.values();
+        for (Frame frame : all) {
+            frame.onRestoreInstanceState(savedInstanceState);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        Collection<Frame> all = mFrames.values();
+        for (Frame frame : all) {
+            if (frame.onCreateOptionsMenu(menu)) {
+                return true;
+            }
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (getCurrentFrame().onPrepareOptionsMenu(menu)) {
+            return true;
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (getCurrentFrame().onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        Collection<Frame> all = mFrames.values();
+        for (Frame frame : all) {
+            frame.onWindowFocusChanged(hasFocus);
+        }
+    }
+
+    public Frame getFrame(int pos) {
+        String frame_name = frame_names.get(pos);
+        if (mFrames != null && mFrames.containsKey(frame_name)) {
+            return mFrames.get(frame_name);
+        }
+        return null;
+    }
+
+    public int getFrameCount() {
+        return frame_names.size();
+    }
+}

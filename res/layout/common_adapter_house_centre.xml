@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:id="@+id/house_centre"
+			  android:layout_width="match_parent"
+			  android:layout_height="wrap_content"
+			  android:background="@drawable/common_bg"
+			  android:orientation="vertical">
+	<include layout="@layout/common_adapter_house_image"/>
+
+	<include layout="@layout/common_adapter_house_area"/>
+
+	<include layout="@layout/common_adapter_house_count"/>
+</LinearLayout>

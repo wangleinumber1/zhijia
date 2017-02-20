@@ -1,0 +1,22 @@
+package com.zhijia.ui.view;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.util.AttributeSet;
+import com.fortysevendeg.android.swipelistview.SwipeListView;
+import com.zhijia.ui.R;
+
+/**
+ * 一个通用的SwipListView
+ */
+public class CommonSwipeListView extends SwipeListView {
+    public CommonSwipeListView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        setOffsetLeft(getWidth() - getResources().getDimensionPixelOffset(R.dimen.swipe_delete_button_width));
+    }
+}

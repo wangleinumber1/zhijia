@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_bg"
+    android:orientation="vertical" >
+
+    <!-- 头部 -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/head_bg" >
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/subscribe_look_house"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp" >
+
+                <TextView
+                    android:id="@+id/look_house_describe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="您要预约去看的房源："
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/look_house_area_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/look_house_describe"
+                    android:layout_marginTop="5dp"
+                    android:text="柏林北区" />
+
+                <ImageView
+                    android:id="@+id/look_house_area_image_one"
+                    android:layout_width="1px"
+                    android:layout_height="40px"
+                    android:layout_below="@+id/look_house_describe"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@+id/look_house_area_name"
+                    android:background="@color/split_line" />
+
+                <TextView
+                    android:id="@+id/look_house_area_area"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/look_house_describe"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@+id/look_house_area_image_one"
+                    android:text="108m²" />
+
+                <ImageView
+                    android:id="@+id/look_house_area_image_two"
+                    android:layout_width="1px"
+                    android:layout_height="40px"
+                    android:layout_below="@+id/look_house_describe"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@+id/look_house_area_area"
+                    android:background="@color/split_line" />
+
+                <TextView
+                    android:id="@+id/look_house_area_house_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/look_house_describe"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@+id/look_house_area_image_two"
+                    android:text="2室2厅2卫" />
+
+                <ImageView
+                    android:id="@+id/look_house_area_image_three"
+                    android:layout_width="1px"
+                    android:layout_height="40px"
+                    android:layout_below="@+id/look_house_describe"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@+id/look_house_area_house_type"
+                    android:background="@color/split_line" />
+
+                <TextView
+                    android:id="@+id/look_house_area_house_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/look_house_describe"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@+id/look_house_area_image_three"
+                    android:text="85万" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/look_house_area_image_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/split_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/input"
+                android:orientation="vertical"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/input_underline"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/look_house_area_look_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:hint="看房时间：" />
+
+                    <RadioGroup
+                        android:id="@+id/time_radio_group"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical" >
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/input_underline"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/look_house_area_look_house_time_frame"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:hint="看房时段：" />
+
+                    <RadioGroup
+                        android:id="@+id/hour_radio_group"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical" >
+                    </RadioGroup>
+                </LinearLayout>
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/look_house_area_explain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/input"
+                android:gravity="top|left"
+                android:hint="还要特别说明的(4-30)个文字"
+                android:inputType="textMultiLine"
+                android:lines="5"
+                android:maxLength="30" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/input"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/look_house_area_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/input_underline"
+                    android:hint="@string/name" />
+
+                <EditText
+                    android:id="@+id/look_house_area_cellphone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/input_underline"
+                    android:hint="@string/input_cellphone"
+                    android:inputType="phone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" >
+
+                <TextView
+                    android:id="@+id/submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/common_red_button"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="10dp"
+                    android:text="提交预约申请"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

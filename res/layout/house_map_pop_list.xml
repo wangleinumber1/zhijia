@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/common_bg">
+    <!--头部-->
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/head_bg">
+
+        <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_marginLeft="15dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignWithParentIfMissing="true"
+                android:layout_centerVertical="true"/>
+
+        <TextView
+                android:id="@+id/house_type_selection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_marginRight="15dp"
+                android:textSize="16sp"
+                android:text="@string/house_type_selection"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"/>
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/house_type_selection"
+                android:layout_centerVertical="true"
+                android:src="@drawable/down_white"/>
+    </RelativeLayout>
+
+    <ListView
+            android:id="@+id/house_common_pop_list_list_view"
+            android:divider="@color/split_line"
+            android:dividerHeight="1dp"
+            android:fadingEdge="none"
+            android:fillViewport="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/common_bg"/>
+</LinearLayout>

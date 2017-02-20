@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+	<!--头部-->
+	<LinearLayout
+			android:id="@+id/new_house_top"
+			android:layout_alignParentTop="true"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@drawable/head_bg"
+			android:orientation="horizontal"
+			android:layout_centerVertical="true">
+		<RelativeLayout
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1">
+			<ImageView
+					android:id="@+id/house_back"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:src="@drawable/back"
+					android:layout_alignParentLeft="true"
+					android:layout_alignWithParentIfMissing="true"
+					android:layout_centerVertical="true"/>
+
+		</RelativeLayout>
+		<RelativeLayout
+				android:id="@+id/new_house_title"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="4">
+			<TextView
+					android:id="@+id/house_top_app_gps"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerInParent="true"
+					android:gravity="center"
+					android:textColor="@color/white"
+					android:textSize="20sp"
+					android:text="@string/index_top_app_gps"
+					android:layout_alignWithParentIfMissing="true"
+					android:layout_centerVertical="true"/>
+		</RelativeLayout>
+	</LinearLayout>
+</RelativeLayout>

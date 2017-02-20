@@ -1,0 +1,140 @@
+package com.zhijia.ui.zhijiaActivity;
+
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+import com.google.common.base.Optional;
+import com.zhijia.Global;
+import com.zhijia.service.data.Medol.CustomerProgressDetailModel;
+import com.zhijia.service.data.Medol.JsonResult;
+import com.zhijia.service.network.HttpClientUtils;
+import com.zhijia.ui.R;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 客户进度详情
+ */
+public class MyCustomerProgressDetailActivity extends CommonActivity {
+
+    private static String PROGRESS_DETAIL_URL = Global.API_WEB_URL + "/member/zhuanschedule";
+
+    private String rid;
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.my_customer_progress_detail);
+
+        rid = getIntent().getStringExtra("rid");
+
+        this.setTopTitle(getString(R.string.customer_progress_detail), R.id.common_two_view_text);
+        this.setOnClickListener(this);
+
+        GetCustomerProgressDetailInfoAsyncTask getCustomerProgressDetailInfoAsyncTask = new GetCustomerProgressDetailInfoAsyncTask();
+        getCustomerProgressDetailInfoAsyncTask.execute(rid);
+    }
+
+    private Map<String, Object> getCustomerProgressDetailInfo(String rid) {
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+
+        if (!Global.USER_AUTH_STR.equals("")) {
+            HttpClientUtils httpClientUtils = HttpClientUtils.getInstance();
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("cityid", Global.NOW_CITY_ID);
+            map.put("authstr", Global.USER_AUTH_STR);
+            map.put("rid", rid);
+            Optional<JsonResult<CustomerProgressDetailModel>> optional = httpClientUtils.getUnsignedByData(PROGRESS_DETAIL_URL, map, CustomerProgressDetailModel.class);
+            if (optional.isPresent()) {
+                resultMap.put("status", String.valueOf(optional.get().isStatus()));
+                resultMap.put("message", optional.get().getMessage());
+                if (optional.get().getData() != null) {
+                    resultMap.put("progressDetailInfo", optional.get().getData());
+                }
+            }
+        }
+
+        return resultMap;
+    }
+
+    private void grawStatusLine(int status, int picId, int descId, int timeId, String desc, String time) {
+        ImageView pointImageView = (ImageView) findViewById(picId);
+        TextView descTextView = (TextView) findViewById(descId);
+        TextView timeTextView = (TextView) findViewById(timeId);
+
+        //0灰色 1空心圆 2实心圆
+        switch (status) {
+            case 2:
+                pointImageView.setImageResource(R.drawable.point_state_finish);
+                descTextView.setText(desc);
+                descTextView.setTextColor(getResources().getColor(R.color.high_light_font));
+                timeTextView.setText(time);
+                break;
+            case 1:
+                pointImageView.setImageResource(R.drawable.point_state_doing);
+                descTextView.setText(desc);
+                descTextView.setTextColor(getResources().getColor(R.color.high_light_font));
+                timeTextView.setText(time);
+                break;
+            case 0:
+                pointImageView.setImageResource(R.drawable.point_state_not_start);
+                descTextView.setText(desc);
+                descTextView.setTextColor(getResources().getColor(R.color.default_font));
+                timeTextView.setText(time);
+                break;
+        }
+    }
+
+    class GetCustomerProgressDetailInfoAsyncTask extends AsyncTask<String, Void, Map<String, Object>> {
+        @Override
+        protected Map<String, Object> doInBackground(String... params) {
+            return getCustomerProgressDetailInfo(params[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, Object> resultMap) {
+            super.onPostExecute(resultMap);
+
+            if (resultMap.size() > 0 && ((String) resultMap.get("status")).equalsIgnoreCase("true")) {//成功
+                CustomerProgressDetailModel tempObj = (CustomerProgressDetailModel) resultMap.get("progressDetailInfo");
+
+                ((TextView) findViewById(R.id.adapter_content_one)).setText(tempObj.getInfo().getTruename());
+                ((TextView) findViewById(R.id.adapter_content_two)).setText(tempObj.getInfo().getMobile());
+                ((TextView) findViewById(R.id.adapter_content_three)).setText(tempObj.getInfo().getName());
+                ((TextView) findViewById(R.id.adapter_content_four)).setText(tempObj.getInfo().getAmount());
+                ((TextView) findViewById(R.id.adapter_content_five)).setText(tempObj.getInfo().getPosttime());
+                TextView stateImage = (TextView) findViewById(R.id.adapter_image_one);
+
+                switch (Integer.parseInt(tempObj.getTagStatus())) {//0:蓝色,1:绿色,2:红色]
+                    case 0:
+                        stateImage.setText(tempObj.getTag());
+                        stateImage.setTextColor(getResources().getColor(R.color.blue));
+                        stateImage.setBackgroundResource(R.drawable.recommended_state_contact);
+                        break;
+                    case 1:
+                        stateImage.setText(tempObj.getTag());
+                        stateImage.setTextColor(getResources().getColor(R.color.green));
+                        stateImage.setBackgroundResource(R.drawable.recommended_state_deal);
+                        break;
+                    case 2:
+                        stateImage.setText(tempObj.getTag());
+                        stateImage.setTextColor(getResources().getColor(R.color.red));
+                        stateImage.setBackgroundResource(R.drawable.recommended_state_expired);
+                        break;
+                }
+
+                grawStatusLine(Integer.parseInt(tempObj.getStatus().getStatus1()), R.id.progress_state_image1, R.id.progress_state1, R.id.progress_time1, tempObj.getStatus().getStatus1Tag(), tempObj.getStatus().getUpdatetime1());
+                grawStatusLine(Integer.parseInt(tempObj.getStatus().getStatus2()), R.id.progress_state_image2, R.id.progress_state2, R.id.progress_time2, tempObj.getStatus().getStatus2Tag(), tempObj.getStatus().getUpdatetime2());
+                grawStatusLine(Integer.parseInt(tempObj.getStatus().getStatus3()), R.id.progress_state_image3, R.id.progress_state3, R.id.progress_time3, tempObj.getStatus().getStatus3Tag(), tempObj.getStatus().getUpdatetime3());
+                grawStatusLine(Integer.parseInt(tempObj.getStatus().getStatus4()), R.id.progress_state_image4, R.id.progress_state4, R.id.progress_time4, tempObj.getStatus().getStatus4Tag(), tempObj.getStatus().getUpdatetime4());
+                grawStatusLine(Integer.parseInt(tempObj.getStatus().getStatus5()), R.id.progress_state_image5, R.id.progress_state5, R.id.progress_time5, tempObj.getStatus().getStatus5Tag(), tempObj.getStatus().getUpdatetime5());
+                grawStatusLine(Integer.parseInt(tempObj.getStatus().getStatus6()), R.id.progress_state_image6, R.id.progress_state6, R.id.progress_time6, tempObj.getStatus().getStatus6Tag(), tempObj.getStatus().getUpdatetime6());
+
+            } else {
+                Toast.makeText(getApplicationContext(), (String) resultMap.get("message"), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+}

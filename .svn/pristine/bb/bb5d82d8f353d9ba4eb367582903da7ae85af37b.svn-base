@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/new_house_adapter_item"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/common_bg"
+              android:orientation="horizontal">
+
+    <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center_vertical">
+
+        <ImageView
+                android:id="@+id/community_list_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/house"/>
+
+        <ImageView
+                android:id="@+id/community_list_top_mark"
+                android:layout_alignTop="@+id/community_list_image"
+                android:layout_alignLeft="@+id/community_list_image"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/house_icons_1"/>
+
+        <ImageView
+                android:id="@+id/community_list_bottom"
+                android:layout_alignRight="@+id/community_list_image"
+                android:layout_alignBottom="@+id/community_list_image"
+                android:src="@drawable/singler"
+                android:padding="5dp"
+                android:visibility="gone"
+                android:layout_marginRight="6dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="vertical">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/community_list_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:padding="5dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:text="天然城"/>
+
+            <TextView
+                    android:id="@+id/community_list_sell_houses"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/community_list_rent_houses"
+                    android:layout_marginRight="5dp"
+                    android:textSize="13sp"
+                    android:textColor="@color/red"
+                    android:background="@drawable/mid_button"
+                    android:text="出售601套"/>
+
+            <TextView
+                    android:id="@+id/community_list_rent_houses"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:textSize="13sp"
+                    android:background="@drawable/mid_button"
+                    android:textColor="@color/red"
+                    android:text="出租27套"/>
+
+            <TextView
+                    android:id="@+id/community_list_area"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:textSize="@dimen/adapter_text_size"
+                    android:textColor="@color/font_desc"
+                    android:padding="5dp"
+                    android:layout_below="@+id/community_list_rent_houses"
+                    android:text="[桥东区] 祁连大街122号"/>
+
+            <!--这个是详情的-->
+            <RelativeLayout
+                    android:id="@+id/community_list_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center|center_horizontal"
+                    android:layout_below="@+id/community_list_area">
+
+                <TextView
+                        android:id="@+id/community_list_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:textColor="@color/red"
+                        android:padding="2dp"
+                        android:text="7800/m²"/>
+
+                <ImageView
+                        android:id="@+id/community_list_split_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:src="@drawable/v_split"
+                        android:layout_toRightOf="@+id/community_list_type"
+                        android:background="@color/split_line"/>
+
+                <TextView
+                        android:id="@+id/community_list_split_up_rate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/community_list_type"
+                        android:layout_toLeftOf="@+id/community_list_split_image"
+                        android:padding="2dp"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:textSize="@dimen/adapter_text_size"
+                        android:textColor="@color/red"
+                        android:text="0.08%"/>
+
+                <ImageView
+                        android:id="@+id/community_list_split_rate_up_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:layout_toLeftOf="@+id/community_list_split_up_rate"
+                        android:layout_below="@+id/community_list_type"
+                        android:src="@drawable/house_up"/>
+
+                <TextView
+                        android:id="@+id/community_list_split_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/community_list_split_image"
+                        android:textColor="@color/red"
+                        android:padding="2dp"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:text="2300/月"/>
+
+                <TextView
+                        android:id="@+id/community_list_split_down_rate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/community_list_split_price"
+                        android:layout_toRightOf="@+id/community_list_split_rate_down_image"
+                        android:padding="2dp"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:textSize="@dimen/adapter_text_size"
+                        android:textColor="@color/green"
+                        android:text="0.02%"/>
+
+                <ImageView
+                        android:id="@+id/community_list_split_rate_down_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:layout_toRightOf="@+id/community_list_split_image"
+                        android:layout_below="@+id/community_list_split_price"
+                        android:src="@drawable/house_down"/>
+
+                <TextView
+                        android:id="@+id/community_list_cancel_attention"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cancel_attention"
+                        android:gravity="center|center_vertical"
+                        android:textSize="14sp"
+                        android:padding="3dp"
+                        android:background="@drawable/green_button"
+                        android:layout_below="@+id/community_list_split_price"
+                        android:layout_alignParentRight="true"
+                        android:textColor="@color/white"/>
+            </RelativeLayout>
+
+            <!--这个涨的数据-->
+            <RelativeLayout
+                    android:id="@+id/community_list_details_sellratio"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center|center_horizontal"
+                    android:layout_below="@+id/community_list_area">
+
+                <TextView
+                        android:id="@+id/community_list_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:textColor="@color/red"
+                        android:padding="2dp"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:text="7800/m²"/>
+
+                <ImageView
+                        android:id="@+id/community_list_split_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:src="@drawable/v_split"
+                        android:layout_toRightOf="@+id/community_list_type"
+                        android:background="@color/split_line"/>
+
+                <TextView
+                        android:id="@+id/community_list_split_up_rate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/community_list_type"
+                        android:layout_toLeftOf="@+id/community_list_split_image"
+                        android:padding="2dp"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:textSize="@dimen/adapter_text_size"
+                        android:textColor="@color/red"
+                        android:text="0.08%"/>
+
+                <ImageView
+                        android:id="@+id/community_list_split_rate_up_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:layout_toLeftOf="@+id/community_list_split_up_rate"
+                        android:layout_below="@+id/community_list_type"
+                        android:src="@drawable/house_up"/>
+
+                <TextView
+                        android:id="@+id/community_list_split_price_none_sellratio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/community_list_split_image"
+                        android:textColor="@color/dark_bg"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:padding="5dp"
+                        android:text="暂无租金"/>
+            </RelativeLayout>
+
+
+            <!--这个跌的数据-->
+            <RelativeLayout
+                    android:id="@+id/community_list_details_rentratio"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center|center_horizontal"
+                    android:layout_below="@+id/community_list_area">
+
+                <TextView
+                        android:id="@+id/community_list_type_none_rentratio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/dark_bg"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:padding="5dp"
+                        android:text="暂无均价"/>
+
+                <ImageView
+                        android:id="@+id/community_list_split_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:src="@drawable/v_split"
+                        android:layout_toRightOf="@+id/community_list_type_none_rentratio"
+                        android:background="@color/split_line"/>
+
+
+                <TextView
+                        android:id="@+id/community_list_split_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/community_list_split_image"
+                        android:textColor="@color/red"
+                        android:padding="2dp"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:text="2300/月"/>
+
+                <TextView
+                        android:id="@+id/community_list_split_down_rate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/community_list_split_price"
+                        android:layout_toRightOf="@+id/community_list_split_rate_down_image"
+                        android:padding="2dp"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:textSize="@dimen/adapter_text_size"
+                        android:textColor="@color/green"
+                        android:text="无涨幅"/>
+
+                <ImageView
+                        android:id="@+id/community_list_split_rate_down_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:layout_toRightOf="@+id/community_list_split_image"
+                        android:layout_below="@+id/community_list_split_price"
+                        android:src="@drawable/house_down"/>
+            </RelativeLayout>
+
+            <!--没有数据的时候-->
+            <RelativeLayout
+                    android:id="@+id/community_list_simple"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_centerInParent="true"
+                    android:gravity="center|center_horizontal"
+                    android:layout_below="@+id/community_list_area">
+
+                <TextView
+                        android:id="@+id/community_list_type_none"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/dark_bg"
+                        android:layout_centerVertical="true"
+                        android:padding="5dp"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:text="暂无均价"/>
+
+                <ImageView
+                        android:id="@+id/community_list_split_image_none"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/v_split"
+                        android:layout_toRightOf="@+id/community_list_type_none"
+                        android:background="@color/split_line"/>
+
+                <TextView
+                        android:id="@+id/community_list_split_price_none"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/community_list_split_image_none"
+                        android:textColor="@color/dark_bg"
+                        android:layout_centerVertical="true"
+                        android:padding="5dp"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:text="暂无租金"/>
+
+                <TextView
+                        android:id="@+id/community_list_cancel_attention_none"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cancel_attention"
+                        android:gravity="center|center_vertical"
+                        android:textSize="14sp"
+                        android:padding="3dp"
+                        android:background="@drawable/green_button"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:textColor="@color/white"/>
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

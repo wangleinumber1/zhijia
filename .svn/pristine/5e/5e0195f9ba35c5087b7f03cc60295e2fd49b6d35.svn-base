@@ -1,0 +1,12 @@
+package com.zhijia.service.data.condition.price;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.zhijia.service.data.condition.CommonJsonModel;
+
+/**
+ * 价格json
+ */
+@JsonAutoDetect(fieldVisibility=JsonAutoDetect.Visibility.ANY)
+public class PriceJsonModel extends CommonJsonModel{
+
+}

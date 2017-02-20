@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/calculator_capacity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/common_bg"
+        android:orientation="vertical">
+    <include layout="@layout/common_two_view_head"/>
+
+    <!--内容-->
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/calculator_bg"
+                android:orientation="vertical">
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_vertical|left"
+                        android:layout_centerVertical="true"
+                        android:padding="20dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/default_font"
+                        android:text="@string/house_total_price"/>
+
+                <TextView
+                        android:id="@+id/house_total_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:gravity="right|center_vertical"
+                        android:layout_margin="20dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:textColor="@color/default_font"/>
+            </RelativeLayout>
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:background="@color/split_line"/>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_vertical|left"
+                        android:layout_centerVertical="true"
+                        android:textSize="16sp"
+                        android:padding="20dp"
+                        android:textColor="@color/default_font"
+                        android:text="贷款总数"/>
+
+                <TextView
+                        android:id="@+id/loan_total_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:gravity="right|center_vertical"
+                        android:layout_margin="20dp"
+                        android:textColor="@color/default_font"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:background="@color/split_line"/>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_vertical|left"
+                        android:layout_centerVertical="true"
+                        android:textSize="16sp"
+                        android:padding="20dp"
+                        android:textColor="@color/default_font"
+                        android:text="还款总数"/>
+
+                <TextView
+                        android:id="@+id/pay_total_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:gravity="right|center_vertical"
+                        android:layout_margin="20dp"
+                        android:textColor="@color/default_font"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:background="@color/split_line"/>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_vertical|left"
+                        android:layout_centerVertical="true"
+                        android:textSize="16sp"
+                        android:padding="20dp"
+                        android:textColor="@color/default_font"
+                        android:text="支付利息"/>
+
+                <TextView
+                        android:id="@+id/pay_interest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:gravity="right|center_vertical"
+                        android:layout_margin="20dp"
+                        android:textColor="@color/default_font"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:background="@color/split_line"/>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_vertical|left"
+                        android:layout_centerVertical="true"
+                        android:textSize="16sp"
+                        android:padding="20dp"
+                        android:textColor="@color/default_font"
+                        android:text="@string/first_payment"/>
+
+                <TextView
+                        android:id="@+id/first_payment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:gravity="right|center_vertical"
+                        android:layout_margin="20dp"
+                        android:textColor="@color/default_font"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:background="@color/split_line"/>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_vertical|left"
+                        android:layout_centerVertical="true"
+                        android:textSize="16sp"
+                        android:padding="20dp"
+                        android:textColor="@color/default_font"
+                        android:text="贷款月数"/>
+
+                <TextView
+                        android:id="@+id/loan_total_month"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:gravity="right|center_vertical"
+                        android:layout_margin="20dp"
+                        android:textColor="@color/default_font"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:background="@color/split_line"/>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_vertical|left"
+                        android:layout_centerVertical="true"
+                        android:textSize="16sp"
+                        android:padding="20dp"
+                        android:textColor="@color/default_font"
+                        android:text="月均还款"/>
+
+                <TextView
+                        android:id="@+id/pay_back_per_month"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:gravity="right|center_vertical"
+                        android:layout_margin="20dp"
+                        android:textColor="@color/default_font"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

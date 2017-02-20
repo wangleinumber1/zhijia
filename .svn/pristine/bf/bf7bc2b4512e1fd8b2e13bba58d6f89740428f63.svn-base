@@ -1,0 +1,7 @@
+package com.zhijia.ui.tabwidget.util;
+
+/**
+ * 新闻搜索选项
+ */
+public class NewsSearchHistoryModel extends SearchHistoryBaseModel {
+}

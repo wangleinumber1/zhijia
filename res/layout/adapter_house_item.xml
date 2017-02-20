@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/new_house_adapter_item"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/common_bg"
+              android:orientation="horizontal">
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_vertical">
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <ImageView
+                    android:id="@+id/adapter_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:scaleType="fitXY"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/house"/>
+
+            <ImageView
+                    android:id="@+id/adapter_image_top_mark"
+                    android:layout_alignTop="@+id/adapter_image"
+                    android:layout_alignLeft="@+id/adapter_image"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/house_icons_1"/>
+
+            <ImageView
+                    android:id="@+id/adapter_image_bottom"
+                    android:visibility="gone"
+                    android:layout_alignRight="@+id/adapter_image"
+                    android:layout_alignBottom="@+id/adapter_image"
+                    android:src="@drawable/singler"
+                    android:padding="5dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="5dp"
+            android:orientation="vertical">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/adapter_house_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:maxLines="1"
+                    android:text="怀特 翰墨儒林"/>
+
+            <TextView
+                    android:id="@+id/adapter_house_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textSize="14sp"
+                    android:textColor="@color/high_light_font"
+                    android:text="7200元/m"/>
+
+            <LinearLayout
+                    android:id="@+id/adapter_house_area_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_margin="3dp"
+                    android:layout_below="@+id/adapter_house_name"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:id="@+id/adapter_house_area_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="@dimen/adapter_text_size"
+                        android:textColor="@color/font_desc"
+                        android:layout_weight="3"
+                        android:text="裕华区"/>
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/new_house_location"/>
+
+                <TextView
+                        android:id="@+id/adapter_house_distance"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/adapter_text_size"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="3dp"
+                        android:textColor="@color/font_desc"
+                        android:text="1.25KM"
+                        android:layout_weight="2"/>
+            </LinearLayout>
+
+            <TextView
+                    android:id="@+id/adapter_house_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/adapter_house_area_layout"
+                    android:textSize="@dimen/adapter_text_size"
+                    android:textColor="@color/font_desc"
+                    android:layout_margin="3dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="育才街槐安路交口南街100米路西"/>
+
+            <TextView
+                    android:id="@+id/adapter_house_des"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/adapter_house_address"
+                    android:textSize="@dimen/adapter_text_size"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/red"
+                    android:text="减1000元/m  投资地产"/>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/common_bg">
+
+    <RelativeLayout
+            android:id="@+id/relativeLayout_head_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <!--头部-->
+        <LinearLayout
+                android:id="@+id/new_house_top"
+                android:layout_alignParentTop="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/head_bg"
+                android:orientation="horizontal"
+                android:layout_centerVertical="true">
+
+            <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                <ImageView
+                        android:id="@+id/house_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/back"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignWithParentIfMissing="true"
+                        android:layout_centerVertical="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:id="@+id/new_house_title"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+
+                <TextView
+                        android:id="@+id/house_top_app_gps"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:text="@string/index_top_app_gps"
+                        android:layout_alignWithParentIfMissing="true"
+                        android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                    android:id="@+id/new_house_list_map"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/new_house_button_list"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_vertical">
+
+                <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_gravity="center_vertical">
+
+                    <TextView
+                            android:id="@+id/new_house_list"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:text="@string/list"/>
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_gravity="center_vertical">
+
+                    <TextView
+                            android:id="@+id/new_house_map"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:text="@string/map"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ListView
+            android:id="@+id/house_listView"
+            android:divider="@color/split_line"
+            android:dividerHeight="1dp"
+            android:fadingEdge="none"
+            android:fillViewport="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/relativeLayout_head_id"/>
+    <!--区域布局-->
+    <LinearLayout
+            android:id="@+id/house_top_gone_area"
+            android:layout_below="@+id/relativeLayout_head_id"
+            android:layout_alignTop="@+id/house_listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:background="@drawable/common_bg">
+        <!--一条水平线-->
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/split_line"/>
+        <!--区域、价格、类型、排序-->
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+            <!--区域-->
+            <LinearLayout
+                    android:id="@+id/gone_house_area_linear_one"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_gravity="center_vertical">
+
+                <TextView
+                        android:id="@+id/gone_house_area_one"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/black"
+                        android:text="@string/area"/>
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="2dp"
+                        android:src="@drawable/new_house_dark"/>
+
+            </LinearLayout>
+
+            <ImageView
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/split_line"/>
+            <!--价格-->
+            <LinearLayout
+					android:id="@+id/gone_house_area_linear_two"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_gravity="center_vertical">
+
+                <TextView
+                        android:id="@+id/gone_house_area_two"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/black"
+                        android:text="@string/price"/>
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="2dp"
+                        android:src="@drawable/new_house_dark"/>
+            </LinearLayout>
+
+            <ImageView
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/split_line"/>
+            <!--类型-->
+            <LinearLayout
+					android:id="@+id/gone_house_area_linear_three"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_gravity="center_vertical">
+
+                <TextView
+                        android:id="@+id/gone_house_area_three"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/black"
+                        android:text="@string/type"/>
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="2dp"
+                        android:src="@drawable/new_house_dark"/>
+            </LinearLayout>
+
+            <ImageView
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/split_line"/>
+            <!--排序-->
+            <LinearLayout
+					android:id="@+id/gone_house_area_linear_four"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_gravity="center_vertical">
+
+                <TextView
+                        android:id="@+id/gone_house_area_four"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/black"
+                        android:text="@string/more"/>
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="2dp"
+                        android:src="@drawable/new_house_dark"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+                android:id="@+id/gone_house_area_bottom_image"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="10dp"
+                android:background="@color/split_line"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/house_top_gone_count"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/house_top_gone_area"
+            android:background="@drawable/new_house_count">
+
+        <TextView
+                android:id="@+id/gone_house_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="共有0套房"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

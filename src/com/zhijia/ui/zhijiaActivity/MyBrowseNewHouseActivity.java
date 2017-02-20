@@ -1,0 +1,101 @@
+package com.zhijia.ui.zhijiaActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.*;
+import com.google.common.base.Optional;
+import com.zhijia.Global;
+import com.zhijia.service.data.Medol.JsonResult;
+import com.zhijia.service.data.Medol.MyBrowseNewHouseJsonModel;
+import com.zhijia.service.network.HttpClientUtils;
+import com.zhijia.ui.R;
+import com.zhijia.ui.list.adapter.ItemAdapter;
+import com.zhijia.util.HouseDBUtil;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 我浏览的新房列表
+ */
+public class MyBrowseNewHouseActivity extends MyBaseHouseActivity<MyBrowseNewHouseJsonModel>{
+
+    private final String HISTORY_URL = Global.API_WEB_URL+"/xinfang/history"  ;
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.my_common_house_list);
+        setCountStr(R.string.total_browse_new_house_count);
+        setCountId(R.id.total_count_desc);
+        ListView listView = (ListView) findViewById(R.id.my_common_house_list);
+        Map<String, String> tempMap = new HashMap<String, String>();
+        tempMap.put("cityid", Global.NOW_CITY_ID);
+        tempMap.put("hids",HouseDBUtil.getBrowseHistoryIds(HouseDBUtil.HouseType.NEW_HOUSE)) ;
+        initView(listView, R.layout.my_browse_new_house_list_item, tempMap);
+        Map<Integer, String> titleMap = new HashMap<Integer, String>();
+        titleMap.put(R.id.title, getString(R.string.my_browse_new_house));
+        setTitle(titleMap, R.id.back);
+        startListTask(tempMap);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ListView listView1 = (ListView) parent;
+                ListAdapter listAdapter = listView1.getAdapter();
+                ItemAdapter tempAdapter = null;
+                Log.d("bindEvent->", position + "");
+
+                if (listAdapter instanceof HeaderViewListAdapter) {
+                    tempAdapter = (ItemAdapter) (((HeaderViewListAdapter) listAdapter).getWrappedAdapter());
+                } else {
+                    tempAdapter = (ItemAdapter) listAdapter;
+                }
+                Map<Integer,Object> tempMap= (Map<Integer,Object>) tempAdapter.getItem(position);
+                Intent intent  = new Intent(MyBrowseNewHouseActivity.this, NewHouseDetailsActivity.class) ;
+                intent.putExtra("hid",(String)tempMap.get(-2));
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public void convertToAdapterList(List<MyBrowseNewHouseJsonModel> list, List<Map<Integer, Object>> resultList, ItemAdapter itemAdapter) {
+           for(MyBrowseNewHouseJsonModel jsonModel:list){
+               Map<Integer, Object> map = new HashMap<Integer, Object>();
+               map.put(-2,jsonModel.getHid()) ;
+               map.put(R.id.adapter_house_image_one, jsonModel.getTitlePic());
+               map.put(R.id.adapter_house_content_one, jsonModel.getName());
+               map.put(R.id.adapter_house_content_two, jsonModel.getAveragePrice());
+               map.put(R.id.adapter_house_content_three, jsonModel.getAreaName());
+               map.put(R.id.adapter_house_content_four, jsonModel.getAddress());
+               Log.d("MyBrowseNewHouseActivity->datetime",HouseDBUtil.getBrowseDateTime(jsonModel.getHid(), HouseDBUtil.HouseType.NEW_HOUSE)) ;
+               map.put(R.id.adapter_house_content_five, HouseDBUtil.getBrowseDateTime(jsonModel.getHid(), HouseDBUtil.HouseType.NEW_HOUSE));
+               map.put(R.id.item_action, "关注");
+               if (resultList != null) {
+                   resultList.add(map);
+               }
+               if (itemAdapter != null) {
+                   itemAdapter.addItem(map);
+                   itemAdapter.notifyDataSetChanged();
+               }
+           }
+    }
+
+    @Override
+    public JsonResult<List<MyBrowseNewHouseJsonModel>> getListDataByNetWork(Map<String, String> paramMap) {
+        HttpClientUtils httpClientUtils = HttpClientUtils.getInstance();
+        if (getPage() != null) {
+            paramMap.put("page", String.valueOf(getPage().getPage()));
+        } else {
+            paramMap.put("page", "1");
+        }
+        Optional<JsonResult<List<MyBrowseNewHouseJsonModel>>> optional = httpClientUtils.getUnsignedListByData(HISTORY_URL, paramMap, MyBrowseNewHouseJsonModel.class);
+        if (optional.isPresent()) {
+            return optional.get();
+        }
+        return null;
+    }
+
+}

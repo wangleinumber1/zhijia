@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/common_bg">
+
+    <include layout="@layout/common_two_view_head"/>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3">
+
+        <TextView
+                android:id="@+id/adapter_content_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_margin="5dp"
+                android:paddingLeft="5dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:text="李小姐"/>
+
+        <TextView
+                android:id="@+id/adapter_content_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/adapter_content_one"
+                android:layout_margin="5dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/default_font"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textSize="16sp"
+                android:text="13800138000"/>
+
+        <TextView
+                android:id="@+id/deal_house"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/adapter_content_one"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/default_font"
+                android:textSize="14sp"
+                android:text="@string/deal_house"/>
+
+        <TextView
+                android:id="@+id/adapter_content_three"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/deal_house"
+                android:layout_alignBaseline="@id/deal_house"
+                android:gravity="center_vertical"
+                android:textColor="@color/default_font"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textSize="14sp"
+                android:text="华林国际"/>
+
+        <TextView
+                android:id="@+id/commission_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/deal_house"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/default_font"
+                android:textSize="14sp"
+                android:text="@string/commission_amount"/>
+
+        <TextView
+                android:id="@+id/adapter_content_four"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/commission_amount"
+                android:layout_alignBaseline="@id/commission_amount"
+                android:gravity="center_vertical"
+                android:textColor="@color/default_font"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textSize="14sp"
+                android:text="房产总价的千分之一"/>
+
+        <TextView
+                android:id="@+id/recommended_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/commission_amount"
+                android:layout_marginLeft="10dp"
+                android:paddingBottom="5dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/default_font"
+                android:textSize="14sp"
+                android:text="@string/recommended_time"/>
+
+        <TextView
+                android:id="@+id/adapter_content_five"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/recommended_time"
+                android:layout_alignBaseline="@id/recommended_time"
+                android:gravity="center_vertical"
+                android:textColor="@color/default_font"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textSize="14sp"
+                android:text="2014-03-31 21:09:53"/>
+
+        <TextView
+                android:id="@+id/adapter_image_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:gravity="center|center_vertical"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/recommended_state_deal"/>
+
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:layout_alignParentBottom="true"
+                android:background="@color/split_line"/>
+    </RelativeLayout>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="11">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="25dp">
+
+            <ImageView
+                    android:id="@+id/v_line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:src="@drawable/customer_progress_v_line"/>
+
+            <RelativeLayout
+                    android:id="@+id/state_layout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal">
+
+                <ImageView
+                        android:id="@+id/progress_state_image1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/point_state_finish"/>
+
+                <TextView
+                        android:id="@+id/progress_state1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/progress_state_image1"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="16dp"
+                        android:textColor="@color/high_light_font"
+                        android:text="客服已联系"/>
+
+                <TextView
+                        android:id="@+id/progress_time1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="15dp"
+                        android:textSize="16dp"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/default_font"
+                        android:text="2014-04-12 13:32:56"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:id="@+id/state_layout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/state_layout1"
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal">
+
+                <ImageView
+                        android:id="@+id/progress_state_image2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/point_state_finish"/>
+
+                <TextView
+                        android:id="@+id/progress_state2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/progress_state_image2"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="16dp"
+                        android:textColor="@color/high_light_font"
+                        android:text="预约成功"/>
+
+                <TextView
+                        android:id="@+id/progress_time2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="15dp"
+                        android:textSize="16dp"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/default_font"
+                        android:text="2014-04-12 13:32:56"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:id="@+id/state_layout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/state_layout2"
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal">
+
+                <ImageView
+                        android:id="@+id/progress_state_image3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/point_state_finish"/>
+
+                <TextView
+                        android:id="@+id/progress_state3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/progress_state_image3"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="16dp"
+                        android:textColor="@color/high_light_font"
+                        android:text="客户已到访"/>
+
+                <TextView
+                        android:id="@+id/progress_time3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="15dp"
+                        android:textSize="16dp"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/default_font"
+                        android:text="2014-04-12 13:32:56"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:id="@+id/state_layout4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/state_layout3"
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal">
+
+                <ImageView
+                        android:id="@+id/progress_state_image4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/point_state_doing"/>
+
+                <TextView
+                        android:id="@+id/progress_state4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/progress_state_image4"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="16dp"
+                        android:textColor="@color/high_light_font"
+                        android:text="等待交定金"/>
+
+                <TextView
+                        android:id="@+id/progress_time4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="15dp"
+                        android:textSize="16dp"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/default_font"
+                        android:text="2014-04-12 13:32:56"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:id="@+id/state_layout5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/state_layout4"
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal">
+
+                <ImageView
+                        android:id="@+id/progress_state_image5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/point_state_not_start"/>
+
+                <TextView
+                        android:id="@+id/progress_state5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/progress_state_image5"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="16dp"
+                        android:textColor="@color/default_font"
+                        android:text="成交"/>
+
+                <TextView
+                        android:id="@+id/progress_time5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="15dp"
+                        android:textSize="16dp"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/default_font"
+                        android:text="2014-04-12 13:32:56"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:id="@+id/state_layout6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/state_layout5"
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal">
+
+                <ImageView
+                        android:id="@+id/progress_state_image6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/point_state_not_start"/>
+
+                <TextView
+                        android:id="@+id/progress_state6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/progress_state_image6"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="16dp"
+                        android:textColor="@color/default_font"
+                        android:text="支付佣金"/>
+
+                <TextView
+                        android:id="@+id/progress_time6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="15dp"
+                        android:textSize="16dp"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/default_font"
+                        android:text="2014-04-12 13:32:56"/>
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

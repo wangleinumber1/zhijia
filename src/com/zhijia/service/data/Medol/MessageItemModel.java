@@ -1,0 +1,105 @@
+package com.zhijia.service.data.Medol;
+
+/**
+ * 消息模型
+ */
+public class MessageItemModel {
+
+    private String messageId;
+
+    //图片
+    private String url;
+
+    //标题
+    private String title;
+
+    //描述
+    private String desc;
+
+    //发送时间
+    private String time;
+
+    //新消息的条数
+    private int newCount = 0;
+
+    //点击后行为
+    private Action action;
+
+    public MessageItemModel(String messageId, String url, String title, String desc, String time, int newCount, Action action) {
+        this.messageId = messageId;
+        this.url = url;
+        this.title = title;
+        this.desc = desc;
+        this.time = time;
+        this.newCount = newCount;
+        this.action = action;
+    }
+
+    public String getMessageId() {
+        return messageId;
+    }
+
+    public void setMessageId(String messageId) {
+        this.messageId = messageId;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public int getNewCount() {
+        return newCount;
+    }
+
+    public void setNewCount(int newCount) {
+        this.newCount = newCount;
+    }
+
+    public Action getAction() {
+        return action;
+    }
+
+    public void setAction(Action action) {
+        this.action = action;
+    }
+
+    /**
+     * 消息的动作
+     * 0：用户对话信息，进入聊天界面
+     * 1：系统通知详情
+     * 2：资讯列表
+     * 3：楼盘详情页的问答部分
+     * 4：没有动作，忽略点击
+     */
+    public static enum Action {
+        CONVERSATION_MESSAGE, SYSTEM_NOTIFICATION_DETAIL, NEWS_LIST, HOUSES_DETAIL_ASK, NONE
+    }
+}

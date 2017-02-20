@@ -1,0 +1,102 @@
+package com.zhijia.ui.zhijiaActivity;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
+import android.widget.TextView;
+import static com.zhijia.Global.USER_AUTH_STR;
+import static com.zhijia.Global.SHARED_PREFERENCES_NAME;
+import com.zhijia.Global;
+import com.zhijia.ui.R;
+import com.zhijia.util.NativeWebChromeClient;
+import com.zhijia.util.NativeWebViewClient;
+import com.zhijia.util.NewsWebChromeClient;
+import com.zhijia.util.UserAgentUtil;
+
+/**
+ * 新闻详情页面
+ */
+@SuppressLint("SetJavaScriptEnabled")
+@SuppressWarnings("unused")
+public class NewsDetailActivity extends Activity {
+
+    //点击事件的侦听
+    private ClickListener clickListener = new ClickListener();
+
+    //相关新闻列表
+    private WebView newsDetailWebView;
+
+    //新闻所属分类
+    private String newsTypeName;
+
+    //新闻URL
+    private String url;
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.news_detail);
+        newsDetailWebView = (WebView) findViewById(R.id.news_detail_webview);       
+        findViewById(R.id.back).setOnClickListener(clickListener);
+        UserAgentUtil.userAgentCH(newsDetailWebView);
+        Intent intent = getIntent();
+        newsTypeName = intent.getStringExtra("newsTypeName");
+        url = intent.getStringExtra("url");
+        ((TextView) findViewById(R.id.title)).setText(String.format(getString(R.string.news_detail_title), newsTypeName, Global.NOW_CITY));
+        loadNewsDetail(url);
+    }
+
+    //加载当前新闻信息
+    private void loadNewsDetail(String url) {
+        //设置WebView属性，能够执行Javascript脚本
+        newsDetailWebView.getSettings().setJavaScriptEnabled(true);
+        newsDetailWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        newsDetailWebView.getSettings().setUseWideViewPort(true);
+        //newsDetailWebView.getSettings().setPluginsEnabled(true);
+        newsDetailWebView.getSettings().setAllowFileAccess(true);
+        newsDetailWebView.getSettings().setLoadWithOverviewMode(true);  
+        newsDetailWebView.getSettings().setSupportZoom(true); 
+        newsDetailWebView.getSettings().setDomStorageEnabled(true); 
+        newsDetailWebView.getSettings().setLoadsImagesAutomatically(true);
+        newsDetailWebView.getSettings().setBuiltInZoomControls(true); 
+        newsDetailWebView.setWebChromeClient(new NewsWebChromeClient());
+        newsDetailWebView.setWebViewClient(new NativeWebViewClient(this));
+        //加载需要显示的网页
+        newsDetailWebView.loadUrl(url);
+    }
+    @Override
+    protected void onDestroy() {
+    	System.out.println("onDestroy关闭");
+    	super.onDestroy();
+    	newsDetailWebView.stopLoading();
+    }
+    @Override
+    protected void onPause() {
+    	System.out.println("onPause关闭");
+    	super.onPause();
+    	newsDetailWebView.pauseTimers();
+    }
+    @Override
+    protected void onResume() {
+    	System.out.println("onResume关闭");
+    	super.onResume();
+    	newsDetailWebView.onResume();
+    }
+
+
+
+    //点击事件的公共类
+    class ClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.back: //后退
+                    finish();
+                    break;
+            }
+        }
+    }
+}

@@ -1,0 +1,722 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				android:orientation="vertical"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:background="@drawable/common_bg">
+
+
+	<include
+			android:id="@+id/rent_house_head"
+			layout="@layout/details_head"/>
+
+	<LinearLayout
+			android:id="@+id/rent_house_details_tier"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@drawable/common_bg"
+			android:layout_alignParentBottom="true"
+			android:gravity="center|center_vertical"
+
+			android:orientation="horizontal">
+
+		<TextView
+				android:id="@+id/rent_house_details_telephone_counseling"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_margin="10dp"
+				android:paddingTop="5dp"
+				android:paddingBottom="5dp"
+				android:paddingRight="15dp"
+				android:paddingLeft="15dp"
+				android:text="@string/linkman"
+				android:textSize="18sp"
+				android:textColor="@color/white"
+				android:background="@drawable/red_button"/>
+
+		<TextView
+				android:id="@+id/rent_house_details_immediately_apply"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_margin="10dp"
+				android:paddingTop="5dp"
+				android:paddingBottom="5dp"
+				android:paddingRight="15dp"
+				android:paddingLeft="15dp"
+				android:text="@string/order_watch_house"
+				android:textSize="18sp"
+				android:textColor="@color/white"
+				android:background="@drawable/red_button"/>
+	</LinearLayout>
+
+
+	<ScrollView
+			android:id="@+id/rent_house_details_scrollView"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/rent_house_head"
+			android:layout_above="@+id/rent_house_details_tier"
+			android:scrollbars="vertical"
+			android:background="@color/common_bg">
+
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:orientation="vertical">
+
+			<ImageView
+					android:id="@+id/rent_house_details_house_image"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:src="@drawable/a"/>
+
+			<ImageView
+					android:id="@+id/rent_house_details_house_split_line_one"
+					android:layout_width="match_parent"
+					android:layout_height="1px"
+					android:layout_marginTop="5dp"
+
+					android:background="@color/split_line"/>
+			<!--房子的介绍布局-->
+			<RelativeLayout
+					android:id="@+id/rent_house_details_house_introduce"
+
+					android:layout_marginTop="5dp"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+
+				<TextView
+						android:id="@+id/rent_house_details_house_introduce_content"
+						android:layout_marginLeft="20dp"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:textColor="@color/black"
+						android:textSize="14dp"
+						android:text="红星花园无双税首付17万精装修双学区片内急售"/>
+
+				<ImageView
+						android:id="@+id/rent_house_details_time_image"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:src="@drawable/time"
+						android:layout_marginLeft="20dp"
+						android:layout_marginTop="5dp"
+						android:layout_below="@+id/rent_house_details_house_introduce_content"/>
+
+				<TextView
+						android:id="@+id/rent_house_details_time"
+						android:layout_marginTop="5dp"
+						android:layout_marginLeft="5dp"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_below="@+id/rent_house_details_house_introduce_content"
+						android:layout_toRightOf="@+id/rent_house_details_time_image"
+						android:textColor="@color/dark_bg"
+						android:text="今天18:44更新"/>
+
+				<TextView
+						android:id="@+id/rent_house_details_impression"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_below="@+id/rent_house_details_house_introduce_content"
+						android:layout_toLeftOf="@+id/rent_house_details_impression_one"
+						android:background="@drawable/mid_button"
+						android:layout_marginRight="5dp"
+						android:layout_marginTop="5dp"
+						android:textSize="12dp"
+						android:padding="2dp"
+						android:textColor="@color/black"
+						android:text="@string/invest_sift"/>
+
+				<TextView
+						android:id="@+id/rent_house_details_impression_one"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_below="@+id/rent_house_details_house_introduce_content"
+						android:layout_alignParentRight="true"
+						android:layout_marginRight="5dp"
+						android:layout_marginTop="5dp"
+						android:background="@drawable/mid_button"
+						android:textColor="@color/black"
+						android:textSize="12dp"
+						android:padding="2dp"
+						android:text="@string/elevator_house"/>
+			</RelativeLayout>
+
+			<ImageView
+					android:id="@+id/rent_house_details_house_split_line_two"
+					android:layout_width="match_parent"
+					android:layout_height="1px"
+					android:layout_marginTop="5dp"
+
+					android:background="@color/split_line"/>
+			<!--房子的价钱、面积等相关信息-->
+			<RelativeLayout
+					android:id="@+id/rent_house_details_house_money_area_more"
+
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="5dp">
+
+				<TextView
+						android:id="@+id/rent_house_details_introduce_price_money"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="20dp"
+						android:textColor="@color/black"
+						android:text="@string/selling_price"/>
+
+				<TextView
+						android:id="@+id/rent_house_details_introduce_price_money_value"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_toRightOf="@+id/rent_house_details_introduce_price_money"
+						android:layout_marginLeft="10dp"
+						android:textColor="@color/red"
+						android:text="68万(8994元/m²)"/>
+
+				<RelativeLayout
+						android:id="@+id/rent_house_details_introduce_left"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_below="@+id/rent_house_details_introduce_price_money">
+
+					<TextView
+							android:id="@+id/rent_house_details_introduce_price_area"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginLeft="20dp"
+							android:layout_marginTop="5dp"
+							android:textColor="@color/black"
+							android:text="@string/proportion"/>
+
+					<TextView
+							android:id="@+id/rent_house_details_introduce_price_area_value"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_toRightOf="@+id/rent_house_details_introduce_price_area"
+							android:layout_marginLeft="10dp"
+							android:layout_marginTop="5dp"
+							android:textColor="@color/dark_bg"
+							android:text="75.6m²"/>
+
+					<TextView
+							android:id="@+id/rent_house_details_introduce_price_orientation"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginLeft="20dp"
+							android:layout_marginTop="5dp"
+							android:textColor="@color/black"
+							android:layout_below="@+id/rent_house_details_introduce_price_area"
+							android:text="@string/orientation"/>
+
+					<TextView
+							android:id="@+id/rent_house_details_introduce_price_orientation_value"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_toRightOf="@+id/rent_house_details_introduce_price_orientation"
+							android:layout_below="@+id/rent_house_details_introduce_price_area_value"
+							android:layout_marginLeft="10dp"
+							android:layout_marginTop="5dp"
+							android:textColor="@color/dark_bg"
+							android:text="南"/>
+
+					<TextView
+							android:id="@+id/rent_house_details_introduce_price_house_type"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginLeft="20dp"
+							android:layout_marginTop="5dp"
+							android:textColor="@color/black"
+							android:layout_below="@+id/rent_house_details_introduce_price_orientation"
+							android:text="@string/type"/>
+
+					<TextView
+							android:id="@+id/rent_house_details_introduce_price_house_type_value"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_toRightOf="@+id/rent_house_details_introduce_price_house_type"
+							android:layout_below="@+id/rent_house_details_introduce_price_orientation_value"
+							android:layout_marginLeft="10dp"
+							android:layout_marginTop="5dp"
+							android:textColor="@color/dark_bg"
+							android:text="住宅"/>
+
+					<TextView
+							android:id="@+id/rent_house_details_introduce_price_equity"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginLeft="20dp"
+							android:layout_marginTop="5dp"
+							android:textColor="@color/black"
+							android:layout_below="@+id/rent_house_details_introduce_price_house_type"
+							android:text="@string/equity"/>
+
+					<TextView
+							android:id="@+id/rent_house_details_introduce_price_equity_value"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_toRightOf="@+id/rent_house_details_introduce_price_equity"
+							android:layout_below="@+id/rent_house_details_introduce_price_house_type_value"
+							android:layout_marginLeft="10dp"
+							android:layout_marginTop="5dp"
+							android:textColor="@color/dark_bg"
+							android:text="70年"/>
+				</RelativeLayout>
+				<!--右边的布局-->
+				<RelativeLayout
+						android:id="@+id/rent_house_details_introduce_right"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_below="@+id/rent_house_details_introduce_price_money"
+						android:layout_toRightOf="@+id/rent_house_details_introduce_left">
+
+					<TextView
+							android:id="@+id/rent_house_details_introduce_price_type"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_centerHorizontal="true"
+							android:layout_marginLeft="20dp"
+							android:layout_marginTop="5dp"
+							android:textColor="@color/black"
+							android:text="@string/room_type"/>
+
+					<TextView
+							android:id="@+id/rent_house_details_introduce_price_type_value"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_toRightOf="@+id/rent_house_details_introduce_price_type"
+							android:layout_marginLeft="10dp"
+							android:layout_marginTop="5dp"
+							android:textColor="@color/dark_bg"
+							android:text="2室2厅1卫"/>
+
+					<TextView
+							android:id="@+id/rent_house_details_introduce_price_floors"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_centerHorizontal="true"
+							android:layout_marginLeft="20dp"
+							android:layout_marginTop="5dp"
+							android:textColor="@color/black"
+							android:layout_below="@+id/rent_house_details_introduce_price_type"
+							android:text="@string/floor"/>
+
+					<TextView
+							android:id="@+id/rent_house_details_introduce_price_floors_value"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_toRightOf="@+id/rent_house_details_introduce_price_floors"
+							android:layout_below="@+id/rent_house_details_introduce_price_type_value"
+							android:layout_marginLeft="10dp"
+							android:layout_marginTop="5dp"
+							android:textColor="@color/dark_bg"
+							android:text="第2层/第7层"/>
+
+					<TextView
+							android:id="@+id/rent_house_details_introduce_price_decorate"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_centerHorizontal="true"
+							android:layout_marginLeft="20dp"
+							android:layout_marginTop="5dp"
+							android:textColor="@color/black"
+							android:layout_below="@+id/rent_house_details_introduce_price_floors"
+							android:text="@string/decorate"/>
+
+					<TextView
+							android:id="@+id/rent_house_details_introduce_price_decorate_value"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_toRightOf="@+id/rent_house_details_introduce_price_decorate"
+							android:layout_below="@+id/rent_house_details_introduce_price_floors_value"
+							android:layout_marginLeft="10dp"
+							android:layout_marginTop="5dp"
+							android:textColor="@color/dark_bg"
+							android:text="精装"/>
+
+					<TextView
+							android:id="@+id/rent_house_details_introduce_price_house_age"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_centerHorizontal="true"
+							android:layout_marginLeft="20dp"
+							android:layout_marginTop="5dp"
+							android:textColor="@color/black"
+							android:layout_below="@+id/rent_house_details_introduce_price_decorate"
+							android:text="@string/house_age"/>
+
+					<TextView
+							android:id="@+id/rent_house_details_introduce_price_house_age_value"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_toRightOf="@+id/rent_house_details_introduce_price_house_age"
+							android:layout_below="@+id/rent_house_details_introduce_price_decorate_value"
+							android:layout_marginLeft="10dp"
+							android:layout_marginTop="5dp"
+							android:textColor="@color/dark_bg"
+							android:text="2000年"/>
+				</RelativeLayout>
+			</RelativeLayout>
+
+			<TextView
+					android:id="@+id/rent_house_details_house_description"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:background="@drawable/bg_blue"
+					android:gravity="center_vertical"
+					android:layout_marginTop="5dp"
+					android:layout_marginLeft="5dp"
+					android:textColor="@color/white"
+					android:text="@string/house_description"/>
+			<!--房子的描述-->
+			<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical">
+
+				<com.zhijia.ui.view.ZjGridView
+						android:id="@+id/rent_house_details_description_grid"
+
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:numColumns="3"
+						android:padding="5dp"
+						android:clickable="false"
+						android:verticalSpacing="10dp"
+						android:horizontalSpacing="5dp"
+						android:gravity="center_vertical"
+						android:background="@color/common_bg"/>
+
+				<ImageView
+						android:id="@+id/rent_house_details_house_split_line_three"
+						android:layout_width="match_parent"
+						android:layout_height="1px"
+						android:layout_marginTop="5dp"
+						android:layout_below="@+id/rent_house_details_description_grid"
+						android:background="@color/split_line"/>
+
+
+				<ListView
+						android:id="@+id/rent_house_details_description_list_view"
+						android:divider="@color/split_line"
+						android:dividerHeight="1dp"
+						android:fadingEdge="none"
+						android:fillViewport="true"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:background="@color/common_bg"/>
+			</LinearLayout>
+
+			<!--小区简介-->
+			<LinearLayout
+					android:id="@+id/rent_house_details_house_intro_linear"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical">
+
+				<TextView
+						android:id="@+id/rent_house_details_house_intro"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:background="@drawable/bg_blue"
+						android:gravity="center_vertical"
+						android:layout_marginTop="5dp"
+						android:paddingLeft="5dp"
+						android:textColor="@color/white"
+						android:text="@string/area_intro"/>
+
+				<RelativeLayout
+						android:id="@+id/rent_house_details_house_intro_relative"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="5dp">
+
+					<TextView
+							android:id="@+id/rent_house_details_house_intro_relative_name"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textColor="@color/black"
+							android:layout_marginLeft="20dp"
+							android:text="@string/area_name"/>
+
+					<TextView
+							android:id="@+id/rent_house_details_house_intro_relative_name_value"
+							android:layout_toRightOf="@+id/rent_house_details_house_intro_relative_name"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:textColor="@color/black"
+							android:text="君泽苑"/>
+
+					<TextView
+							android:id="@+id/rent_house_details_house_intro_relative_price"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textColor="@color/black"
+							android:layout_marginTop="5dp"
+							android:layout_marginLeft="20dp"
+							android:layout_below="@+id/rent_house_details_house_intro_relative_name"
+							android:text="@string/month_price"/>
+
+					<TextView
+							android:id="@+id/rent_house_details_house_intro_relative_price_value"
+							android:layout_toRightOf="@+id/rent_house_details_house_intro_relative_price"
+							android:layout_below="@+id/rent_house_details_house_intro_relative_name_value"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:textColor="@color/red"
+							android:layout_marginTop="5dp"
+							android:text="7800/m²"/>
+
+					<TextView
+							android:id="@+id/rent_house_details_house_intro_relative_compare"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textColor="@color/black"
+							android:layout_marginTop="5dp"
+							android:layout_marginLeft="20dp"
+							android:layout_below="@+id/rent_house_details_house_intro_relative_price"
+							android:text="@string/compare_month"/>
+
+					<ImageView
+							android:id="@+id/rent_house_details_house_intro_relative_compare_image"
+							android:layout_toRightOf="@+id/rent_house_details_house_intro_relative_compare"
+							android:layout_below="@+id/rent_house_details_house_intro_relative_price_value"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="5dp"
+							android:src="@drawable/house_down"/>
+
+					<TextView
+							android:id="@+id/rent_house_details_house_intro_relative_compare_value"
+							android:layout_toRightOf="@+id/rent_house_details_house_intro_relative_compare_image"
+							android:layout_below="@+id/rent_house_details_house_intro_relative_price_value"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textColor="@color/green"
+							android:layout_marginTop="5dp"
+							android:text="0.8%"/>
+
+					<TextView
+							android:id="@+id/rent_house_details_house_intro_relative_compare_year"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textColor="@color/black"
+							android:layout_marginTop="5dp"
+							android:layout_marginLeft="20dp"
+							android:layout_toRightOf="@+id/rent_house_details_house_intro_relative_compare_value"
+							android:layout_below="@+id/rent_house_details_house_intro_relative_price_value"
+							android:text="@string/compare_year"/>
+
+					<ImageView
+							android:id="@+id/rent_house_details_house_intro_relative_compare_year_image"
+							android:layout_toRightOf="@+id/rent_house_details_house_intro_relative_compare_year"
+							android:layout_below="@+id/rent_house_details_house_intro_relative_price_value"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="5dp"
+							android:src="@drawable/house_up"/>
+
+					<TextView
+							android:id="@+id/rent_house_details_house_intro_relative_compare_year_value"
+							android:layout_toRightOf="@+id/rent_house_details_house_intro_relative_compare_year_image"
+							android:layout_below="@+id/rent_house_details_house_intro_relative_price_value"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textColor="@color/red"
+							android:layout_marginTop="5dp"
+							android:text="16.8%"/>
+
+					<TextView
+							android:id="@+id/rent_house_details_house_intro_area_images"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:background="@drawable/blue_button"
+							android:layout_alignParentRight="true"
+							android:layout_marginRight="10dp"
+							android:textColor="@color/white"
+							android:layout_below="@+id/rent_house_details_house_intro_relative_price_value"
+							android:text="@string/area_photo"/>
+
+					<ImageView
+							android:id="@+id/rent_house_details_house_split_line_four"
+							android:layout_width="match_parent"
+							android:layout_height="1px"
+							android:layout_marginTop="5dp"
+							android:layout_below="@+id/rent_house_details_house_intro_area_images"
+							android:background="@color/split_line"/>
+
+					<TextView
+							android:id="@+id/rent_house_details_house_intro_sell_old_house"
+							android:layout_below="@+id/rent_house_details_house_split_line_four"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_centerVertical="true"
+							android:padding="10dp"
+							android:textColor="@color/black"
+							android:text="君泽苑在售二手房"/>
+
+					<ImageView
+							android:id="@+id/rent_house_details_house_intro_sell_old_house_image"
+							android:layout_below="@+id/rent_house_details_house_split_line_four"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_centerVertical="true"
+							android:layout_alignParentRight="true"
+							android:padding="10dp"
+							android:src="@drawable/calculator_right"/>
+
+					<ImageView
+							android:id="@+id/rent_house_details_house_split_line_five"
+							android:layout_width="match_parent"
+							android:layout_height="1px"
+							android:layout_below="@+id/rent_house_details_house_intro_sell_old_house"
+							android:background="@color/split_line"/>
+
+					<TextView
+							android:id="@+id/rent_house_details_house_intro_rent_old_house"
+							android:layout_below="@+id/rent_house_details_house_split_line_five"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_centerVertical="true"
+							android:padding="10dp"
+							android:textColor="@color/black"
+							android:text="君泽苑出租房"/>
+
+					<ImageView
+							android:id="@+id/rent_house_details_house_intro_rent_old_house_image"
+							android:layout_below="@+id/rent_house_details_house_split_line_five"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_centerVertical="true"
+							android:layout_alignParentRight="true"
+							android:padding="10dp"
+							android:src="@drawable/calculator_right"/>
+				</RelativeLayout>
+			</LinearLayout>
+
+			<!--价格走势-->
+			<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+
+				<TextView
+						android:id="@+id/rent_house_details_house_trend"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:background="@drawable/bg_blue"
+						android:gravity="center_vertical"
+						android:layout_marginTop="5dp"
+						android:paddingLeft="5dp"
+						android:textColor="@color/white"
+						android:text="@string/price_tend"/>
+
+				<ImageView
+						android:id="@+id/rent_house_details_house_trend_image"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_margin="5dp"
+						android:src="@drawable/a"
+						android:layout_below="@+id/rent_house_details_house_trend"/>
+
+
+				<TextView
+						android:id="@+id/rent_house_details_house_trend_attention"
+						android:layout_below="@+id/rent_house_details_house_trend_image"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/attention_area"
+						android:layout_margin="10dp"
+						android:layout_centerHorizontal="true"
+						android:textColor="@color/white"
+						android:background="@drawable/red_button_selector"/>
+
+				<TextView
+						android:id="@+id/rent_house_details_house_trend_detail"
+						android:layout_below="@+id/rent_house_details_house_trend_image"
+						android:layout_toRightOf="@+id/rent_house_details_house_trend_attention"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/area_detail_message"
+						android:layout_margin="10dp"
+
+						android:layout_centerHorizontal="true"
+						android:textColor="@color/white"
+						android:background="@drawable/red_button_selector"/>
+
+			</RelativeLayout>
+			<!--交通地图-->
+			<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+
+				<TextView
+						android:id="@+id/rent_house_details_house_traffic"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:background="@drawable/bg_blue"
+						android:gravity="center_vertical"
+						android:layout_marginTop="5dp"
+						android:paddingLeft="5dp"
+						android:textColor="@color/white"
+						android:text="@string/traffic_map"/>
+
+				<ImageView
+						android:id="@+id/rent_house_details_house_traffic_image"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+                        android:scaleType="center"
+						android:layout_margin="5dp"
+						android:src="@drawable/a"
+						android:layout_below="@+id/rent_house_details_house_traffic"/>
+
+				<TextView
+						android:id="@+id/rent_house_details_house_traffic_address"
+						android:layout_below="@+id/rent_house_details_house_traffic_image"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:gravity="center_vertical"
+						android:layout_marginTop="5dp"
+						android:layout_marginLeft="10dp"
+						android:textColor="@color/black"
+						android:text="@string/traffic_map"/>
+
+				<TextView
+						android:id="@+id/rent_house_details_house_traffic_address_content"
+						android:layout_below="@+id/rent_house_details_house_traffic_address"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:gravity="center_vertical"
+						android:layout_marginTop="5dp"
+						android:layout_marginLeft="10dp"
+						android:textColor="@color/dark_bg"
+						android:text="杏石口路81号"/>
+
+				<TextView
+						android:id="@+id/rent_house_details_house_traffic_way"
+						android:layout_below="@+id/rent_house_details_house_traffic_address_content"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:gravity="center_vertical"
+						android:layout_marginTop="5dp"
+						android:layout_marginLeft="10dp"
+						android:textColor="@color/black"
+						android:text="@string/bus_way"/>
+
+				<TextView
+						android:id="@+id/rent_house_details_house_traffic_way_content"
+						android:layout_below="@+id/rent_house_details_house_traffic_way"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:gravity="center_vertical"
+						android:layout_marginTop="5dp"
+						android:layout_marginLeft="10dp"
+						android:textColor="@color/dark_bg"
+						android:text="暂无"/>
+			</RelativeLayout>
+		</LinearLayout>
+	</ScrollView>
+
+
+</RelativeLayout>

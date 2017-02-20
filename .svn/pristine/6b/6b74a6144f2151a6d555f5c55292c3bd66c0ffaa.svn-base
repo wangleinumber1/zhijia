@@ -1,0 +1,82 @@
+package com.zhijia.service.data.house;
+
+import java.util.Map;
+
+/**
+ * 看房预约信息模型
+ */
+public class LookHouseModel {
+
+    private String communityname;
+    private String area;
+    private String price;
+    private String unit;
+    private Map<Integer, String> hour;
+    private Map<Integer, String> time;
+    private String mobile;
+    private String truename;
+
+    public String getTruename() {
+        return truename;
+    }
+
+    public void setTruename(String truename) {
+        this.truename = truename;
+    }
+
+    public String getCommunityname() {
+        return communityname;
+    }
+
+    public void setCommunityname(String communityname) {
+        this.communityname = communityname;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public Map<Integer, String> getHour() {
+        return hour;
+    }
+
+    public void setHour(Map<Integer, String> hour) {
+        this.hour = hour;
+    }
+
+    public Map<Integer, String> getTime() {
+        return time;
+    }
+
+    public void setTime(Map<Integer, String> time) {
+        this.time = time;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+}

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/common_bg"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/before_loan_price_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="6dp"
+            android:text="部分还款金额( 万元 )"
+            android:textColor="@color/default_font"
+            android:textSize="@dimen/calculator_text_size" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:gravity="right|center_vertical" >
+
+            <EditText
+                android:id="@+id/before_loan_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/calculator_input"
+                android:gravity="center|center_vertical"
+                android:inputType="numberDecimal"
+                android:singleLine="true"
+                android:textColor="@color/default_font"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/before_loan_method_part_time_split_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/split_line" />
+
+    <LinearLayout
+        android:id="@+id/before_loan_method_part_time_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:text="处理方式"
+            android:textColor="@color/default_font"
+            android:textSize="@dimen/calculator_text_size" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:gravity="center_vertical|right"
+            android:orientation="horizontal" >
+
+            <RadioGroup
+                android:id="@+id/deal_method_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <RadioButton
+                    android:id="@+id/deal_method_reduce_years"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/radio_button_selector"
+                    android:text="缩短还款年限"
+                    android:textColor="@color/default_font" />
+
+                <RadioButton
+                    android:id="@+id/deal_method_reduce_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/radio_button_selector"
+                    android:paddingTop="5dp"
+                    android:text="减少月还款额"
+                    android:textColor="@color/default_font" />
+            </RadioGroup>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

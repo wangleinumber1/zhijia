@@ -1,0 +1,27 @@
+<resources>
+    <color name="common_bg">#FFEDEDED</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="red">#FFFF0000</color>
+    <color name="split_line">#FFCCCCCC</color>
+    <color name="dark_split_line">#FFB3B3B3</color>
+    <color name="default_font">#FF666666</color>
+    <color name="more_tab_hot_line_bg">#FFFFEEEC</color>
+    <color name="city_selected">#FFFFEEEC</color>
+    <color name="city_dark_bg">#FFDED9D9</color>
+    <color name="high_light_font">#FFE94820</color>
+    <color name="dark_bg">#4D4D4D</color>
+    <color name="light_dark_bg">#FFE6E6E6</color>
+    <color name="city_list_bg">#FFF7F7F7</color>
+    <color name="font_desc">#FF999999</color>
+    <color name="font_dark">#FF333333</color>
+    <color name="splash_bg">#FFEFEFEF</color>
+    <color name="green">#FF24B394</color>
+    <color name="blue">#FF5294D7</color>
+    <color name="red_button">#FF6666</color>
+    <color name="red_button_down">#CC0033</color>
+    <color name="blue_button">#3399CC</color>
+    <color name="blue_button_down">#006699</color>
+    <drawable name="tranclent">#00000000</drawable>
+
+</resources>

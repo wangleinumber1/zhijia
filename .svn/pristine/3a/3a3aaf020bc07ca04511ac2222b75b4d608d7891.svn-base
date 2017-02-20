@@ -1,0 +1,9 @@
+package com.zhijia.service.data.condition.houseage;
+
+import com.zhijia.service.data.condition.CommonJsonModel;
+
+/**
+ *房龄
+ */
+public class HouseageJsonModel extends CommonJsonModel{
+}

@@ -1,0 +1,84 @@
+package com.zhijia.ui.list.adapter;
+
+import android.content.Context;
+import android.content.Intent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.zhijia.service.data.Medol.HouseListItemModel;
+import com.zhijia.ui.R;
+import com.zhijia.ui.zhijiaActivity.GetPrivilegeActivity;
+import com.zhijia.ui.zhijiaActivity.NewHouseDetailsActivity;
+
+import java.util.List;
+
+/**
+ * 限时特惠的Adapter
+ */
+public class HousePrivilegeListViewAdapter extends AbstractHouseListViewAdapter {
+
+    public HousePrivilegeListViewAdapter(Context context, List<HouseListItemModel> items) {
+        super(context, items);
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        if (this.items != null && !this.items.isEmpty()) {
+            if (convertView == null) {
+                convertView = this.getLayoutInflater().inflate(R.layout.adapter_house_common_list_item, null);
+            }
+            final HouseListItemModel housePrivilege = this.items.get(position);
+
+            if (housePrivilege.getErrorDefault() == null) {
+                ImageView imageView = (ImageView) convertView.findViewById(R.id.adapter_house_image_one);
+                setImage(housePrivilege, imageView);
+                TextView textViewOne = (TextView) convertView.findViewById(R.id.adapter_house_content_one);
+                textViewOne.setText(housePrivilege.getHouseContentOne());
+
+                TextView textViewTwo = (TextView) convertView.findViewById(R.id.adapter_house_content_two);
+                textViewTwo.setText(housePrivilege.getHouseContentTwo());
+
+                TextView textViewThree = (TextView) convertView.findViewById(R.id.adapter_house_content_three);
+                textViewThree.setText(housePrivilege.getHouseContentThree());
+                textViewThree.setTextColor(convertView.getResources().getColor(R.color.red));
+
+                TextView textViewFour = (TextView) convertView.findViewById(R.id.adapter_house_content_four);
+                textViewFour.setText(housePrivilege.getHouseContentFour());
+                textViewFour.setTextColor(convertView.getResources().getColor(R.color.font_desc));
+
+                TextView textViewFive = (TextView) convertView.findViewById(R.id.adapter_house_content_five);
+                textViewFive.setText(housePrivilege.getHouseContentFive());
+                textViewFive.setTextColor(convertView.getResources().getColor(R.color.font_desc));
+
+                TextView textViewAction = (TextView) convertView.findViewById(R.id.item_action);
+                textViewAction.setText(convertView.getResources().getString(R.string.get_privilege));
+                textViewAction.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent getPrivilegeIntent = new Intent(view.getContext(), GetPrivilegeActivity.class);
+                        getPrivilegeIntent.putExtra("hid", housePrivilege.getHid());
+                        view.getContext().startActivity(getPrivilegeIntent);
+                    }
+                });
+
+                convertView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent newHouseDetails = new Intent(view.getContext(), NewHouseDetailsActivity.class);
+                        newHouseDetails.putExtra("hid", housePrivilege.getHid());
+                        view.getContext().startActivity(newHouseDetails);
+                    }
+                });
+            } else { //出现问网络或者没有找到数据走这个
+                return setErrorValue(housePrivilege);
+            }
+
+        } else {
+            convertView = this.getLayoutInflater().inflate(R.layout.house_list_wait_load, null);
+        }
+        return convertView;
+
+    }
+}

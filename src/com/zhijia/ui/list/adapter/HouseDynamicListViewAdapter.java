@@ -1,0 +1,43 @@
+package com.zhijia.ui.list.adapter;
+
+import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.zhijia.service.data.Medol.HouseListItemModel;
+import com.zhijia.ui.R;
+
+import java.util.List;
+
+/**
+ * 楼盘动态的适配器
+ */
+public class HouseDynamicListViewAdapter extends AbstractHouseListViewAdapter{
+
+    public HouseDynamicListViewAdapter(Context context, List<HouseListItemModel> items) {
+        super(context, items);
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        if (this.items != null && !this.items.isEmpty()){
+            if (convertView == null) {
+                convertView = this.getLayoutInflater().inflate(R.layout.new_house_dynamic_item, null);
+                HouseListItemModel houseListItemModel = this.items.get(position);
+                if(houseListItemModel.getErrorDefault() == null){
+                   TextView timeTextView = (TextView) convertView.findViewById(R.id.new_house_dynamic_item_time) ;
+                   TextView descTextView  = (TextView)convertView.findViewById(R.id.new_house_dynamic_item_desc) ;
+                    descTextView.setText(houseListItemModel.getHouseDynamicTitle());
+                    timeTextView.setText(houseListItemModel.getHouseDynamicPublished());
+                }else {
+                    return setErrorValue(houseListItemModel) ;
+                }
+            }
+        }else{
+            convertView = this.getLayoutInflater().inflate(R.layout.house_list_wait_load, null);
+        }
+        return convertView;
+    }
+
+}

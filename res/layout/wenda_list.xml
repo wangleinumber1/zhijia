@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		android:background="@drawable/common_bg">
+
+
+	<RelativeLayout
+			android:id="@+id/wenda_list_wait_load_relative"
+			android:gravity="center|center_vertical"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="@drawable/common_bg">
+		<com.zhijia.ui.view.CustomGifView
+				android:id="@+id/wenda_list_wait_load__image"
+				android:src="@drawable/animation"
+				android:gravity="center_vertical"
+                android:layout_width="150px"
+                android:layout_height="150px"/>
+
+        <TextView
+				android:id="@+id/wenda_list_wait_load__content"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_margin="20dp"
+				android:gravity="center_vertical"
+				android:layout_toRightOf="@+id/wenda_list_wait_load__image"
+				android:text="@string/loading_content"/>
+
+	</RelativeLayout>
+
+	<RelativeLayout
+			android:id="@+id/wenda_list_relative_layout"
+			android:visibility="gone"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="@drawable/common_bg">
+		<include android:id="@+id/wenda_list_head" layout="@layout/details_head"/>
+
+
+		<LinearLayout
+				android:id="@+id/wenda_list_title_linear_layout"
+				android:layout_below="@+id/wenda_list_head"
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+
+			<TextView
+					android:id="@+id/wenda_list_title_all"
+					android:layout_width="0dp"
+					android:layout_weight="1"
+					android:gravity="center"
+					android:layout_height="wrap_content"
+					android:layout_margin="10dp"
+					android:textColor="@color/red"
+					android:text="全部"/>
+
+			<ImageView
+					android:id="@+id/wenda_list_split_line_one"
+					android:layout_width="1px"
+					android:layout_height="match_parent"
+					android:layout_centerVertical="true"
+					android:background="@color/split_line"/>
+
+
+			<TextView
+					android:id="@+id/wenda_list_title_solve"
+					android:layout_width="0dp"
+					android:layout_weight="1"
+					android:gravity="center"
+					android:layout_height="wrap_content"
+					android:layout_margin="10dp"
+					android:textColor="@color/black"
+					android:text="已解决"/>
+
+			<ImageView
+					android:id="@+id/wenda_list_split_line_two"
+					android:layout_width="1px"
+					android:layout_height="match_parent"
+					android:layout_centerVertical="true"
+					android:background="@color/split_line"/>
+
+
+			<TextView
+					android:id="@+id/wenda_list_title_unsolved"
+					android:layout_width="0dp"
+					android:layout_weight="1"
+					android:gravity="center"
+					android:layout_height="wrap_content"
+					android:layout_margin="10dp"
+					android:textColor="@color/black"
+					android:text="未解决"/>
+
+		</LinearLayout>
+
+		<ImageView
+				android:id="@+id/wenda_list_split_line_three"
+				android:layout_below="@+id/wenda_list_title_linear_layout"
+				android:layout_width="match_parent"
+				android:layout_height="1px"
+				android:background="@color/split_line"/>
+
+
+		<TextView
+				android:id="@+id/wenda_list_count_text_view"
+				android:layout_below="@+id/wenda_list_split_line_three"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_margin="5dp"
+				android:textColor="@color/black"
+				android:text="共有20个楼盘问答"/>
+
+		<LinearLayout
+				android:id="@+id/wenda_list_content_linear_layout"
+				android:layout_alignParentBottom="true"
+				android:orientation="vertical"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+			<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+				<TextView
+						android:id="@+id/wenda_list_content_name_text_view"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_centerInParent="true"
+						android:text="我要提问"/>
+				<ImageView
+						android:id="@+id/wenda_list_split_line_one"
+						android:layout_toLeftOf="@+id/wenda_list_content_name_text_view"
+						android:layout_width="match_parent"
+						android:layout_height="1px"
+						android:layout_centerVertical="true"
+						android:background="@color/split_line"/>
+
+				<ImageView
+						android:id="@+id/wenda_list_split_line_two"
+						android:layout_toRightOf="@+id/wenda_list_content_name_text_view"
+						android:layout_width="match_parent"
+						android:layout_height="1px"
+						android:layout_centerVertical="true"
+						android:background="@color/split_line"/>
+
+			</RelativeLayout>
+			<EditText
+					android:id="@+id/wenda_list_edit_text"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_margin="20dp"
+					android:padding="10dp"
+					android:minLines="6"
+					android:gravity="top|left"
+					android:inputType="textMultiLine"
+					android:textSize="16sp"
+					android:maxLength="300"
+					android:hint="@string/message_body_hint"
+					android:background="@drawable/input"/>
+			<RelativeLayout
+					android:id="@+id/wenda_list_button_relative_layout"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="10dp"
+					android:layout_gravity="center_horizontal">
+
+				<TextView
+						android:id="@+id/wenda_list_button_cancel"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:paddingLeft="15dp"
+						android:paddingRight="15dp"
+						android:paddingTop="5dp"
+						android:paddingBottom="5dp"
+						android:text="   取消  "
+						android:textColor="@color/white"
+						android:background="@color/dark_bg"/>
+
+				<TextView
+						android:id="@+id/wenda_list_button_ok"
+						android:layout_toRightOf="@+id/wenda_list_button_cancel"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_centerInParent="true"
+						android:layout_marginLeft="10dp"
+						android:paddingLeft="15dp"
+						android:paddingRight="15dp"
+						android:paddingTop="5dp"
+						android:paddingBottom="5dp"
+						android:text="发出问题"
+						android:textColor="@color/white"
+						android:background="@color/red"/>
+			</RelativeLayout>
+		</LinearLayout>
+
+
+		<ListView
+				android:id="@+id/wenda_list_content_list_view"
+				android:divider="@color/split_line"
+				android:dividerHeight="1dp"
+				android:fadingEdge="none"
+				android:fillViewport="true"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_above="@+id/wenda_list_content_linear_layout"
+				android:layout_below="@+id/wenda_list_count_text_view"
+				android:gravity="center_vertical"
+				android:background="@color/common_bg"/>
+	</RelativeLayout>
+</LinearLayout>

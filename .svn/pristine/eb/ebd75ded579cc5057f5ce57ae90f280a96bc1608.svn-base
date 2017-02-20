@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/common_bg">
+
+    <!--头部-->
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/head_bg">
+
+        <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/back"
+                android:layout_alignParentLeft="true"
+                android:layout_alignWithParentIfMissing="true"
+                android:layout_centerVertical="true"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:text="@string/my_zhijia"
+                android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/white">
+
+        <ImageView
+                android:id="@+id/user_head"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_margin="15dp"
+                android:paddingLeft="20dp"
+                android:src="@drawable/user_head_default"/>
+
+        <TextView
+                android:id="@+id/my_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@color/default_font"
+                android:layout_alignTop="@+id/user_head"
+                android:layout_alignLeft="@+id/my_level_desc"/>
+
+        <TextView
+                android:id="@+id/my_level_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/font_desc"
+                android:layout_below="@+id/my_name"
+                android:layout_toRightOf="@+id/user_head"/>
+    </RelativeLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:background="@color/white">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_margin="10dp"
+                android:paddingLeft="15dp"
+                android:textSize="16sp"
+                android:text="@string/mobile_authentication"/>
+
+        <TextView
+                android:id="@+id/authentication_mobile"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textColor="@color/default_font"
+                android:layout_margin="10dp"
+                android:paddingLeft="15dp"
+                android:textSize="16sp"
+                android:text="@string/unauthentication"/>
+
+        <ImageView
+                android:id="@+id/authentication_mobile_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginRight="25dp"
+                android:src="@drawable/yes"/>
+    </LinearLayout>
+
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:background="@color/split_line"/>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:background="@color/white">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_margin="10dp"
+                android:paddingLeft="15dp"
+                android:textSize="16sp"
+                android:text="@string/email_authentication"/>
+
+        <TextView
+                android:id="@+id/authentication_email"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textColor="@color/default_font"
+                android:layout_margin="10dp"
+                android:paddingLeft="15dp"
+                android:textSize="16sp"
+                android:text="@string/unauthentication"/>
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginRight="25dp"
+                android:src="@drawable/no"/>
+    </LinearLayout>
+
+    <TextView
+            android:id="@+id/logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|center_vertical"
+            android:layout_margin="30dp"
+            android:padding="10dp"
+            android:text="@string/quit"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:background="@drawable/red_button"/>
+</LinearLayout>

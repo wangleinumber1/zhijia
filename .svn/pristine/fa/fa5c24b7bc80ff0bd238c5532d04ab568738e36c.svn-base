@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent"
+			  android:orientation="vertical"
+			  android:background="@drawable/common_bg">
+	<LinearLayout
+				  android:id="@+id/news_list_wait_load_relative"
+				  android:layout_width="match_parent"
+				  android:layout_height="match_parent"
+				  android:background="@drawable/common_bg"
+				  android:orientation="vertical">
+		<LinearLayout
+					  android:id="@+id/news_list_house_top"
+					  android:visibility="gone"
+					  android:layout_width="match_parent"
+					  android:layout_height="wrap_content"
+					  android:background="@drawable/head_bg"
+					  android:orientation="horizontal">
+
+			<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:background="@drawable/head_bg">
+
+				<ImageView
+						android:id="@+id/gone_common_two_view_back"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:src="@drawable/back"
+						android:layout_alignParentLeft="true"
+						android:layout_alignWithParentIfMissing="true"
+						android:layout_centerVertical="true"/>
+
+				<TextView
+						android:id="@+id/gone_common_two_view_text"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:gravity="center"
+						android:textColor="@color/white"
+						android:textSize="20sp"
+						android:layout_centerInParent="true"
+						android:text="@string/calculator"/>
+			</RelativeLayout>
+
+		</LinearLayout>
+
+		<TextView
+				android:id="@+id/news_list_wait_load__content"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_margin="20dp"
+				android:layout_gravity="center_vertical"
+				android:gravity="center_vertical|center"
+				android:text="@string/loading_content"/>
+
+	</LinearLayout>
+
+
+	<LinearLayout
+				  android:visibility="gone"
+				  android:id="@+id/news_list_linear_layout"
+				  android:layout_width="match_parent"
+				  android:layout_height="match_parent"
+				  android:background="@drawable/common_bg"
+				  android:orientation="vertical">
+
+		<include layout="@layout/common_two_view_head"/>
+
+		<include layout="@layout/news_navigation"/>
+
+		<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@color/white">
+			<ListView
+					android:id="@+id/news_list"
+					android:divider="@color/split_line"
+					android:dividerHeight="0dp"
+					android:fadingEdge="none"
+					android:fillViewport="true"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:background="@color/white"/>
+		<!-- 	<include 
+			    layout="@layout/comment_load"/> -->
+			 <RelativeLayout
+					android:id="@+id/loading_relative"
+					android:visibility="gone"
+					android:layout_alignParentBottom="true"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:background="@color/white">
+
+				<com.zhijia.ui.gif.CustomGifView
+						android:id="@+id/loading_image"
+						android:src="@drawable/animation"
+						android:layout_width="150px"
+						android:layout_height="150px"
+						android:layout_centerVertical="true"
+						android:layout_marginLeft="10dp"
+						android:layout_marginRight="10dp"/>
+				<TextView
+						android:id="@+id/loading_content"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_centerInParent="true"
+						android:layout_margin="20dp"
+						android:gravity="center_vertical"
+						android:text="@string/loading_content"/>
+			</RelativeLayout> 
+		</RelativeLayout>
+	</LinearLayout>
+</LinearLayout>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/calculator_capacity"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@drawable/common_bg"
+		android:orientation="vertical">
+	<include layout="@layout/calculator_head"/>
+
+	<!--内容-->
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_margin="20dp"
+			android:layout_gravity="center_horizontal"
+			android:background="@drawable/calculator_bg"
+			android:orientation="vertical">
+
+		<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="0dp"
+				android:layout_weight="1"
+				>
+			<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:gravity="center_vertical"
+					android:layout_gravity="center_vertical|left"
+					android:layout_centerVertical="true"
+					android:padding="20dp"
+                    android:textColor="@color/default_font"
+                    android:text="单位(元/m²)"/>
+
+
+            <EditText
+                    android:id="@+id/price"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textSize="15sp"
+					android:inputType="numberDecimal"
+					android:gravity="center"
+					android:layout_margin="20dp"
+					android:layout_centerVertical="true"
+					android:layout_alignParentRight="true"
+                    android:textColor="@color/default_font"
+					android:background="@drawable/calculator_input"
+					android:singleLine="true"/>
+		</RelativeLayout>
+
+        <ImageView
+				android:layout_width="match_parent"
+                android:layout_height="2px"
+				android:background="@color/split_line"/>
+
+        <RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="0dp"
+				android:layout_weight="1">
+
+			<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:gravity="center_vertical"
+					android:layout_gravity="center_vertical|left"
+					android:layout_centerVertical="true"
+					android:padding="20dp"
+                    android:textColor="@color/default_font"
+                    android:text="面积(m²)"/>
+
+
+            <EditText
+                    android:id="@+id/area"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textSize="15sp"
+                    android:inputType="numberDecimal"
+					android:gravity="center"
+					android:layout_margin="20dp"
+                    android:textColor="@color/default_font"
+					android:layout_centerVertical="true"
+					android:layout_alignParentRight="true"
+					android:background="@drawable/calculator_input"
+					android:singleLine="true"/>
+
+		</RelativeLayout>
+
+	</LinearLayout>
+
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:padding="20dp"
+			android:layout_gravity="center_vertical">
+		<TextView
+                android:id="@+id/compute"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/common_red_button"
+				android:gravity="center"
+				android:textColor="@color/white"
+                android:textSize="18sp"
+                android:padding="10dp"
+                 android:layout_margin="10dp"
+				android:layout_gravity="center_vertical"
+                android:text="@string/compute"/>
+    </LinearLayout>
+
+</LinearLayout>

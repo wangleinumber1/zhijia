@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/common_bg">
+
+    <!--头部-->
+    <LinearLayout
+            android:id="@+id/search_head_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/head_bg"
+            android:orientation="horizontal">
+
+        <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+            <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/back"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2">
+
+            <TextView
+                    android:id="@+id/search_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:text="@string/search_new_house"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical">
+
+            <TextView
+                    android:id="@+id/reset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:gravity="center|center_vertical"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/white"
+                    android:background="@drawable/top_menu_button"
+                    android:text="@string/reset"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <!--头栏目菜单-->
+    <LinearLayout
+            android:id="@+id/search_menu_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/search_head_layout"
+            android:orientation="horizontal"
+            android:background="@color/dark_bg">
+
+        <TextView
+                android:id="@+id/new_house"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:gravity="center|center_vertical"
+                android:background="@color/common_bg"
+                android:textSize="16sp"
+                android:textColor="@color/high_light_font"
+                android:text="@string/new_house"/>
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/v_split"/>
+
+        <TextView
+                android:id="@+id/old_house"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:gravity="center|center_vertical"
+                android:background="@color/common_bg"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="@string/old_house"/>
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/v_split"/>
+
+        <TextView
+                android:id="@+id/rent_house"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:gravity="center|center_vertical"
+                android:background="@color/common_bg"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="@string/rent_house"/>
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/v_split"/>
+
+        <TextView
+                android:id="@+id/information"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:gravity="center|center_vertical"
+                android:background="@color/common_bg"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="@string/information"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/search_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/search_menu_layout"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:background="@drawable/select_city_input_bg">
+
+        <EditText
+                android:id="@+id/search_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:layout_gravity="center"
+                android:singleLine="true"
+                android:inputType="text"
+                android:textSize="16sp"
+                android:hint="@string/search_hint"
+                android:background="@drawable/input_search"/>
+    </LinearLayout>
+
+    <ImageView
+            android:id="@+id/search_footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/tab_bg"/>
+
+    <ScrollView
+            android:id="@+id/search_option_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/search_footer"
+            android:layout_below="@+id/search_layout"
+            android:fillViewport="true"
+            android:fadingEdge="none">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/common_bg">
+
+            <LinearLayout
+                    android:id="@+id/search_option_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"/>
+
+            <ImageView
+                    android:id="@+id/split_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginBottom="15dp"
+                    android:background="@color/split_line"/>
+
+            <Button
+                    android:id="@+id/search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:padding="10dp"
+                    android:background="@drawable/common_red_button"
+                    android:text="@string/search"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"/>
+
+            <LinearLayout
+                    android:id="@+id/search_history_split"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:orientation="horizontal">
+
+                <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="2px"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/split_line"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:textSize="18sp"
+                        android:gravity="center_vertical|center"
+                        android:textColor="@color/default_font"
+                        android:text="@string/search_history"/>
+
+                <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="2px"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/split_line"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/search_history_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="15dp"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="暂无搜索历史"
+                        android:layout_marginBottom="15dp"
+                        android:paddingLeft="20dp"
+                        android:textSize="14sp"
+                        android:textColor="@color/font_desc"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

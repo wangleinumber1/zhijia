@@ -1,0 +1,9 @@
+package com.zhijia.service.data.condition.area;
+
+import com.zhijia.service.data.condition.CommonJsonModel;
+
+/**
+ * 面积Json-二手房
+ */
+public class AreaJsonModel extends CommonJsonModel{
+}

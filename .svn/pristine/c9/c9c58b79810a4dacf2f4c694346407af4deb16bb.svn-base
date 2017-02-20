@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:orientation="vertical"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent"
+			  android:background="@drawable/common_bg">
+
+	<include layout="@layout/community_adapter_house_head"/>
+	<include layout="@layout/common_adapter_house_area"/>
+
+	<TextView
+			android:id="@+id/community_house_count"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+            android:text="共有0套房"
+			android:textColor="@color/black"
+			android:layout_marginTop="10dp"
+			android:layout_marginLeft="10dp"
+			android:layout_gravity="center_vertical"/>
+
+
+	<ListView
+			android:id="@+id/rent_community_list"
+			android:divider="@color/split_line"
+			android:dividerHeight="1dp"
+			android:fadingEdge="none"
+			android:fillViewport="true"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"/>
+
+</LinearLayout>

@@ -1,0 +1,216 @@
+package com.zhijia.ui.zhijiaActivity;
+
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import com.google.common.base.Optional;
+import com.zhijia.Global;
+import com.zhijia.service.data.Medol.CommunityAlbumDetailsJsonModel;
+import com.zhijia.service.data.Medol.CommunityAlbumJsonModel;
+import com.zhijia.service.data.Medol.JsonResult;
+import com.zhijia.service.network.HttpClientUtils;
+import com.zhijia.ui.R;
+import com.zhijia.util.DownloadImageTask;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ *  二手房和租房里的图片详情。
+ */
+public class CommunityAlbumDetailsActivity extends BaseDetailsActivity {
+
+    private final String PICTURE_URL = Global.API_WEB_URL + "/house/album";
+    private final String COMMUNITY_PICTURE_URL = Global.API_WEB_URL +"/community/picture" ;
+    private final int header_title = R.id.details_title;
+    private List<View> contentViews;
+    private ViewPager contentViewPager;
+    private String pid;
+    private String hid;
+    private String houseType ;
+    private String total;
+    private String cid ;
+    private int position;
+    private List<CommunityAlbumDetailsJsonModel> pictureJsonModelList;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.new_house_album_details);
+        pid = (String) getIntent().getSerializableExtra("pid");
+        hid = (String) getIntent().getSerializableExtra("hid");
+        houseType= getIntent().getStringExtra("housetype") ;
+        position = (Integer)getIntent().getSerializableExtra("position");
+        System.out.println("pid:"+pid+"  hid: "+hid+"  position: "+position);
+        pictureJsonModelList = new ArrayList<CommunityAlbumDetailsJsonModel>();
+        contentViews = new ArrayList<View>();
+        AlbumDetailsAsyncTask albumDetailsAsyncTask = new AlbumDetailsAsyncTask();
+        if(houseType.equals("3")){
+            cid = getIntent().getStringExtra("cid") ;
+            albumDetailsAsyncTask.execute(COMMUNITY_PICTURE_URL);
+        }else {
+            albumDetailsAsyncTask.execute(PICTURE_URL);
+        }
+
+    }
+
+    public JsonResult<CommunityAlbumJsonModel> getAlbumDetails(String url) {
+        HttpClientUtils httpClientUtils = HttpClientUtils.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        if(houseType.equals("3")){
+            map.put("cityid",Global.NOW_CITY_ID) ;
+            map.put("cid",cid) ;
+        } else {
+            map.put("housetype",houseType);
+            map.put("hid", hid);
+            map.put("pid", pid);
+        }
+
+        Optional<JsonResult<CommunityAlbumJsonModel>> optional = httpClientUtils.getUnsignedByData(url, map, CommunityAlbumJsonModel.class);
+        if (optional.isPresent()) {
+
+            return optional.get();
+        }
+        return null;
+    }
+
+
+    public void setHeader(String position) {
+        Map<Integer, Object> map = new HashMap<Integer, Object>();
+        map.put(header_title, position + "/" + total);
+
+        setHeader(map);
+    }
+
+
+    private void iniContentViewPager() {
+        this.contentViewPager = (ViewPager) findViewById(R.id.new_house_album_details_view_page);
+    }
+
+    private void initContentListener() {
+        this.contentViewPager.setOnPageChangeListener(new ContentViewListener());
+    }
+
+    public void setAlbumDetails(int position){
+        View linearLayout = contentViews.get(position);
+        ImageView imageView = (ImageView) linearLayout.findViewById(R.id.community_album_details_item_image);
+        CommunityAlbumDetailsJsonModel jsonModel = pictureJsonModelList.get(position) ;
+        if(jsonModel != null){
+            String  picUrl ;
+            if(houseType.equals("3")){
+               picUrl = jsonModel.getPicUrl() ;
+               Log.d("CommunityAlbumDetailsActivity->picUrl",picUrl+"") ;
+            } else {
+               picUrl = jsonModel.getPic() ;
+            }
+            new DownloadImageTask().doInBackground(picUrl, imageView, R.drawable.a) ;
+        } else {
+            imageView.setImageResource(R.drawable.a);
+        }
+        contentViewPager.setCurrentItem(position);
+    }
+
+   
+
+
+    public class AlbumDetailsAsyncTask extends AsyncTask<String, Void, JsonResult<CommunityAlbumJsonModel>>{
+
+        @Override
+        protected JsonResult<CommunityAlbumJsonModel> doInBackground(String... params) {
+            return getAlbumDetails(params[0]);
+        }
+
+        @Override
+        protected void onPostExecute(JsonResult<CommunityAlbumJsonModel> jsonResult) {
+            findViewById(R.id.new_house_album_details_list_wait_load_relative).setVisibility(View.GONE);
+            findViewById(R.id.details_back).setOnClickListener(new DetailsOnClickListener());
+            if (jsonResult != null && jsonResult.isStatus()){
+                findViewById(R.id.new_house_album_details_linear_layout).setVisibility(View.VISIBLE);
+                iniContentViewPager();
+                initContentListener();
+                List<CommunityAlbumDetailsJsonModel>  list = jsonResult.getData().getList() ;
+                setPictureJsonModelList(list);
+                setTotal(jsonResult.getData().getTotal());
+                for(int i = 0 ; i < list.size() ; i++){
+                    View linearLayout = getLayoutInflater().inflate(R.layout.community_album_details_item, null);
+                    contentViews.add(linearLayout);
+                }
+                contentViewPager.setAdapter(new ContentViewAdapter());
+                setHeader("1");
+                setAlbumDetails(position);
+            }
+        }
+    }
+
+
+    class ContentViewListener implements ViewPager.OnPageChangeListener {
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            Log.d("CommunityAlbumDetailsActivity->onPageSelected", "position===" + position);
+            setAlbumDetails(position);
+            setHeader(String.valueOf(position + 1));
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+    }
+
+    class ContentViewAdapter extends PagerAdapter {
+
+        @Override
+        public int getCount() {
+            return contentViews.size();
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            View view = contentViews.get(position);
+            Log.d("CommunityAlbumDetailsActivity->instantiateItem", "position===" + position);
+            ((ViewPager) container).addView(view);
+            return contentViews.get(position);
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view == object;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            Log.d("CommunityAlbumDetailsActivity->destroyItem", "position===" + position);
+            ((ViewPager) container).removeView((View) object);
+        }
+    }
+
+    public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
+    }
+
+    public List<CommunityAlbumDetailsJsonModel> getPictureJsonModelList() {
+        return pictureJsonModelList;
+    }
+
+    public void setPictureJsonModelList(List<CommunityAlbumDetailsJsonModel> pictureJsonModelList) {
+        this.pictureJsonModelList = pictureJsonModelList;
+    }
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="adapter_text_size">12dp</dimen>
+    <dimen name="calculator_text_size">14sp</dimen>
+    <dimen name="rdo1">0dp</dimen>
+    <dimen name="rdo2">89dp</dimen>
+    <dimen name="rdo3">178dp</dimen>
+    <dimen name="rdo4">267dp</dimen>
+    <dimen name="rdo5">356dp</dimen>
+    <dimen name="rdo6">445dp</dimen>
+    <dimen name="swipe_delete_button_width">60dp</dimen>
+    <dimen name="move_news">80dp</dimen>
+</resources>

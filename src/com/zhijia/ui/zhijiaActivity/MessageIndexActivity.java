@@ -1,0 +1,509 @@
+package com.zhijia.ui.zhijiaActivity;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.*;
+
+import com.fortysevendeg.android.swipelistview.BaseSwipeListViewListener;
+import com.fortysevendeg.android.swipelistview.SwipeListView;
+import com.google.common.base.Optional;
+import com.zhijia.Global;
+import com.zhijia.service.data.Medol.JsonResult;
+import com.zhijia.service.data.Medol.MessageItemModel;
+import com.zhijia.service.data.Medol.MessageListModel;
+import com.zhijia.service.data.Medol.MessageItemModel.Action;
+import com.zhijia.service.network.HttpClientUtils;
+import com.zhijia.ui.R;
+import com.zhijia.util.DownloadImageTask;
+
+import static com.zhijia.Global.USER_AUTH_STR;
+import static com.zhijia.Global.SHARED_PREFERENCES_NAME;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 我的消息首页
+ */
+@SuppressWarnings("unused")
+public class MessageIndexActivity extends Activity {
+
+    private static String MESSAGE_LIST_URL = Global.API_WEB_URL + "/message/list";
+
+    private static String MESSAGE_DELETE_URL = Global.API_WEB_URL + "/message/del";
+
+    //点击事件的侦听
+    private ClickListener clickListener = new ClickListener();
+
+    //二级菜单
+    //private TextView shortMessage, systemNotification;
+
+    private SwipeListView swipeListView;
+
+    private List<MessageItemModel> resultMessageList = new ArrayList<MessageItemModel>();
+
+    private String unread = "0", total = "0";
+
+    //可见视图最后的一个索引
+    private int visibleLastIndex = 0, currentPage = 1;
+    //当前窗口可见项总数
+    private int visibleItemCount;
+
+    private View messageLoadView;
+
+    private TextView messageDesc;
+
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //未登录，先转入登录
+        if (Global.USER_AUTH_STR.equalsIgnoreCase("")) {
+            Intent loginIntent = new Intent(this, LoginActivity.class);
+            startActivityForResult(loginIntent, 100);
+        } else {
+            GetMessageListAsyncTask getMessageListAsyncTask = new GetMessageListAsyncTask();
+            getMessageListAsyncTask.execute(currentPage);
+        }
+        setContentView(R.layout.message_index);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        messageDesc = ((TextView) MessageIndexActivity.this.findViewById(R.id.all_message_desc));
+        //注册侦听
+        this.findViewById(R.id.message_index_back).setOnClickListener(clickListener);
+        this.findViewById(R.id.write_message).setOnClickListener(clickListener);
+        messageLoadView = findViewById(R.id.message_index_relative);
+        swipeListView = (SwipeListView) this.findViewById(R.id.message_list);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //只有登录成功，才会返回RESULT_OK。
+        if (resultCode == RESULT_OK) {
+            GetMessageListAsyncTask getMessageListAsyncTask = new GetMessageListAsyncTask();
+            getMessageListAsyncTask.execute(currentPage);
+        } else {
+            finish();
+        }
+    }
+
+    private void loadUI() {
+        /*shortMessage = (TextView) this.findViewById(R.id.short_message);
+        shortMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                swipeListView.setAdapter(new AllMessageListAdapter(getBaseContext(), initMessage("用户短消息标题")));
+                shortMessage.setTextColor(getResources().getColor(R.color.high_light_font));
+                systemNotification.setTextColor(getResources().getColor(R.color.black));
+            }
+        });
+        systemNotification = (TextView) this.findViewById(R.id.system_notification);
+        systemNotification.setTextColor(getResources().getColor(R.color.high_light_font));
+        systemNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                swipeListView.setAdapter(new AllMessageListAdapter(getBaseContext(), initMessage("系统消息标题")));
+                shortMessage.setTextColor(getResources().getColor(R.color.black));
+                systemNotification.setTextColor(getResources().getColor(R.color.high_light_font));
+            }
+        });*/
+
+        messageDesc.setText(String.format(getString(R.string.all_message_desc), unread, total));
+
+        swipeListView.setOnScrollListener(new OnScrollListener());
+        swipeListView.setAdapter(new AllMessageListAdapter(getBaseContext(), resultMessageList));
+        swipeListView.setSwipeListViewListener(new BaseSwipeListViewListener() {
+            @Override
+            public void onChoiceChanged(int position, boolean selected) {
+                Log.d(Global.LOG_TAG, "onChoiceChanged:" + position + ", " + selected);
+            }
+
+            @Override
+            public void onChoiceEnded() {
+                Log.d(Global.LOG_TAG, "onChoiceEnded");
+            }
+
+            @Override
+            public void onChoiceStarted() {
+                Log.d(Global.LOG_TAG, "onChoiceStarted");
+            }
+
+            @Override
+            public void onClickBackView(int position) {
+                Log.d(Global.LOG_TAG, "onClickBackView:" + position);
+            }
+
+            @Override
+            public void onClickFrontView(int position) {
+                Log.d(Global.LOG_TAG, "onClickFrontView:" + position);
+                Action action = ((MessageItemModel) swipeListView.getAdapter().getItem(position)).getAction();
+                switch (action) {
+                    case SYSTEM_NOTIFICATION_DETAIL:
+                        Intent systemMessageIntent = new Intent(swipeListView.getContext(), SystemMessageDetailListActivity.class);
+                        startActivity(systemMessageIntent);
+                        break;
+                    case NEWS_LIST:
+                        Intent newsMessageIntent = new Intent(swipeListView.getContext(), MessageNewsListActivity.class);
+                        startActivity(newsMessageIntent);
+                        break;
+                    case NONE:
+                        //标记消息已读，别的处理不需要。
+                        Toast.makeText(MessageIndexActivity.this.getBaseContext(), "TODO 标记消息已读，别的处理不需要。", Toast.LENGTH_SHORT).show();
+                        break;
+                    case CONVERSATION_MESSAGE:
+                        Intent conversationMessageIntent = new Intent(swipeListView.getContext(), MessageConversationDetailActivity.class);
+                        conversationMessageIntent.putExtra("themeId", resultMessageList.get(position).getMessageId());
+                        startActivity(conversationMessageIntent);
+                        break;
+                    case HOUSES_DETAIL_ASK:
+                        //跳转到楼盘详情页的问答处
+                        Toast.makeText(MessageIndexActivity.this.getBaseContext(), "TODO 跳转到楼盘详情页的问答处。", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+
+            @Override
+            public void onClosed(int position, boolean fromRight) {
+                Log.d(Global.LOG_TAG, "onClosed:" + position + "," + fromRight);
+            }
+
+            @Override
+            public void onDismiss(int[] arg0) {
+                Log.d(Global.LOG_TAG, "onDismiss");
+            }
+
+            @Override
+            public void onFirstListItem() {
+                Log.d(Global.LOG_TAG, "onFirstListItem");
+            }
+
+            @Override
+            public void onLastListItem() {
+                Log.d(Global.LOG_TAG, "onLastListItem");
+            }
+
+            @Override
+            public void onListChanged() {
+                Log.d(Global.LOG_TAG, "onListChanged");
+            }
+
+            @Override
+            public void onMove(int position, float x) {
+                Log.d(Global.LOG_TAG, "onMove:" + position + "," + x);
+            }
+
+            @Override
+            public void onOpened(int position, boolean toRight) {
+                Log.d(Global.LOG_TAG, "onOpened:" + position + "," + toRight);
+            }
+
+            @Override
+            public void onStartClose(int position, boolean right) {
+                Log.d(Global.LOG_TAG, "onStartClose:" + position + "," + right);
+            }
+
+            @Override
+            public void onStartOpen(int position, int action, boolean right) {
+                Log.d(Global.LOG_TAG, "onStartOpen:" + position + "," + action + "," + right);
+            }
+        });
+    }
+
+    /**
+     * 获得当前登录用户的用户信息
+     *
+     * @return
+     */
+    private Map<String, Object> getMessageListInfo(Integer page) {
+        Log.d(Global.LOG_TAG, "page = " + page);
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+
+        if (!Global.USER_AUTH_STR.equals("")) {
+            HttpClientUtils httpClientUtils = HttpClientUtils.getInstance();
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("authstr", Global.USER_AUTH_STR);
+            map.put("page", page.toString());
+            Optional<JsonResult<List<MessageListModel>>> optional = httpClientUtils.getUnsignedListByData(MESSAGE_LIST_URL, map, MessageListModel.class);
+            if (optional.isPresent()) {
+                JsonResult<List<MessageListModel>> jsonResult = optional.get();
+                //考虑超时情况。
+                if (jsonResult.isStatus()) {
+                    resultMap.put("status", String.valueOf(optional.get().isStatus()));
+                    resultMap.put("message", optional.get().getMessage());
+                    resultMap.put("total", optional.get().getTotal());
+                    resultMap.put("unread", optional.get().getUnread());
+                    if (Integer.parseInt(optional.get().getTotal()) > 0 && optional.get().getData() != null){
+                        resultMap.put("messageList", optional.get().getData());
+                    }
+                    currentPage++;
+                } else {
+                    Intent loginIntent = new Intent(this, LoginActivity.class);
+                    startActivityForResult(loginIntent, 100);
+                }
+
+
+            }
+        }
+
+        return resultMap;
+    }
+
+    class GetMessageListAsyncTask extends AsyncTask<Integer, Void, Map<String, Object>> {
+        @Override
+        protected Map<String, Object> doInBackground(Integer... params) {
+            return getMessageListInfo(params[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, Object> resultMap) {
+            super.onPostExecute(resultMap);
+            resultMessageList = new ArrayList<MessageItemModel>();
+
+            if (resultMap.size() > 0 && resultMap.get("status").equals("true")) {//成功
+                unread = (String) resultMap.get("total");
+                total = (String) resultMap.get("unread");
+                List<MessageListModel> messageListModelList = (List<MessageListModel>) resultMap.get("messageList");
+                if (messageListModelList != null) {
+                    for (MessageListModel messageListModel : messageListModelList) {
+                        resultMessageList.add(new MessageItemModel(messageListModel.getThemeId(), messageListModel.getAvatar(), messageListModel.getToUser(), messageListModel.getInfo(), messageListModel.getPostTime(), Integer.parseInt(messageListModel.getUnread()), Action.CONVERSATION_MESSAGE));
+                    }
+                }
+
+                loadUI();
+            } else {
+                Toast.makeText(getApplicationContext(), (String) resultMap.get("message"), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    class MessageDeleteAsyncTask extends AsyncTask<String, Void, Map<String, String>> {
+
+        private String themeId, position;
+
+        @Override
+        protected Map<String, String> doInBackground(String... params) {
+            themeId = params[0];
+            position = params[1];
+
+            Map<String, String> resultMap = new HashMap<String, String>();
+            HttpClientUtils httpClientUtils = HttpClientUtils.getInstance();
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("authstr", Global.USER_AUTH_STR);
+            map.put("themeid", themeId);
+            Optional<Map<String, String>> optional = httpClientUtils.getUnsignedMap(MESSAGE_DELETE_URL, map, String.class);
+            if (optional.isPresent()) {
+                resultMap.put("status", optional.get().get("status"));
+                resultMap.put("message", optional.get().get("message"));
+                resultMap.put("position", position);
+            }
+
+            return resultMap;
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, String> resultMap) {
+            super.onPostExecute(resultMap);
+
+            if (resultMap.size() > 0 && resultMap.get("status").equalsIgnoreCase("true")) {
+                ((AllMessageListAdapter) swipeListView.getAdapter()).removeItem(Integer.parseInt(resultMap.get("position")));
+            } else {
+                Toast.makeText(getApplicationContext(), resultMap.get("message"), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    class MessageIndexPageAsyncTask extends AsyncTask<String, Void, JsonResult<List<MessageListModel>>> {
+
+        private String page;
+
+        @Override
+        protected JsonResult<List<MessageListModel>> doInBackground(String... params) {
+            page = params[0];
+            if (!Global.USER_AUTH_STR.equals("")) {
+                HttpClientUtils httpClientUtils = HttpClientUtils.getInstance();
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("authstr", Global.USER_AUTH_STR);
+                map.put("page", page.toString());
+                Optional<JsonResult<List<MessageListModel>>> optional = httpClientUtils.getUnsignedListByData(MESSAGE_LIST_URL, map, MessageListModel.class);
+                if (optional.isPresent() && optional.get().getData() != null && optional.get().getData().size() > 0) {
+                    currentPage++;
+                    return optional.get();
+                } else {
+                    return null;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JsonResult<List<MessageListModel>> listJsonResult) {
+            messageLoadView.setVisibility(View.GONE);
+            if (listJsonResult != null) {
+                Map<String, Object> resultMap = new HashMap<String, Object>();
+                if (Integer.parseInt(listJsonResult.getTotal()) > 0 && listJsonResult.getData() != null) {
+                    resultMap.put("messageList", listJsonResult.getData());
+                }
+                List<MessageListModel> messageListModelList = (List<MessageListModel>) resultMap.get("messageList");
+                if (messageListModelList != null) {
+                    for (MessageListModel messageListModel : messageListModelList) {
+                        resultMessageList.add(new MessageItemModel(messageListModel.getThemeId(), messageListModel.getAvatar(), messageListModel.getToUser(), messageListModel.getInfo(), messageListModel.getPostTime(), Integer.parseInt(messageListModel.getUnread()), Action.CONVERSATION_MESSAGE));
+                    }
+                }
+
+                swipeListView.setAdapter(new AllMessageListAdapter(getBaseContext(), resultMessageList));//数据集变化后,通知adapter
+                swipeListView.setSelection(visibleLastIndex - visibleItemCount + 1); //设置选中项
+            }
+        }
+    }
+
+    //点击事件的公共类
+    class ClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.message_index_back: //后退
+                    finish();
+                    break;
+                case R.id.write_message: //写消息
+                    Intent messageEditIntent = new Intent(v.getContext(), MessageEditActivity.class);
+                    startActivity(messageEditIntent);
+                    break;
+            }
+        }
+    }
+
+    /**
+     * 全部消息的Adapter
+     */
+    private class AllMessageListAdapter extends BaseAdapter {
+        private LayoutInflater inflater;
+        private List<MessageItemModel> list;
+
+        public AllMessageListAdapter(Context context, List<MessageItemModel> list) {
+            this.inflater = LayoutInflater.from(context);
+            this.list = list;
+        }
+
+        @Override
+        public int getCount() {
+            return list.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return list.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            final ViewHolder holder;
+            if (convertView == null) {
+                convertView = inflater.inflate(R.layout.message_list_item, parent, false);
+                holder = new ViewHolder();
+                holder.messageImage = (ImageView) convertView.findViewById(R.id.message_image);
+                holder.messageNewCount = (TextView) convertView.findViewById(R.id.message_new_count);
+                holder.messageTitle = (TextView) convertView.findViewById(R.id.message_title);
+                holder.messageTime = (TextView) convertView.findViewById(R.id.message_time);
+                holder.messageDesc = (TextView) convertView.findViewById(R.id.message_desc);
+                holder.removeButton = (Button) convertView.findViewById(R.id.remove_message);
+
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+
+            ((SwipeListView) parent).recycle(convertView, position);
+
+            new DownloadImageTask().doInBackground(list.get(position).getUrl(), holder.messageImage, R.drawable.default_head);
+
+            holder.messageNewCount.setVisibility(View.VISIBLE);
+            if (list.get(position).getNewCount() <= 0) {
+                holder.messageNewCount.setVisibility(View.INVISIBLE);
+            } else {
+                holder.messageNewCount.setText(String.valueOf(list.get(position).getNewCount()));
+            }
+            holder.messageTitle.setText(list.get(position).getTitle());
+            holder.messageTime.setText(list.get(position).getTime());
+            holder.messageDesc.setText(list.get(position).getDesc());
+
+            holder.removeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MessageDeleteAsyncTask messageDeleteAsyncTask = new MessageDeleteAsyncTask();
+                    messageDeleteAsyncTask.execute(list.get(position).getMessageId(), String.valueOf(position));
+                }
+            });
+
+            return convertView;
+        }
+
+        /**
+         * 删除某一个条目
+         *
+         * @param position
+         */
+        protected void removeItem(int position) {
+            Toast.makeText(MessageIndexActivity.this.getBaseContext(), R.string.delete, Toast.LENGTH_SHORT).show();
+
+            list.remove(position);
+            AllMessageListAdapter.this.notifyDataSetChanged();
+            // 关闭SwipeListView
+            swipeListView.setAdapter(AllMessageListAdapter.this);
+        }
+
+        private class ViewHolder {
+            ImageView messageImage;
+            TextView messageNewCount;
+            TextView messageTitle;
+            TextView messageTime;
+            TextView messageDesc;
+            Button removeButton;
+        }
+    }
+
+    public class OnScrollListener implements AbsListView.OnScrollListener {
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            int itemsLastIndex = swipeListView.getAdapter().getCount() - 1;    //数据集最后一项的索引
+            Log.d("itemsLastIndex", "itemsLastIndex===" + itemsLastIndex);
+            //加上header和footer view的数量。
+            int lastIndex = itemsLastIndex + ((ListView) view).getHeaderViewsCount() + ((ListView) view).getFooterViewsCount();
+            Log.d("meessage-> lastIndex", lastIndex + ": visibleLastIndex==" + visibleLastIndex);
+            if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && visibleLastIndex == lastIndex) {
+
+                messageLoadView.setVisibility(View.VISIBLE);
+                Log.d("footerView", "footerView end");
+                MessageIndexPageAsyncTask messageIndexPageAsyncTask = new MessageIndexPageAsyncTask();
+                messageIndexPageAsyncTask.execute(String.valueOf(currentPage));
+            } else {
+                messageLoadView.setVisibility(View.GONE);
+            }
+
+        }
+
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem, int _visibleItemCount, int totalItemCount) {
+            visibleItemCount = _visibleItemCount;
+            visibleLastIndex = firstVisibleItem + visibleItemCount - 1;
+        }
+    }
+
+}

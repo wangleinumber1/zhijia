@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_bg">
+
+    <TextView
+            android:id="@+id/adapter_content_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="5dp"
+            android:paddingLeft="5dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="李小姐"/>
+
+    <TextView
+            android:id="@+id/adapter_content_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/adapter_content_one"
+            android:layout_margin="5dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/default_font"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="16sp"
+            android:text="13800138000"/>
+
+    <TextView
+            android:id="@+id/deal_house"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/adapter_content_one"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/default_font"
+            android:textSize="14sp"
+            android:text="@string/deal_house"/>
+
+    <TextView
+            android:id="@+id/adapter_content_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/deal_house"
+            android:layout_alignBaseline="@id/deal_house"
+            android:gravity="center_vertical"
+            android:textColor="@color/default_font"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="14sp"
+            android:text="华林国际"/>
+
+    <TextView
+            android:id="@+id/commission_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/deal_house"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/default_font"
+            android:textSize="14sp"
+            android:text="@string/commission_amount"/>
+
+    <TextView
+            android:id="@+id/adapter_content_four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/commission_amount"
+            android:layout_alignBaseline="@id/commission_amount"
+            android:gravity="center_vertical"
+            android:textColor="@color/default_font"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="14sp"
+            android:text="房产总价的千分之一"/>
+
+    <TextView
+            android:id="@+id/recommended_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/commission_amount"
+            android:layout_marginLeft="10dp"
+            android:paddingBottom="5dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/default_font"
+            android:textSize="14sp"
+            android:text="@string/recommended_time"/>
+
+    <TextView
+            android:id="@+id/adapter_content_five"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/recommended_time"
+            android:layout_alignBaseline="@id/recommended_time"
+            android:gravity="center_vertical"
+            android:textColor="@color/default_font"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="14sp"
+            android:text="2014-03-31 21:09:53"/>
+
+    <TextView
+            android:id="@+id/adapter_image_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:gravity="center|center_vertical"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/recommended_state_deal"/>
+
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/split_line"/>
+</RelativeLayout>

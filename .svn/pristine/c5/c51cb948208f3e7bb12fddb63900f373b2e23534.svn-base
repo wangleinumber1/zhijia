@@ -1,0 +1,79 @@
+package com.zhijia.util.string;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * 字符串工具类
+ */
+public class StringUtils {
+
+    /**
+     * 去掉指定字符串的首尾特殊字符
+     *
+     * @param source
+     *            指定字符串
+     * @param beTrim
+     *            要去除的特殊字符
+     * @return 去掉特殊字符后的字符串
+     */
+    public static String trimStringWithAppointedChar(String source, String beTrim) {
+        if (!source.equalsIgnoreCase("")) {
+            // 循环去掉字符串首的beTrim字符
+            String beginChar = source.substring(0, 1);
+            while (beginChar.equalsIgnoreCase(beTrim)) {
+                source = source.substring(1, source.length());
+                beginChar = source.substring(0, 1);
+            }
+
+            // 循环去掉字符串尾的beTrim字符
+            String endChar = source.substring(source.length() - 1, source
+                    .length());
+            while (endChar.equalsIgnoreCase(beTrim)) {
+                source = source.substring(0, source.length() - 1);
+                endChar = source
+                        .substring(source.length() - 1, source.length());
+            }
+        }
+        return source;
+    }
+
+    /**
+     * 去掉指定字符串的首尾特殊字符
+     *
+     * @param source  指定字符串
+     * @param beTrim  要去除的特殊字符
+     * @param endTrim 要去的特殊字符
+     * @return 去掉特殊字符后的字符串
+     */
+    public static String trimStringWithAppointedChar(String source, String beTrim, String endTrim) {
+        if (!source.equalsIgnoreCase("")) {
+            // 循环去掉字符串首的beTrim字符
+            String beginChar = source.substring(0, 1);
+            while (beginChar.equalsIgnoreCase(beTrim)) {
+                source = source.substring(1, source.length());
+                beginChar = source.substring(0, 1);
+            }
+
+            // 循环去掉字符串尾的beTrim字符
+            String endChar = source.substring(source.length() - 1, source
+                    .length());
+            while (endChar.equalsIgnoreCase(endTrim)) {
+                source = source.substring(0, source.length() - 1);
+                endChar = source
+                        .substring(source.length() - 1, source.length());
+            }
+        }
+        return source;
+    }
+
+    public static  String replace(String str){
+        String dest = "";
+        if (str!=null) {
+            Pattern p = Pattern.compile("\\s*|\t|\r|\n");
+            Matcher m = p.matcher(str);
+            dest = m.replaceAll("");
+        }
+        return dest;
+    }
+}

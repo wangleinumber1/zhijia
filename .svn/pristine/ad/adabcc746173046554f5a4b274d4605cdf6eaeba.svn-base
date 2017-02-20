@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@drawable/common_bg">
+	<TextView
+			android:id="@+id/new_house_album_item_text"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="10dp"
+			android:textColor="@color/black"
+			android:text="交通图"/>
+	<ImageView
+			android:id="@+id/new_house_album_item_image"
+            android:layout_width="match_parent"
+			android:layout_marginTop="5dp"
+			android:layout_marginBottom="5dp"
+            android:scaleType="fitXY"
+			android:layout_height="match_parent"
+			android:src="@color/split_line"/>
+</LinearLayout>

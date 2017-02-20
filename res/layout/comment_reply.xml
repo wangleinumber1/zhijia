@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		android:background="@drawable/common_bg">
+
+
+	<RelativeLayout
+			android:id="@+id/comment_reply_wait_load_relative"
+			android:gravity="center|center_vertical"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="@drawable/common_bg">
+		<com.zhijia.ui.view.CustomGifView
+				android:id="@+id/comment_reply_wait_load__image"
+				android:src="@drawable/animation"
+				android:gravity="center_vertical"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"/>
+
+
+		<TextView
+				android:id="@+id/comment_reply_wait_load__content"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_margin="20dp"
+				android:gravity="center_vertical"
+				android:layout_toRightOf="@+id/comment_reply_wait_load__image"
+				android:text="@string/loading_content"/>
+
+	</RelativeLayout>
+
+	<RelativeLayout
+			android:id="@+id/comment_reply_relative_layout"
+			android:visibility="gone"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="@drawable/common_bg">
+		<include android:id="@+id/comment_reply_head" layout="@layout/details_head"/>
+
+
+
+
+		<!--回复的标题..........................................................-->
+		<RelativeLayout
+				android:id="@+id/comment_reply_content_relative_layout"
+				android:layout_below="@+id/comment_reply_head"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/common_bg">
+			<RelativeLayout
+					android:id="@+id/comment_reply_item_relative_layout"
+					android:layout_marginTop="20dp"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+				<ImageView
+						android:id="@+id/comment_reply_item_image_view"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="20dp"
+						android:src="@drawable/user_head_default"/>
+
+				<TextView
+						android:id="@+id/comment_reply_item_user_type"
+						android:layout_toRightOf="@+id/comment_reply_item_image_view"
+						android:layout_centerVertical="true"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:textColor="@color/black"
+						android:layout_marginLeft="10dp"
+						android:text="游客"/>
+
+
+				<RatingBar
+						android:id="@+id/comment_reply_item_rating_bar"
+						android:layout_toRightOf="@+id/comment_reply_item_user_type"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_centerVertical="true"
+						style="@style/roomRatingBar"
+						android:layout_marginLeft="10dp"
+						android:numStars="5"
+						android:stepSize="1"
+						android:isIndicator="true"
+						android:rating="3"/>
+
+				<TextView
+						android:id="@+id/comment_reply_item_time"
+						android:layout_toRightOf="@+id/comment_reply_item_rating_bar"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_alignParentRight="true"
+						android:layout_centerVertical="true"
+						android:layout_marginRight="10dp"
+						android:gravity="right"
+						android:layout_marginLeft="10dp"
+						android:text="2013-03-13"/>
+			</RelativeLayout>
+
+			<RelativeLayout
+					android:id="@+id/comment_reply_item_content_relative_layout"
+					android:layout_below="@+id/comment_reply_item_relative_layout"
+					android:layout_width="match_parent"
+					android:gravity="center"
+					android:layout_height="wrap_content">
+				<TextView
+						android:id="@+id/comment_reply_item_content_text_view"
+						android:layout_centerVertical="true"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:textColor="@color/black"
+						android:layout_marginLeft="10dp"
+						android:singleLine="true"
+						android:ellipsize="end"
+						android:text="附近没有公交站，出行有点不方便"/>
+			</RelativeLayout>
+
+			<RelativeLayout
+					android:id="@+id/comment_reply_item_reply_relative_layout"
+					android:layout_below="@+id/comment_reply_item_content_relative_layout"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="10dp"
+					android:gravity="right">
+				<TextView
+						android:id="@+id/comment_reply_item_reply_trample"
+						android:layout_alignParentRight="true"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:textColor="@color/black"
+						android:gravity="center"
+						android:background="@drawable/comment"
+						android:layout_marginRight="10dp"/>
+				<TextView
+						android:id="@+id/comment_reply_item_reply_top"
+						android:layout_toLeftOf="@+id/comment_reply_item_reply_trample"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:textColor="@color/black"
+						android:gravity="center"
+						android:background="@drawable/comment"
+						android:layout_marginRight="10dp"/>
+				<TextView
+						android:id="@+id/comment_reply_item_reply"
+						android:layout_toLeftOf="@+id/comment_reply_item_reply_top"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:textColor="@color/black"
+						android:gravity="center"
+						android:background="@drawable/comment"
+						android:layout_marginRight="10dp"/>
+			</RelativeLayout>
+
+			<ImageView
+					android:id="@+id/comment_reply_split_line_five"
+					android:layout_below="@+id/comment_reply_item_reply_relative_layout"
+					android:layout_width="match_parent"
+					android:layout_height="1px"
+					android:layout_marginTop="5dp"
+					android:background="@color/split_line"/>
+		</RelativeLayout>
+
+
+
+
+		<!--浮动的提问.........................-->
+
+		<LinearLayout
+				android:id="@+id/comment_reply_content_linear_layout"
+				android:layout_alignParentBottom="true"
+				android:orientation="vertical"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+			<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+				<TextView
+						android:id="@+id/comment_reply_content_name_text_view"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_centerInParent="true"
+						android:text="我来回应"/>
+				<ImageView
+						android:id="@+id/comment_reply_split_line_one"
+						android:layout_toLeftOf="@+id/comment_reply_content_name_text_view"
+						android:layout_width="match_parent"
+						android:layout_height="1px"
+						android:layout_centerVertical="true"
+						android:background="@color/split_line"/>
+
+				<ImageView
+						android:id="@+id/comment_reply_split_line_two"
+						android:layout_toRightOf="@+id/comment_reply_content_name_text_view"
+						android:layout_width="match_parent"
+						android:layout_height="1px"
+						android:layout_centerVertical="true"
+						android:background="@color/split_line"/>
+
+			</RelativeLayout>
+			<EditText
+					android:id="@+id/comment_reply_edit_text"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="20dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginRight="20dp"
+					android:padding="10dp"
+					android:minLines="6"
+					android:gravity="top|left"
+					android:inputType="textMultiLine"
+					android:textSize="16sp"
+					android:maxLength="300"
+					android:hint="@string/message_body_hint"
+					android:background="@drawable/input"/>
+			<RelativeLayout
+					android:id="@+id/comment_reply_button_relative_layout"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="10dp"
+					android:layout_gravity="center_horizontal">
+
+				<TextView
+						android:id="@+id/comment_reply_button_cancel"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:paddingLeft="15dp"
+						android:paddingRight="15dp"
+						android:paddingTop="5dp"
+						android:paddingBottom="5dp"
+						android:text="   取消  "
+						android:textColor="@color/white"
+						android:background="@color/dark_bg"/>
+
+				<TextView
+						android:id="@+id/comment_reply_button_ok"
+						android:layout_toRightOf="@+id/comment_reply_button_cancel"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_centerInParent="true"
+						android:layout_marginLeft="10dp"
+						android:paddingLeft="15dp"
+						android:paddingRight="15dp"
+						android:paddingTop="5dp"
+						android:paddingBottom="5dp"
+						android:text="发出问题"
+						android:textColor="@color/white"
+						android:background="@color/red"/>
+			</RelativeLayout>
+
+		</LinearLayout>
+
+
+
+
+		<!--浮动的提问.........................-->
+
+		<LinearLayout
+				android:id="@+id/comment_reply_content_linear_layout_gone"
+				android:visibility="gone"
+				android:layout_below="@+id/comment_reply_content_relative_layout"
+				android:orientation="vertical"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+			<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+				<TextView
+						android:id="@+id/comment_reply_content_name_text_view_gone"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_centerInParent="true"
+						android:text="我来回应"/>
+				<ImageView
+						android:id="@+id/comment_reply_split_line_one_gone"
+						android:layout_toLeftOf="@+id/comment_reply_content_name_text_view_gone"
+						android:layout_width="match_parent"
+						android:layout_height="1px"
+						android:layout_centerVertical="true"
+						android:background="@color/split_line"/>
+
+				<ImageView
+						android:id="@+id/comment_reply_split_line_two_gone"
+						android:layout_toRightOf="@+id/comment_reply_content_name_text_view_gone"
+						android:layout_width="match_parent"
+						android:layout_height="1px"
+						android:layout_centerVertical="true"
+						android:background="@color/split_line"/>
+
+			</RelativeLayout>
+			<EditText
+					android:id="@+id/comment_reply_edit_text_gone"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="20dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginRight="20dp"
+					android:padding="10dp"
+					android:minLines="6"
+					android:gravity="top|left"
+					android:inputType="textMultiLine"
+					android:textSize="16sp"
+					android:maxLength="300"
+					android:hint="@string/message_body_hint"
+					android:background="@drawable/input"/>
+			<RelativeLayout
+					android:id="@+id/comment_reply_button_relative_layout_gone"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="10dp"
+					android:layout_gravity="center_horizontal">
+
+				<TextView
+						android:id="@+id/comment_reply_button_cancel_gone"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:paddingLeft="15dp"
+						android:paddingRight="15dp"
+						android:paddingTop="5dp"
+						android:paddingBottom="5dp"
+						android:text="   取消  "
+						android:textColor="@color/white"
+						android:background="@color/dark_bg"/>
+
+				<TextView
+						android:id="@+id/comment_reply_button_ok_gone"
+						android:layout_toRightOf="@+id/comment_reply_button_cancel_gone"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_centerInParent="true"
+						android:layout_marginLeft="10dp"
+						android:paddingLeft="15dp"
+						android:paddingRight="15dp"
+						android:paddingTop="5dp"
+						android:paddingBottom="5dp"
+						android:text="发出问题"
+						android:textColor="@color/white"
+						android:background="@color/red"/>
+			</RelativeLayout>
+
+		</LinearLayout>
+
+
+		<!--回复的列表.....................................-->
+		<RelativeLayout
+				android:id="@+id/comment_reply_content_list_relative_layout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_above="@+id/comment_reply_content_linear_layout"
+				android:layout_below="@+id/comment_reply_content_relative_layout">
+			<RelativeLayout
+					android:id="@+id/comment_reply_content_list_relative_layout_two"
+					android:layout_marginTop="5dp"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+				<TextView
+						android:id="@+id/comment_reply_content_name_text_view_two"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_centerInParent="true"
+						android:text="现有3个回复"/>
+				<ImageView
+						android:id="@+id/comment_reply_split_line_three"
+						android:layout_toLeftOf="@+id/comment_reply_content_name_text_view_two"
+						android:layout_width="match_parent"
+						android:layout_height="1px"
+						android:layout_centerVertical="true"
+						android:background="@color/split_line"/>
+				<ImageView
+						android:id="@+id/comment_reply_split_line_four"
+						android:layout_toRightOf="@+id/comment_reply_content_name_text_view_two"
+						android:layout_width="match_parent"
+						android:layout_height="1px"
+						android:layout_centerVertical="true"
+						android:background="@color/split_line"/>
+			</RelativeLayout>
+			<ListView
+					android:id="@+id/comment_reply_content_list_view"
+					android:divider="@color/split_line"
+					android:dividerHeight="1dp"
+					android:fadingEdge="none"
+					android:fillViewport="true"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:gravity="center_vertical"
+					android:layout_below="@+id/comment_reply_content_list_relative_layout_two"
+					android:background="@color/common_bg"/>
+		</RelativeLayout>
+
+	</RelativeLayout>
+</LinearLayout>

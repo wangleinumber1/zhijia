@@ -1,0 +1,119 @@
+package com.zhijia.ui.list;
+
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import com.zhijia.Global;
+import com.zhijia.util.DBUtil;
+
+import java.util.Calendar;
+
+/**
+ * 和房子相关的数据库工具类
+ */
+public class HouseDBUtil {
+
+    private static DBUtil dbUtil = new DBUtil(Global.getInstance());
+
+    /**
+     * 创建一个浏览历史
+     *
+     * @param hid  房子或小区ID
+     * @param type 类型 取值为HouseType的一个
+     */
+    public static void addBrowseHistory(String hid, HouseType type) {
+        SQLiteDatabase database = dbUtil.openDataBase();
+        database.execSQL("delete from " + DBUtil.BROWSE_HISTORY_TABLE + " where hid = ? and type = ?", new Object[]{hid, type});
+        database.execSQL("insert into " + DBUtil.BROWSE_HISTORY_TABLE + "(hid, type, millisecond) values(?,?,?)", new Object[]{hid, type, System.currentTimeMillis()});
+        dbUtil.closeDatabase();
+    }
+
+    /**
+     * 从数据库按照时间倒序取出指定count数的id串，用","分割，如："1，2，3"。
+     *
+     * @param type
+     * @param begingIndex
+     * @param count
+     * @return 用","分割，如："1，2，3"，String可能为""，一定不为null；
+     */
+    public static String getBrowseHistoryIds(HouseType type, int begingIndex, int count) {
+        String returnStr = "";
+        SQLiteDatabase database = dbUtil.openDataBase();
+
+        String query = "SELECT hid FROM " + DBUtil.BROWSE_HISTORY_TABLE + " where type=? ORDER BY millisecond DESC LIMIT ?, ?";
+        Cursor cursor = database.rawQuery(query, new String[]{String.valueOf(type), String.valueOf(begingIndex), String.valueOf(count)});
+
+        if (cursor.getCount() > 0) {
+            for (int i = 0; i < cursor.getCount(); i++) {
+                cursor.moveToPosition(i);
+                returnStr = returnStr + cursor.getString(cursor.getColumnIndex("hid")) + ",";
+            }
+
+            //去掉最后一个","
+            returnStr = returnStr.substring(0, returnStr.length() - 1);
+        }
+
+        dbUtil.closeDatabase();
+
+        return returnStr;
+    }
+
+    /**
+     * 从数据库按照时间倒序取出指定count数的id串，用","分割，如："1，2，3"。
+     *
+     * @param type
+     *
+     * @return 用","分割，如："1，2，3"，String可能为""，一定不为null；
+     */
+    public static String getBrowseHistoryIds(HouseType type) {
+        String returnStr = "";
+        SQLiteDatabase database = dbUtil.openDataBase();
+
+        String query = "SELECT hid FROM " + DBUtil.BROWSE_HISTORY_TABLE + " where type=? ORDER BY millisecond DESC";
+        Cursor cursor = database.rawQuery(query, new String[]{String.valueOf(type)});
+
+        if (cursor.getCount() > 0) {
+            for (int i = 0; i < cursor.getCount(); i++) {
+                cursor.moveToPosition(i);
+                returnStr = returnStr + cursor.getString(cursor.getColumnIndex("hid")) + ",";
+            }
+
+            //去掉最后一个","
+            returnStr = returnStr.substring(0, returnStr.length() - 1);
+        }
+
+        dbUtil.closeDatabase();
+
+        return returnStr;
+    }
+
+    /**
+     * 获得一条记录的浏览时间
+     *
+     * @param hid  房子id
+     * @param type 类型 取值为HouseType的一个
+     * @return 时间字符串，格式为："yyyy-MM-dd HH:mm:ss"或者是""串，一定不为null。
+     */
+    public static String getBrowseDateTime(String hid, HouseType type) {
+        String returnStr = "";
+        SQLiteDatabase database = dbUtil.openDataBase();
+
+        String query = "SELECT millisecond FROM " + DBUtil.BROWSE_HISTORY_TABLE + " where hid=? and type=?";
+        Cursor cursor = database.rawQuery(query, new String[]{hid, String.valueOf(type)});
+        if (cursor.getCount() > 0) {
+            cursor.moveToPosition(0);
+            long millisecond = cursor.getLong(cursor.getColumnIndex("millisecond"));
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(millisecond);
+            returnStr = Global.DEFAULT_DF.format(calendar.getTime());
+        }
+
+        return returnStr;
+    }
+
+    /**
+     * 类型
+     */
+    public static enum HouseType {
+        NEW_HOUSE, OLD_HOUSE, RENT_HOUSE, COMMUNITY
+    }
+}

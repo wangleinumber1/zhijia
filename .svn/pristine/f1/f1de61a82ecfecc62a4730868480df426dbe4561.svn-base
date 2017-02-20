@@ -1,0 +1,11 @@
+package com.zhijia.service.data.condition.feature;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.zhijia.service.data.condition.CommonJsonModel;
+
+/**
+ *
+ */
+@JsonAutoDetect(fieldVisibility=JsonAutoDetect.Visibility.ANY)
+public class FeatureJsonModel extends CommonJsonModel{
+}

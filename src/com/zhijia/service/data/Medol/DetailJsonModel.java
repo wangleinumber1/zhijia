@@ -1,0 +1,226 @@
+package com.zhijia.service.data.Medol;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
+
+/**
+ * Created by xiaozhi on 14-5-21.
+ */
+public class DetailJsonModel {
+
+    private String opentimeYearMonth;
+
+    private String livetime ;
+
+    private List<String> projecttype ;
+
+    private String projectProgress  ;
+
+    private String decoration ;
+
+    private String areabuild ;
+
+    private String arealand ;
+
+    private String roomnum ;
+
+    private String capacityRate ;
+
+    private String greenRate ;
+
+    private String parking ;
+
+    private String propertyage ;
+
+    private CarddataJsonModel carddata ;
+
+    private String qqgroup ;
+
+    private String saleaddress ;
+
+    private String address ;
+
+    private String developer ;
+
+
+    @JsonProperty(value = "developer")
+    public String getDeveloper() {
+        return developer;
+    }
+
+    public void setDeveloper(String developer) {
+        this.developer = developer;
+    }
+
+    @JsonProperty(value = "opentime_year_month")
+    public String getOpentimeYearMonth() {
+        return opentimeYearMonth;
+    }
+
+    public void setOpentimeYearMonth(String opentimeYearMonth) {
+        this.opentimeYearMonth = opentimeYearMonth;
+    }
+
+    @JsonProperty(value = "livetime")
+    public String getLivetime() {
+        return livetime;
+    }
+
+    public void setLivetime(String livetime) {
+        this.livetime = livetime;
+    }
+
+
+    @JsonProperty(value = "projecttype")
+    public List<String> getProjecttype() {
+        return projecttype;
+    }
+
+    public void setProjecttype(List<String> projecttype) {
+        this.projecttype = projecttype;
+    }
+
+    @JsonProperty(value = "project_progress")
+    public String getProjectProgress() {
+        return projectProgress;
+    }
+
+    public void setProjectProgress(String projectProgress) {
+        this.projectProgress = projectProgress;
+    }
+
+    @JsonProperty(value = "decoration")
+    public String getDecoration() {
+        return decoration;
+    }
+
+    public void setDecoration(String decoration) {
+        this.decoration = decoration;
+    }
+
+    @JsonProperty(value = "areabuild")
+    public String getAreabuild() {
+        return areabuild;
+    }
+
+    public void setAreabuild(String areabuild) {
+        this.areabuild = areabuild;
+    }
+
+    @JsonProperty(value = "arealand")
+    public String getArealand() {
+        return arealand;
+    }
+
+    public void setArealand(String arealand) {
+        this.arealand = arealand;
+    }
+
+    @JsonProperty(value = "roomnum")
+    public String getRoomnum() {
+        return roomnum;
+    }
+
+    public void setRoomnum(String roomnum) {
+        this.roomnum = roomnum;
+    }
+
+    @JsonProperty(value = "capacity_rate")
+    public String getCapacityRate() {
+        return capacityRate;
+    }
+
+    public void setCapacityRate(String capacityRate) {
+        this.capacityRate = capacityRate;
+    }
+
+    @JsonProperty(value = "green_rate")
+    public String getGreenRate() {
+        return greenRate;
+    }
+
+    public void setGreenRate(String greenRate) {
+        this.greenRate = greenRate;
+    }
+
+    @JsonProperty(value = "parking")
+    public String getParking() {
+        return parking;
+    }
+
+    public void setParking(String parking) {
+        this.parking = parking;
+    }
+
+    @JsonProperty(value = "propertyage")
+    public String getPropertyage() {
+        return propertyage;
+    }
+
+    public void setPropertyage(String propertyage) {
+        this.propertyage = propertyage;
+    }
+
+    @JsonProperty(value = "carddata")
+    public CarddataJsonModel getCarddata() {
+        return carddata;
+    }
+
+    public void setCarddata(CarddataJsonModel carddata) {
+        this.carddata = carddata;
+    }
+
+    @JsonProperty(value = "qqgroup")
+    public String getQqgroup() {
+        return qqgroup;
+    }
+
+    public void setQqgroup(String qqgroup) {
+        this.qqgroup = qqgroup;
+    }
+
+    @JsonProperty(value = "saleaddress")
+    public String getSaleaddress() {
+        return saleaddress;
+    }
+
+    public void setSaleaddress(String saleaddress) {
+        this.saleaddress = saleaddress;
+    }
+
+    @JsonProperty(value = "address")
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+
+
+    public static class CarddataJsonModel{
+
+        private String cardnumber ;
+
+        private String extent ;
+
+        @JsonProperty(value = "extent")
+        public String getExtent() {
+            return extent;
+        }
+
+        public void setExtent(String extent) {
+            this.extent = extent;
+        }
+
+        @JsonProperty(value = "cardnumber")
+        public String getCardnumber() {
+            return cardnumber;
+        }
+
+        public void setCardnumber(String cardnumber) {
+            this.cardnumber = cardnumber;
+        }
+    }
+}

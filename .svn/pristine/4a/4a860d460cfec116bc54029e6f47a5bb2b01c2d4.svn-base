@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:background="@drawable/common_bg">
+
+	<RelativeLayout
+			android:id="@+id/wenda_list_item_ask_relative_layout"
+			android:layout_marginTop="10dp"
+			android:layout_marginLeft="10dp"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+		<ImageView
+				android:id="@+id/wenda_list_item_ask_image_view"
+
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/ask"/>
+		<TextView
+				android:id="@+id/wenda_list_item_ask_text_view"
+				android:layout_toRightOf="@+id/wenda_list_item_ask_image_view"
+				android:layout_alignBaseline="@+id/wenda_list_item_ask_image_view"
+				android:layout_marginLeft="10dp"
+				android:textColor="@color/black"
+				android:maxLines="2"
+				android:ellipsize="end"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="听说5W就可以买，是真的吗？"/>
+	</RelativeLayout>
+
+	<RelativeLayout
+			android:id="@+id/wenda_list_item_answer_relative_layout"
+			android:layout_below="@+id/wenda_list_item_ask_relative_layout"
+			android:layout_marginLeft="10dp"
+			android:layout_marginTop="10dp"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+		<ImageView
+				android:id="@+id/wenda_list_item_answer_image_view"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/answer"/>
+		<TextView
+				android:id="@+id/wenda_list_item_answer_text_view"
+				android:layout_toRightOf="@+id/wenda_list_item_answer_image_view"
+				android:layout_alignBaseline="@+id/wenda_list_item_answer_image_view"
+				android:layout_marginLeft="10dp"
+				android:textColor="@color/black"
+				android:maxLines="2"
+				android:ellipsize="end"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="红石原著的首付是可以分期付款的，所有最低首付5万是可以的。"/>
+
+	</RelativeLayout>
+
+	<RelativeLayout
+			android:id="@+id/wenda_list_item_result_relative_layout"
+			android:layout_marginTop="20dp"
+			android:layout_below="@+id/wenda_list_item_answer_relative_layout"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content">
+		<TextView
+				android:id="@+id/wenda_list_item_result_text_view"
+				android:layout_alignBaseline="@+id/wenda_list_item_result_image_view"
+				android:layout_alignParentRight="true"
+
+				android:layout_marginRight="10dp"
+				android:layout_marginLeft="5dp"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="已解决|2014-03-13"/>
+		<ImageView
+				android:id="@+id/wenda_list_item_result_image_view"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+
+				android:layout_marginBottom="5dp"
+				android:layout_toLeftOf="@+id/wenda_list_item_result_text_view"
+				android:src="@drawable/closed"/>
+	</RelativeLayout>
+
+</RelativeLayout>

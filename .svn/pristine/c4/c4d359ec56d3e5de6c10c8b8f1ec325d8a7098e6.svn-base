@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--9宫格-->
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/index_mid9"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/common_bg"
+        android:orientation="vertical">
+
+    <LinearLayout
+            android:id="@+id/index_mid9_line1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+        <ImageView
+                android:id="@+id/mid_icons_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/mid_icons_1"/>
+        <ImageView
+                android:id="@+id/mid_icons_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/mid_icons_2"/>
+        <ImageView
+                android:id="@+id/mid_icons_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/mid_icons_3"/>
+        <ImageView
+                android:id="@+id/mid_icons_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/mid_icons_4"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/index_mid9_line2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+        <ImageView
+                android:id="@+id/mid_icons_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/mid_icons_5"/>
+        <ImageView
+                android:id="@+id/mid_icons_6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/mid_icons_6"/>
+        <ImageView
+                android:id="@+id/mid_icons_7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/mid_icons_7"/>
+        <ImageView
+                android:id="@+id/mid_icons_8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/mid_icons_8"/>
+    </LinearLayout>
+
+</LinearLayout>

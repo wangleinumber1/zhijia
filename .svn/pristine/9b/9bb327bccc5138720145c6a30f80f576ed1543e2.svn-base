@@ -1,0 +1,103 @@
+package com.zhijia.service.data.my;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
+
+/**
+ * 房子区域
+ */
+public class HouseArea {
+
+    private User user;
+
+    private List<Place> place;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Place> getPlace() {
+        return place;
+    }
+
+    public void setPlace(List<Place> place) {
+        this.place = place;
+    }
+
+    public static class User {
+
+        private String mobile;
+
+        @JsonProperty(value = "mobile_status")
+        private String mobileStatus;
+
+        public String getMobile() {
+            return mobile;
+        }
+
+        public void setMobile(String mobile) {
+            this.mobile = mobile;
+        }
+
+        public String getMobileStatus() {
+            return mobileStatus;
+        }
+
+        public void setMobileStatus(String mobileStatus) {
+            this.mobileStatus = mobileStatus;
+        }
+    }
+
+    public static class Place {
+        private String pid;
+        private String parentid;
+        private String name;
+        private String laticoor;
+        private String longcoor;
+
+        public String getPid() {
+            return pid;
+        }
+
+        public void setPid(String pid) {
+            this.pid = pid;
+        }
+
+        public String getParentid() {
+            return parentid;
+        }
+
+        public void setParentid(String parentid) {
+            this.parentid = parentid;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getLaticoor() {
+            return laticoor;
+        }
+
+        public void setLaticoor(String laticoor) {
+            this.laticoor = laticoor;
+        }
+
+        public String getLongcoor() {
+            return longcoor;
+        }
+
+        public void setLongcoor(String longcoor) {
+            this.longcoor = longcoor;
+        }
+    }
+}

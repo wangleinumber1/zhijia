@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="@drawable/common_bg">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <ImageView
+                android:id="@+id/new_house_details_units_point_line"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:scaleType="fitXY"
+                android:layout_height="match_parent"
+                android:src="@drawable/house"/>
+
+        <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content">
+
+            <RelativeLayout
+                    android:id="@+id/new_house_details_units_point_relative_layout"
+                    android:layout_marginLeft="10dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <TextView
+                        android:id="@+id/new_house_details_units_item_house_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="A户型"
+                        android:textSize="14sp"
+                        android:textColor="@color/default_font"/>
+
+                <TextView
+                        android:id="@+id/new_house_details_units_item_desc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:textColor="@color/high_light_font"
+                        android:textSize="14sp"
+                        android:singleLine="true"
+                        android:maxEms="6"
+                        android:ellipsize="end"
+                        android:layout_marginTop="10dp"
+                        android:layout_below="@+id/new_house_details_units_item_house_name"/>
+                <TextView
+                        android:id="@+id/new_house_details_units_item_desc_area"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/high_light_font"
+                        android:textSize="14sp"
+                        android:text="3室2厅"
+                        android:layout_marginLeft="10dp"
+                        android:layout_alignTop="@+id/new_house_details_units_item_desc"
+                        android:layout_toRightOf="@+id/new_house_details_units_item_desc"/>
+            </RelativeLayout>
+
+            <ImageView
+                    android:id="@+id/new_house_details_units_image_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/calculator_right"/>
+        </RelativeLayout>
+    </LinearLayout>
+    <ImageView
+            android:id="@+id/new_house_details_house_split_line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/split_line"/>
+</LinearLayout>

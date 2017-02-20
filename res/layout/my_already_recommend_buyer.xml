@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/common_bg">
+
+    <include layout="@layout/common_two_view_head"/>
+
+    <include layout="@layout/my_already_recommend_buyer_navigation"/>
+
+    <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+        <ListView
+                android:id="@+id/already_recommend_list"
+                android:divider="@color/split_line"
+                android:dividerHeight="1dp"
+                android:fadingEdge="none"
+                android:fillViewport="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"/>
+        <RelativeLayout
+                android:id="@+id/loading_relative"
+                android:visibility="gone"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+            <com.zhijia.ui.view.CustomGifView
+                    android:id="@+id/loading_image"
+                    android:src="@drawable/animation"
+                    android:layout_width="150px"
+                    android:layout_height="150px"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"/>
+            <TextView
+                    android:id="@+id/loading_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="20dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/loading_content"/>
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

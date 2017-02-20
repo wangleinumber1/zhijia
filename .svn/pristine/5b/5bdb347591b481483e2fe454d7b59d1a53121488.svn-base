@@ -1,0 +1,9 @@
+package com.zhijia.service.data.condition.aspect;
+
+import com.zhijia.service.data.condition.CommonJsonModel;
+
+/**
+ * 朝向-二手房
+ */
+public class AspectJsonModel extends CommonJsonModel{
+}

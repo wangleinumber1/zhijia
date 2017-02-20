@@ -1,0 +1,34 @@
+package com.zhijia.service.data.Medol;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+/**
+ * 轮播数据的公共类
+ */
+public class CommonPicDataJsonModel {
+
+    private String pid ;
+
+
+    private String picUrl ;
+
+
+    @JsonProperty(value="pid")
+    public String getPid() {
+        return pid;
+    }
+
+    public void setPid(String pid) {
+        this.pid = pid;
+    }
+
+
+    @JsonProperty(value="pic_url")
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
+    }
+}

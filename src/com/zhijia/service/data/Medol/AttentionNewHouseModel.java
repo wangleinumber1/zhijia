@@ -1,0 +1,74 @@
+package com.zhijia.service.data.Medol;
+
+
+import java.util.List;
+
+/**
+ * 我关注的新房模型
+ */
+public class AttentionNewHouseModel {
+
+    private String id;
+    private String name;
+    private String place;
+    private String address;
+    private String averageprice;
+    private String titlepic;
+    private List<NewsItemModel> news;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getAverageprice() {
+        return averageprice;
+    }
+
+    public void setAverageprice(String averageprice) {
+        this.averageprice = averageprice;
+    }
+
+    public String getTitlepic() {
+        return titlepic;
+    }
+
+    public void setTitlepic(String titlepic) {
+        this.titlepic = titlepic;
+    }
+
+    public List<NewsItemModel> getNews() {
+        return news;
+    }
+
+    public void setNews(List<NewsItemModel> news) {
+        this.news = news;
+    }
+}
